@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="top-nav">
+    <a href="paycheck-library.html">←</a>
+    <a href="index.html">🏠</a>
+    <button class="glossary-nav" onclick="window.location.href='publicglossary.html'">📘 מילון מונחים</button>
+  </div>
+
+  <h1>📄 פירוט תלוש - עובד ציבור</h1>
+
+  <div id="loading-message">🔄 אנא המתן... הנתונים נטענים</div>
+
+  <div id="tables-container">
+    <!-- כאן תופענה טבלאות לאחר עיבוד -->
+  </div>
+
+  <!-- 🔍 Popup לטאנגלים -->
+  <div id="popup-explanation" class="popup-overlay" style="display: none;">
+    <div class="popup-box">
+      <button class="popup-close">❌</button>
+      <div class="popup-text"></div>
+    </div>
+  </div>
+
+  <!-- הסברים לפי כותרת -->
+  <div id="explanations" style="display: none;">
+    <!-- עדיין מופיעים ההסברים המקוריים. נחליף אותם בשלבים הבאים כשנסיים את ניתוח המילים -->
+    <div data-title="🗓️ תקופת התשלום ומזהים כלליים">
+      <h4>❓ הסברים נוספים על רכיבי הטבלה:</h4>
+      <button class="tooltip">?<span class="tooltiptext">תקופת שכר – החודש והשנה שעבורם שולם השכר בפועל.</span></button>
+<button class="tooltip">?<span class="tooltiptext">מספר תיק ניכויים – מזהה של המעסיק מול רשות המסים וביטוח לאומי.</span></button>
+<button class="tooltip">?<span class="tooltiptext">תאריך הדפסת תלוש – מציין את מועד יצירת התלוש בפועל.</span></button>
+
+    </div>
+
+    <div data-title="🧍‍♂️ פרטים אישיים של העובד">
+      <h4>❓ הסברים נוספים על רכיבי הטבלה:</h4>
+      <button class="tooltip">?<span class="tooltiptext">שם העובד – פרטים אישיים כפי שדווחו למעסיק.</span></button>
+<button class="tooltip">?<span class="tooltiptext">מספר עובד – מזהה פנימי ייחודי.</span></button>
+<button class="tooltip">?<span class="tooltiptext">ותק – משך זמן העבודה בארגון, משפיע על זכויות.</span></button>
+<button class="tooltip">?<span class="tooltiptext">דרגה ושלב – רכיבים קובעים את השכר לפי הסכמים.</span></button>
+
+    </div>
+
+<div data-title="📅 יתרות, הבראה והיעדרויות">
+      <h4>❓ הסברים נוספים על רכיבי הטבלה:</h4>
+      <button class="tooltip">?<span class="tooltiptext">שם העובד – פרטים אישיים כפי שדווחו למעסיק.</span></button>
+<button class="tooltip">?<span class="tooltiptext">יתרת חופשה / מחלה – יתרות מצטברות שטרם נוצלו.</span></button>
+<button class="tooltip">?<span class="tooltiptext">ניצול חודשי – כמה ימי חופשה או מחלה נוצלו בפועל.</span></button>
+<button class="tooltip">?<span class="tooltiptext">ימי הבראה – ניתנים לפי ותק וניצול שנתי.</span></button>
+
+    </div>
+
+
+    <div data-title="💵 רכיבי שכר">
+      <h4>❓ הסברים נוספים על רכיבי הטבלה:</h4>
+      <button class="tooltip">?<span class="tooltiptext">שכר יסוד – שכר הבסיס החודשי לפני תוספות.</span></button>
+<button class="tooltip">?<span class="tooltiptext">תשלומים בגין משרה – כוללים רכיבי שכר קבועים.</span></button>
+<button class="tooltip">?<span class="tooltiptext">שעות נוספות – תשלום בגין עבודה מעבר לשעות התקן.</span></button>
+<button class="tooltip">?<span class="tooltiptext">שווי מתנות – תגמולים לא כספיים הנחשבים כשכר (כמו תווי שי).</span></button>
+
+    </div>
+
+    <div data-title="💳 ניכויי חובה">
+      <h4>❓ הסברים נוספים על רכיבי הטבלה:</h4>
+      <button class="tooltip">?<span class="tooltiptext">מס הכנסה – בהתאם לחוק ולנקודות זיכוי.</span></button>
+<button class="tooltip">?<span class="tooltiptext">ביטוח לאומי – ניכוי חובה מכל עובד.</span></button>
+<button class="tooltip">?<span class="tooltiptext">מס בריאות – תשלום חובה לפי חוק ביטוח בריאות.</span></button>
+
+    </div>
+<div data-title=" 💸 שכר נטו וסכום בבנק">
+      <h4>❓ הסברים נוספים על רכיבי הטבלה:</h4>
+    <button class="tooltip">?<span class="tooltiptext">שכר נטו – הסכום שנותר לאחר כל הניכויים.</span></button>
+<button class="tooltip">?<span class="tooltiptext">פרטי חשבון בנק – למטרות העברת התשלום.</span></button>
+
+
+    </div>
+
+
+    <div data-title="🧾 נתוני מס / עזר">
+      <h4>❓ הסברים נוספים על רכיבי הטבלה:</h4>
+     <button class="tooltip">?<span class="tooltiptext">יחידות מס – פריסה לחישוב שנתי לצורכי מס.</span></button>
+<button class="tooltip">?<span class="tooltiptext">נקודות זיכוי – הטבה להפחתת מס בהתאם למצב אישי.</span></button>
+
+    </div>
+
+    <div data-title="🏦 ניכויי גמל">
+      <h4>❓ הסברים נוספים על רכיבי הטבלה:</h4>
+     <button class="tooltip">?<span class="tooltiptext">פנסיה – ניכוי של העובד והפרשה של המעסיק.</span></button>
+<button class="tooltip">?<span class="tooltiptext">קרן השתלמות – רכיב חסכון נוסף (אם רלוונטי).</span></button>
+<button class="tooltip">?<span class="tooltiptext">שיעור הפרשה – מציין את אחוז ההפקדה מתוך השכר המבוטח.</span></button>
+
+    </div>
+
+    <div data-title="⏱️ משרות ושעות עבודה">
+      <h4>❓ הסברים נוספים על רכיבי הטבלה:</h4>
+     <button class="tooltip">?<span class="tooltiptext">אחוז משרה – מייצג את היקף ההעסקה.</span></button>
+<button class="tooltip">?<span class="tooltiptext">שעות עבודה בפועל – סך שעות העבודה שבוצעו החודש.</span></button>
+<button class="tooltip">?<span class="tooltiptext">שעות כוננות / שבת – תוספות מיוחדות לעובדי משמרות.</span></button>
+
+    </div>
+
+<div data-title="✅ סכומים מסכמים">
+      <h4>❓ הסברים נוספים על רכיבי הטבלה:</h4>
+<button class="tooltip">?<span class="tooltiptext">סה״כ תשלומים – כל הרכיבים הברוטו כולל תוספות.</span></button>
+<button class="tooltip">?<span class="tooltiptext">סה״כ ניכויים – כל הסכומים שנוכו כולל חובה ורשות.</span></button>
+
+
+    </div>
+
+    <div data-title="🧩 נתונים נוספים">
+      <h4>❓ הסברים נוספים על רכיבי הטבלה:</h4>
+      <button class="tooltip">?<span class="tooltiptext">מילוי מקום – תשלום בגין החלפה זמנית של עובד.</span></button>
+      <button class="tooltip">?<span class="tooltiptext">תפקידים – תוספות בגין ביצוע תפקידים נוספים.</span></button>
+      <button class="tooltip">?<span class="tooltiptext">יתרות חופשה / מחלה – ימי יתרה שנותרו לזכותך.</span></button>
+      <button class="tooltip">?<span class="tooltiptext">חודשי עבודה – חודשים עם שכר בפועל.</span></button>
+      <button class="tooltip">?<span class="tooltiptext">מצטברי גמל – הפרשות לחסכונות פנסיוניים.</span></button>
+      <button class="tooltip">?<span class="tooltiptext">ניכויים אחרים – ביטוחים פרטיים או ניכויים חד פעמיים.</span></button>
+      <button class="tooltip">?<span class="tooltiptext">נטו שלילי – מענק לעובדים בשכר נמוך (מס הכנסה שלילי).</span></button>
+    </div>
+  </div>
+
+  <script type="module" src="public-employee.js"></script>
+</body>
+</html>

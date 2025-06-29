@@ -1,0 +1,173 @@
+/* בסיס כללי */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  direction: rtl;
+  background: linear-gradient(rgba(255,255,255,0.87), rgba(255,255,255,0.87)),
+              url('assets/background.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+  padding-top:    env(safe-area-inset-top,    20px);
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+  padding-left:   env(safe-area-inset-left,   16px);
+  padding-right:  env(safe-area-inset-right,  16px);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* כפתור חזרה */
+.back-btn {
+  display: inline-block;
+  background-color: #d0d7e4;
+  color: #0047ab;
+  font-size: 1rem;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  transition: background-color 0.2s ease-in-out;
+}
+.back-btn:hover {
+  background-color: #c0cce0;
+}
+
+/* כותרת ראשית */
+.page-title {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #0047ab;
+  margin-bottom: 20px;
+}
+
+/* קופסה כללית */
+.section {
+  background: white;
+  border-radius: 10px;
+  padding: 18px 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.section h2 {
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  color: #0047ab;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 4px;
+}
+
+.section p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.section ul {
+  padding-right: 18px;
+  margin-bottom: 8px;
+  list-style-type: disc;
+  font-size: 0.95rem;
+}
+
+/* כפתור הורדה */
+.download-btn {
+  display: inline-block;
+  padding: 12px 18px;
+  background: #2196f3;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* בחירת חודש ושנה */
+.selectors-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 20px 0 10px;
+}
+
+.select-input {
+  flex: 1;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: white;
+}
+
+/* כפתור צפייה */
+.button-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+.main-btn {
+  background: #0047ab;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out;
+}
+.main-btn:hover {
+  background-color: #003a92;
+}
+
+/* עיצוב תלוש */
+.paystub-container {
+  margin-top: 24px;
+}
+
+.paystub-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.paystub-section {
+  background: white;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.07);
+}
+
+.paystub-section h2 {
+  font-size: 1.1rem;
+  color: #0047ab;
+  margin-bottom: 12px;
+}
+
+.paystub-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px dashed #ddd;
+  font-size: 0.95rem;
+}
+
+.paystub-row:last-child {
+  border-bottom: none;
+}
+
+/* רספונסיביות */
+@media (max-width: 480px) {
+  .selectors-row {
+    flex-direction: column;
+  }
+
+  .main-btn, .select-input {
+    width: 100%;
+  }
+}

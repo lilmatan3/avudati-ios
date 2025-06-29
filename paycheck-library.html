@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי</title>
+  <link rel="stylesheet" href="paycheck-library.css">
+</head>
+<body>
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <a href="paycheck.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <!-- כותרת -->
+  <h1>📁 הספרייה שלי</h1>
+
+  <!-- תפריט פעולה - מוצג תמיד -->
+  <div class="action-menu static-show" id="menu">
+    <button id="uploadBtn">📤 הוספת תלוש</button>
+    <button id="editBtn">✏️ עריכת תלושים</button>
+    <button id="viewBtn">📘 מילון תלושים</button>
+  </div>
+
+  <!-- תצוגת ספרייה -->
+  <div class="content" id="library">
+    <!-- כאן יוצגו הקבצים -->
+  </div>
+
+  <!-- קלט קובץ חבוי -->
+  <input type="file" id="fileInput" accept="image/*,application/pdf" style="display: none;" />
+
+
+  <!-- לוגיקה -->
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+  <script type="module" src="paycheck-library.js"></script>
+</body>
+</html>

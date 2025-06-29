@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>הפקת תלוש שכר</title>
+  <link rel="stylesheet" href="paystub.css" />
+</head>
+<body>
+
+  <a href="timesheet.html" class="back-btn">← חזרה לדף השעות</a>
+
+  <h1 class="page-title">📄 הפקת תלוש שכר</h1>
+
+  <section class="section info-section">
+    <h2>📋 מידע שחשוב לפני הפקת התלוש</h2>
+    <p>כדי שהתלוש יחושב בצורה מדויקת, ודא שהגדרת את כל הפרטים הבאים:</p>
+    <ul>
+      <li>💰 שכר שעתי מדויק בעמוד "מבנה שכר"</li>
+      <li>🏢 מגזר העבודה: ציבורי / פרטי, 5 או 6 ימים</li>
+      <li>📅 תאריך תחילת עבודה לחישוב הבראה וחופשה</li>
+      <li>💳 נקודות זיכוי ממס הכנסה – בעמוד "מס והטבות"</li>
+      <li>🏦 אחוזי הפרשות לפנסיה, קרן השתלמות ופיצויים</li>
+      <li>🩺 האם יש ביטוח לאומי וביטוח בריאות</li>
+      <li>🎁 תוספות והורדות – כמו בונוסים, רכב, נסיעות ועוד</li>
+    </ul>
+    <p><strong>הערה:</strong> זוהי סימולציה בלבד ואינה מהווה תלוש שכר רשמי.</p>
+  </section>
+
+
+  <div class="paystub-container"></div>
+
+  <div class="selectors-row">
+    <select id="monthSelect" class="select-input">
+      <option value="1">ינואר</option>
+      <option value="2">פברואר</option>
+      <option value="3">מרץ</option>
+      <option value="4">אפריל</option>
+      <option value="5">מאי</option>
+      <option value="6">יוני</option>
+      <option value="7">יולי</option>
+      <option value="8">אוגוסט</option>
+      <option value="9">ספטמבר</option>
+      <option value="10">אוקטובר</option>
+      <option value="11">נובמבר</option>
+      <option value="12">דצמבר</option>
+    </select>
+
+    <select id="yearSelect" class="select-input"></select>
+  </div>
+
+  <div class="button-row">
+    <a href="final.html" id="viewExampleBtn" class="main-btn">📄 צפייה בתלוש לדוגמה</a>
+  </div>
+
+  <section class="section tax-note">
+    <h2>ℹ️ הסבר על חישוב מס הכנסה</h2>
+    <p>המס מחושב לפי מדרגות מס חודשיות, המצטברות לאורך החודש. בתחילת החודש המס עשוי להיות נמוך ולהתעדכן ככל שנצבר שכר.</p>
+    <p>לדוגמה, אם תלוש מופק באמצע החודש, המס ייראה נמוך יותר מאשר תלוש שמופק בסוף החודש על אותו סכום.</p>
+    <p>בנוסף, חישוב המס כולל נקודות זיכוי לפי החוק (למשל, חייל משוחרר, הורה לילד קטן וכו').</p>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const currentYear = new Date().getFullYear();
+      const yearSelect = document.getElementById("yearSelect");
+      for (let y = 2020; y <= 2033; y++) {
+        const opt = document.createElement("option");
+        opt.value = y;
+        opt.textContent = y;
+        if (y === currentYear) opt.selected = true;
+        yearSelect.appendChild(opt);
+      }
+
+      document.getElementById("monthSelect").value = new Date().getMonth() + 1;
+
+      document.getElementById("viewExampleBtn").addEventListener("click", () => {
+        const selectedMonth = document.getElementById("monthSelect").value;
+        const selectedYear = document.getElementById("yearSelect").value;
+        localStorage.setItem("detailedMonth", selectedMonth);
+        localStorage.setItem("detailedYear", selectedYear);
+      });
+    });
+  </script>
+</body>
+</html>

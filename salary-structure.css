@@ -1,0 +1,267 @@
+/* Reset & box‑sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Safe‑area padding */
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  direction: rtl;
+  background: linear-gradient(rgba(255,255,255,0.87), rgba(255,255,255,0.87)),
+              url('assets/background.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+  padding-top:    env(safe-area-inset-top,    20px);
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+  padding-left:   env(safe-area-inset-left,   16px);
+  padding-right:  env(safe-area-inset-right,  16px);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* Sticky Header */
+.header-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #dfe9ff;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Back button in header */
+.header-bar .back-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #2c3e50;
+  padding: 8px;
+  cursor: pointer;
+}
+
+/* Title in header */
+.header-title {
+  flex: 1;
+  text-align: center;
+  font-size: 1.75rem;
+  color: #3f51b5;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Main content area */
+.content {
+  padding-top: 12px;
+}
+
+/* Shared section styles */
+section {
+  margin-bottom: 24px;
+  background: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Wage section */
+.wage-section label {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  display: block;
+}
+.wage-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.wage-control input {
+  width: 80px;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  text-align: center;
+}
+.wage-control button {
+  font-size: 1.25rem;
+  background: #6c63ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.wage-control button:hover {
+  background: #574fcf;
+}
+
+/* Sector section */
+.sector-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.sector-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+.info-button {
+  background: #ff6584;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.info-button:hover {
+  background: #e44d6e;
+}
+.sector-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.sector-option {
+  flex: 1 1 calc(50% - 10px);
+  padding: 10px;
+  background: #fafafa;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.sector-option.selected {
+  background: #e6e4ff;
+  border-color: #6c63ff;
+}
+
+/* Calendar grid */
+.calendar-grid table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.calendar-grid td {
+  border: 1px solid #ccc;
+  padding: 12px;
+  text-align: center;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.calendar-grid td:hover {
+  background: #dfe9ff;
+}
+.selected-day {
+  background: #6c63ff;
+  color: white;
+  font-weight: bold;
+  border: 2px solid #574fcf;
+}
+
+/* Date input */
+.form-group label {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  display: block;
+}
+.form-group input[type="date"] {
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Salary components */
+.salary-components-section {
+  background: #e7edff;
+  border: 1px solid #bfcfff;
+}
+.components-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 12px;
+  color: #3f51b5;
+}
+.components-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+.component-button {
+  background: #3f51b5;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+.component-button:hover {
+  background: #2c3e90;
+}
+
+/* Popup overlay */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: env(safe-area-inset-top) 16px env(safe-area-inset-bottom) 16px;
+  z-index: 2000;
+}
+.popup-overlay.visible {
+  display: flex;
+}
+.popup-box {
+  background: #fff;
+  border-radius: 8px;
+  max-width: 360px;
+  width: 100%;
+  padding: 20px;
+  text-align: right;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+}
+.popup-close {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #666;
+  cursor: pointer;
+}
+.popup-section + .popup-section {
+  margin-top: 16px;
+}
+.popup-section h3 {
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+.popup-section p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .sector-option { flex: 1 1 100%; }
+  .components-buttons { flex-direction: column; gap: 10px; }
+}

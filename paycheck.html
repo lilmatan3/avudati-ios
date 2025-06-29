@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>התלושים שלי - עבודתי</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
+                  url('assets/background.jpg') center/cover no-repeat;
+      font-family: Arial, sans-serif;
+      padding: env(safe-area-inset-top, 20px)
+               env(safe-area-inset-right, 10px)
+               env(safe-area-inset-bottom, 20px)
+               env(safe-area-inset-left, 10px);
+      max-width: 480px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .nav-buttons {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .back-button, .home-button {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      color: #0047ab;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+    }
+
+    .home-button {
+      align-self: flex-end;
+      margin-top: -40px;
+    }
+
+    .page-container {
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .page-title {
+      font-size: 1.8rem;
+      color: #0047ab;
+      margin-bottom: 10px;
+    }
+
+    .page-subtitle {
+      font-size: 1rem;
+      color: #444;
+      margin-bottom: 30px;
+    }
+
+    .main-button {
+      background-color: #0047ab;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      border: none;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 320px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      transition: background-color 0.2s ease-in-out, transform 0.1s;
+      cursor: pointer;
+    }
+
+    .main-button:hover {
+      background-color: #003a92;
+    }
+
+    .main-button:active {
+      transform: translateY(1px);
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-buttons">
+    <a href="index.html" class="back-button" title="חזרה">←</a>
+    <a href="index.html" class="home-button" title="בית">🏠</a>
+  </div>
+
+  <div class="page-container">
+    <h1 class="page-title">📄 התלושים שלי</h1>
+    <p class="page-subtitle">
+      כאן תוכלו לסרוק או להעלות תלוש שכר ולקבל עליו ניתוח לפי חוקי העבודה בישראל.
+    </p>
+
+    <button class="main-button" onclick="location.href='paycheck-library.html'">📁 צפייה בתלושים שמורים</button>
+    <button class="main-button" onclick="location.href='paycheck-scan.html'">📷 סריקת תלוש חדש</button>
+  </div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>סריקת תלוש – עבודתי</title>
+  <link rel="stylesheet" href="paycheck-scan.css" />
+
+  <!-- תמיכה באייפון -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+</head>
+<body>
+
+  <!-- ניווט -->
+  <div class="top-nav">
+    <a href="paycheck.html" title="חזרה">←</a>
+    <a href="index.html" title="דף הבית">🏠</a>
+  </div>
+
+  <!-- כותרת -->
+  <h1>סריקת תלוש חדש</h1>
+
+  <!-- וידאו מצלמה -->
+  <video id="video" autoplay playsinline muted></video>
+
+  <!-- קנבס -->
+  <canvas id="canvas" style="display:none;"></canvas>
+
+  <!-- תצוגת תמונה -->
+  <img id="preview" style="display:none;" alt="תמונה שנסרקה" />
+
+  <!-- פעולות לאחר צילום -->
+  <div id="actions" style="display:none;">
+    <button id="saveBtn">💾 שמור כתמונה</button>
+    <button id="editBtn">✏️ ערוך תמונה</button>
+    <button id="cropBtn">✂️ חיתוך</button>
+    <button id="retryBtn">🔁 צלם מחדש</button>
+  </div>
+
+  <!-- בקרת חיתוך -->
+  <div id="cropControls" style="display:none;">
+    <button id="applyCropBtn">✔ שמור חיתוך</button>
+  </div>
+
+  <!-- עורך תמונה -->
+  <div id="editor" style="display:none;">
+    <h3>🖼 עריכת תמונה</h3>
+
+    <label for="contrastSlider">ניגודיות:</label>
+    <input type="range" id="contrastSlider" min="0.5" max="2" step="0.05" value="1.25" />
+
+    <label for="brightnessSlider">בהירות:</label>
+    <input type="range" id="brightnessSlider" min="-100" max="100" step="5" value="0" />
+
+    <button id="applyEditBtn">✔ שמור שינויים</button>
+    <button id="cancelEditBtn">↩ בטל</button>
+  </div>
+
+  <!-- התחלה -->
+  <button id="startBtn">🚀 התחל מצלמה</button>
+  <button id="captureBtn" style="display:none;">📸 צלם</button>
+
+  <!-- קלט להעלאת תמונה (מוסתר) -->
+  <input type="file" id="uploadInput" accept="image/*" style="display:none;" />
+  <div id="uploadContainer" style="display:none;">
+    <button id="uploadBtn">📤 העלה תמונה מהמכשיר</button>
+  </div>
+
+  <!-- JS -->
+  <script src="paycheck-scan.js" defer></script>
+</body>
+</html>

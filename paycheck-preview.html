@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>📄 תצוגת תלוש – עבודתי</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+body {
+  height: 100%;
+  background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+              url('assets/background.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+  padding: env(safe-area-inset-top, 16px) env(safe-area-inset-right, 12px)
+           env(safe-area-inset-bottom, 16px) env(safe-area-inset-left, 12px);
+  font-family: Arial, sans-serif;
+}
+
+.top-nav {
+  position: fixed;
+  top: env(safe-area-inset-top, 10px);
+  right: 10px;
+  left: 10px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+}
+
+.top-nav a {
+  font-size: 1.4rem;
+  color: #0047ab;
+  text-decoration: none;
+  padding: 0.3rem 0.6rem;
+  background: white;
+  border-radius: 999px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+h1 {
+  font-size: 1.6rem;
+  color: #0047ab;
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.zoom-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.zoom-buttons button {
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: none;
+  background-color: #0047ab;
+  color: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+
+#contentViewer {
+  width: 100%;
+  height: calc(100vh - 240px);
+  overflow: auto;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: white;
+  margin-top: 1rem;
+  padding: 0.5rem;
+}
+
+#zoomableImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+#contentViewer iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+}
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <a href="paycheck-library.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <h1>📄 תצוגת תלוש</h1>
+
+  <div class="zoom-buttons" id="zoomControls">
+    <button id="zoomInBtn">הגדל</button>
+    <button id="zoomOutBtn">הקטן</button>
+  </div>
+
+  <div id="contentViewer"></div>
+
+  <script type="module">
+    import { openDB } from 'https://cdn.jsdelivr.net/npm/idb@7/+esm';
+
+    let zoomPercent = 100;
+
+    async function loadFile() {
+      const id = localStorage.getItem("selectedPayslipId");
+      if (!id) {
+        alert("לא נבחר תלוש");
+        return;
+      }
+
+      const db = await openDB("PaycheckDB", 1);
+      const tx = db.transaction("payslips", "readonly");
+      const store = tx.objectStore("payslips");
+      const item = await store.get(Number(id));
+
+      if (!item) {
+        alert("התלוש לא נמצא");
+        return;
+      }
+
+      const contentViewer = document.getElementById("contentViewer");
+      const zoomControls = document.getElementById("zoomControls");
+
+      contentViewer.innerHTML = "";
+
+      if (!item.isImage) {
+        zoomControls.style.display = "none";
+
+        const blob = new Blob([item.data], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+        const iframe = document.createElement("iframe");
+        iframe.src = url;
+        contentViewer.appendChild(iframe);
+      } else {
+        zoomControls.style.display = "flex";
+
+        const img = document.createElement("img");
+        const blob = new Blob([item.data], { type: "image/png" });
+        const imgURL = URL.createObjectURL(blob);
+        img.src = imgURL;
+        img.id = "zoomableImage";
+        img.style.width = zoomPercent + "%";
+        contentViewer.appendChild(img);
+      }
+    }
+
+    loadFile();
+
+    document.getElementById("zoomInBtn").addEventListener("click", function () {
+      const img = document.getElementById("zoomableImage");
+      if (img && zoomPercent < 200) {
+        zoomPercent += 10;
+        img.style.width = zoomPercent + "%";
+      }
+    });
+
+    document.getElementById("zoomOutBtn").addEventListener("click", function () {
+      const img = document.getElementById("zoomableImage");
+      if (img && zoomPercent > 50) {
+        zoomPercent -= 10;
+        img.style.width = zoomPercent + "%";
+      }
+    });
+  </script>
+</body>
+</html>
