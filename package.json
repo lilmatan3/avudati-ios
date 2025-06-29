@@ -1,0 +1,69 @@
+{
+  "name": "avodati",
+  "version": "1.0.0",
+  "description": "אפליקציית עבודתי - סימולציית שכר",
+  "homepage": "https://avodati.co.il",
+  "author": {
+    "name": "מתן בן עזרא",
+    "email": "avudati.avudati@gmail.com"
+  },
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "com.avodati.app",
+    "productName": "עבודתי",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*"
+    ],
+    "win": {
+      "icon": "assets/avudati.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "assets",
+      "category": "Utility",
+      "maintainer": "מתן בן עזרא <avudati.avudati@gmail.com>"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "license": "LICENSE.txt",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  },
+  "devDependencies": {
+    "electron": "^25.8.3",
+    "electron-builder": "^24.11.0"
+  },
+  "dependencies": {
+    "@capacitor/cli": "^7.2.0",
+    "@capacitor/core": "^7.2.0",
+    "@capacitor/ios": "^7.2.0"
+  }
+}

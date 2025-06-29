@@ -1,0 +1,126 @@
+body {
+  font-family: Arial, sans-serif;
+  direction: rtl;
+  background-color: #f8f9fb;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.top-nav a {
+  font-size: 20px;
+  text-decoration: none;
+  color: #555;
+}
+
+/* כפתור מילון מונחים */
+.glossary-nav {
+  background-color: #5dade2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.glossary-nav:hover {
+  background-color: #3498db;
+}
+
+h1 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+h3 {
+  font-size: 20px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.table-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* שורת הסבר מתחת לכל טבלה */
+.explanation-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px 30px;
+  align-items: center;
+  margin: 10px 0 25px;
+  font-size: 16px;
+  direction: rtl;
+}
+
+/* כל זוג label+button בשורה */
+.explanation-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 8px;
+  width: calc(50% - 15px);
+}
+
+/* כפתור עגול ❓ */
+.info-circle {
+  background-color: #f48fb1;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+  margin-inline-start: 5px;
+}
+
+/* רקע שקוף */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* הקופסה עצמה */
+.popup-box {
+  background: white;
+  border: 2px solid #f48fb1;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 300px;
+  text-align: center;
+  position: relative;
+}
+
+/* כפתור ❌ לסגירה */
+.popup-close {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}

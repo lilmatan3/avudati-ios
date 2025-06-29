@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="top-nav">
+    <a href="paycheck-library.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <h1>📄 ניתוח תלוש</h1>
+
+  <!-- חלונית זיהוי סוג תלוש -->
+  <div id="payslip-type-confirmation" class="type-confirm-box" style="display:none;">
+    <h2 id="type-detected-text"></h2>
+    <p>האם זה סוג התלוש שלך?</p>
+    <div class="confirm-buttons">
+      <button id="confirm-yes">כן</button>
+      <button id="confirm-no">לא</button>
+    </div>
+
+    <div id="manual-type-options" style="display:none;">
+      <p>אנא בחר את סוג התלוש שלך:</p>
+      <div class="type-options">
+        <button class="type-option" data-type="עובד הוראה">🧑‍🏫 עובד הוראה</button>
+        <button class="type-option" data-type="עובד שירות">🛎️ עובד שירות</button>
+        <button class="type-option" data-type="עובד ציבור">🧑‍💼 עובד ציבור</button>
+        <button class="type-option" data-type="AM PROJECTS">🏗️ עובד פרויקט / קבלן</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- טבלאות ניתוח -->
+  <div id="tables-container" class="table-grid">
+    <p style="text-align:center;">(כאן נופיע הטבלאות מה-PDF)</p>
+  </div>
+
+  <!-- קובץ JS הראשי -->
+  <script type="module" src="paycheck-details-pdf.js"></script>
+</body>
+</html>

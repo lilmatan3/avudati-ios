@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>עבודתי</title>
+  <style>
+    /* בסיס כללי */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      direction: rtl;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), url('assets/background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      padding: env(safe-area-inset-top, 20px)
+              env(safe-area-inset-right, 16px)
+              env(safe-area-inset-bottom, 20px)
+              env(safe-area-inset-left, 16px);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* כותרת ראשית */
+    .main-title {
+      font-size: 1.7rem;
+      color: #ff66b2; /* ← צבע ורוד */
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 24px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    /* ריבועי תפריט */
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 14px;
+      margin-bottom: 32px;
+      padding: 0 10px;
+    }
+
+    .tab-button {
+      width: 100%;
+      aspect-ratio: 1 / 0.75;
+      background-color: rgba(255, 255, 255, 0.85); /* ← רקע שקוף */
+      border: 2px solid #0047ab;
+      border-radius: 16px;
+      color: #0047ab;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px;
+      text-wrap: balance;
+    }
+
+    .tab-button:hover {
+      background-color: #0047ab;
+      color: white;
+    }
+
+    footer {
+      font-size: 14px;
+      color: #0047ab;
+      margin-top: auto;
+      padding: 10px;
+      text-align: center;
+    }
+
+    footer a {
+      color: #0047ab;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .tabs {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .tab-button {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1 class="main-title">עבודתי</h1>
+
+  <div class="tabs">
+    <div class="tab-button" onclick="location.href='timesheet.html'">דף השעות שלי</div>
+    <div class="tab-button" onclick="location.href='paycheck.html'">התלושים שלי</div>
+    <div class="tab-button" onclick="location.href='tips.html'">טיפים</div>
+    <div class="tab-button" onclick="location.href='calculators.html'">מחשבונים</div>
+  </div>
+
+  <footer>
+    <a href="terms-of-use.html">תנאי שימוש</a>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      direction: rtl;
+      padding: env(safe-area-inset-top, 20px) env(safe-area-inset-right, 16px) env(safe-area-inset-bottom, 20px) env(safe-area-inset-left, 16px);
+      margin: 0;
+      text-align: center;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #e0e0e0;
+      padding: 10px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-button {
+      font-size: 20px;
+      text-decoration: none;
+      color: #333;
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    h1 {
+      color: #0047ab;
+      margin: 20px 0;
+      font-size: 1.5rem;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 0 10px;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    input[type="month"] {
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      background: #0047ab;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #003a92;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <a href="calculators.html" class="nav-button">←</a>
+    <a href="index.html" class="nav-button">🏠</a>
+  </div>
+
+  <h1>מספר ימי עבודה בחודש</h1>
+
+  <form id="form">
+    <label for="monthInput">בחר חודש ושנה:</label>
+    <input type="month" id="monthInput" required>
+    <button type="submit">חשב</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script src="calculator-workdays.js"></script>
+</body>
+</html>

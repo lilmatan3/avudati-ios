@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a href="timesheet.html" class="back-button">← חזרה</a>
+  <h1>פירוט דף השעות שלי</h1>
+
+  <div class="controls">
+    <select id="yearSelector">
+      <option value="2023">2023</option>
+      <option value="2024">2024</option>
+      <option value="2025" selected>2025</option>
+      <option value="2026">2026</option>
+    </select>
+    <select id="monthSelector">
+      <option value="1">ינואר</option>
+      <option value="2">פברואר</option>
+      <option value="3">מרץ</option>
+      <option value="4">אפריל</option>
+      <option value="5">מאי</option>
+      <option value="6">יוני</option>
+      <option value="7">יולי</option>
+      <option value="8">אוגוסט</option>
+      <option value="9">ספטמבר</option>
+      <option value="10">אוקטובר</option>
+      <option value="11">נובמבר</option>
+      <option value="12">דצמבר</option>
+    </select>
+    <button onclick="loadDetailedData()">טען</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>תאריך</th>
+        <th>סוג יום</th>
+        <th>שעות רגילות</th>
+        <th>ש"נ 125%</th>
+        <th>ש"נ 150%</th>
+        <th>סכום כולל</th>
+        <th>פירוט</th>
+      </tr>
+    </thead>
+    <tbody id="detailedBody"></tbody>
+  </table>
+
+  <script>
+    function loadDetailedData() {
+      const y = parseInt(document.getElementById("yearSelector").value, 10);
+      const m = parseInt(document.getElementById("monthSelector").value, 10);
+      const data = getMonthlyData(y, m);
+      const wage = appData.userSettings?.hourlyWage || 50;
+      const threshold = appData.userSettings?.workRules?.dailyHours || 8;
+      const tbody = document.getElementById("detailedBody");
+      tbody.innerHTML = "";
+
+      data.timesheet.forEach(r => {
+        let regular = 0, extra125 = 0, extra150 = 0;
+
+        if (r.dayType === "רגיל" || r.dayType === "ערב חג" || r.dayType === "חג") {
+          if (r.totalHours <= threshold) {
+            regular = r.totalHours;
+          } else {
+            regular = threshold;
+            const extra = r.totalHours - threshold;
+            extra125 = Math.min(extra, 2);
+            extra150 = Math.max(extra - 2, 0);
+          }
+        }
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${r.date}</td>
+          <td>${r.dayType}</td>
+          <td>${regular.toFixed(2)}</td>
+          <td>${extra125.toFixed(2)}</td>
+          <td>${extra150.toFixed(2)}</td>
+          <td>₪${(r.amount || 0).toFixed(2)}</td>
+          <td><span class="info-icon" onclick="showExplanation('${r.date}')">[?]</span></td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function showExplanation(date) {
+      alert("הסבר לשורת: " + date); // נחליף זאת בפופאפ בעתיד
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const y = localStorage.getItem("detailedYear") || new Date().getFullYear();
+      const m = localStorage.getItem("detailedMonth") || (new Date().getMonth() + 1);
+
+      document.getElementById("yearSelector").value = y;
+      document.getElementById("monthSelector").value = m;
+
+      loadDetailedData();
+    });
+  </script>
+</body>
+</html>

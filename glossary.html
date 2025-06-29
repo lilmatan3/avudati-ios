@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="top-nav">
+    <a href="contractor-employee.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <h1>📘 מילון מונחים בתלוש עובד קבלן</h1>
+
+  <input type="text" id="searchInput" placeholder="🔍 חפש מונח בתלוש...">
+
+  <div id="glossaryContainer"></div>
+
+  <script type="module">
+    import { glossaryData } from './Glossary-data.js';
+
+    const container = document.getElementById("glossaryContainer");
+
+    glossaryData.forEach(section => {
+      const sectionEl = document.createElement("div");
+      sectionEl.className = "glossary-section";
+
+      const title = document.createElement("h3");
+      title.textContent = section.title;
+      sectionEl.appendChild(title);
+
+      const list = document.createElement("ul");
+      list.className = "glossary-list";
+
+      section.items.forEach(([term, definition]) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${term}:</strong> ${definition}`;
+        list.appendChild(li);
+      });
+
+      sectionEl.appendChild(list);
+      container.appendChild(sectionEl);
+    });
+
+    // 🔍 מנוע חיפוש
+    document.getElementById("searchInput").addEventListener("input", () => {
+      const searchTerm = document.getElementById("searchInput").value.trim();
+      const allSections = document.querySelectorAll(".glossary-section");
+
+      allSections.forEach(section => {
+        let matches = false;
+        section.querySelectorAll("li").forEach(li => {
+          const text = li.textContent;
+          if (text.includes(searchTerm)) {
+            li.style.display = "list-item";
+            matches = true;
+          } else {
+            li.style.display = searchTerm ? "none" : "list-item";
+          }
+        });
+        section.style.display = matches || !searchTerm ? "block" : "none";
+      });
+    });
+  </script>
+</body>
+</html>

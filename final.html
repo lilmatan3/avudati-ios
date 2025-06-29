@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>תלוש שכר - עבודתי</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- כפתור חזרה -->
+  <a href="paystub.html" class="back-button">← חזרה</a>
+
+  <!-- כותרת -->
+  <h1 class="main-title">תלוש שכר לדוגמה – <span id="monthYearTitle">--/----</span></h1>
+
+  <!-- עוטף כללי -->
+  <div class="paystub-wrapper">
+
+    <!-- 💼 רכיבי שכר -->
+    <div class="section-title">💼 רכיבי שכר</div>
+    <table class="paystub-table">
+      <thead>
+        <tr><th>רכיב</th><th>כמות</th><th>סכום</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>שעות רגילות</td><td>---</td><td>₪---</td></tr>
+        <tr><td>שעות נוספות</td><td>---</td><td>₪---</td></tr>
+        <tr><td>שעות שישי 125%</td><td>---</td><td>₪---</td></tr>
+        <tr><td>שעות שישי 150%</td><td>---</td><td>₪---</td></tr>
+        <tr><td>שעות שבת</td><td>---</td><td>₪---</td></tr>
+        <tr><td>שעות חג</td><td>---</td><td>₪---</td></tr>
+        <tr class="total-row"><td colspan="2">סה״כ ברוטו</td><td>₪---</td></tr>
+      </tbody>
+    </table>
+
+    <!-- 📉 ניכויים -->
+    <div class="section-title">📉 ניכויים</div>
+    <table class="paystub-table">
+      <thead>
+        <tr><th>רכיב</th><th>סכום</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>מס הכנסה</td><td>₪---</td></tr>
+        <tr><td>ביטוח לאומי</td><td>₪---</td></tr>
+        <tr><td>ביטוח בריאות</td><td>₪---</td></tr>
+        <tr><td>פנסיה (עובד)</td><td>₪---</td></tr>
+        <tr><td>השתלמות (עובד)</td><td>₪---</td></tr>
+        <tr><td>הורדת שווי ארוחות</td><td>₪---</td></tr>
+        <tr class="total-row"><td>סה״כ ניכויים</td><td>₪---</td></tr>
+      </tbody>
+    </table>
+
+    <!-- 💰 שכר נטו -->
+    <div class="section-title">💰 שכר נטו</div>
+    <table class="paystub-table">
+      <tbody>
+        <tr><td>סה״כ לתשלום</td><td>₪---</td></tr>
+      </tbody>
+    </table>
+
+    <!-- 🏦 הפרשות המעסיק -->
+    <div class="section-title">🏦 הפרשות המעסיק</div>
+    <table class="paystub-table">
+      <tbody>
+        <tr><td>פנסיה (מעביד)</td><td>₪---</td></tr>
+        <tr><td>השתלמות (מעביד)</td><td>₪---</td></tr>
+        <tr><td>פיצויים</td><td>₪---</td></tr>
+      </tbody>
+    </table>
+
+    <!-- 📝 הערה -->
+    <div class="footer-note">
+      * תלוש זה הינו לצרכי הדמיה בלבד ואינו מהווה מסמך שכר רשמי.<br>
+      כל הערכים המחושבים מבוססים על נתוני שכר, חוקי מס ונתוני קלט מהמשתמש.
+    </div>
+
+  </div>
+
+  <script src="dataService.js"></script>
+  <script src="final.js"></script>
+</body>
+</html>

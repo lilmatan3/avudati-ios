@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      margin: 0;
+      background-color: #f9f9f9;
+      padding: env(safe-area-inset-top, 20px) env(safe-area-inset-right, 16px) env(safe-area-inset-bottom, 20px) env(safe-area-inset-left, 16px);
+      text-align: center;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #e0e0e0;
+      padding: 10px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-button {
+      font-size: 20px;
+      text-decoration: none;
+      color: #333;
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    h1 {
+      color: #0047ab;
+      margin: 24px 0;
+      font-size: 1.5rem;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 0 10px;
+    }
+
+    .radio-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .radio-group label {
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    input[type="number"] {
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    button {
+      background: #0047ab;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #003a92;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <a href="calculators.html" class="nav-button">←</a>
+    <a href="index.html" class="nav-button">🏠</a>
+  </div>
+
+  <h1>המרת זמן (דקות ↔ שעות)</h1>
+
+  <form id="form">
+    <div class="radio-group">
+      <label>
+        <input type="radio" name="direction" value="toHours" checked>
+        דקות → שעות
+      </label>
+      <label>
+        <input type="radio" name="direction" value="toMinutes">
+        שעות → דקות
+      </label>
+    </div>
+
+    <input 
+      type="number" 
+      id="timeInput" 
+      placeholder="הכנס ערך" 
+      required 
+      step="any"
+    >
+
+    <button type="submit">חשב</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script src="calculator-time-converter.js"></script>
+</body>
+</html>

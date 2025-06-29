@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>מחשבונים - עבודתי</title>
+  <link rel="stylesheet" href="calculator.css" />
+</head>
+<body>
+  <!-- ניווט עליון -->
+  <header class="top-bar">
+    <a href="index.html" class="back-button" title="חזרה">← חזרה</a>
+    <a href="index.html" class="home-button" title="בית">🏠 בית</a>
+  </header>
+
+  <!-- כותרת -->
+  <h1 class="main-title">מחשבונים</h1>
+
+  <!-- קטגוריות ככפתורים -->
+  <nav class="tabs" role="tablist">
+    <button class="tab-button active" data-tab="tab-salary">💰<br>שכר וזכויות</button>
+    <button class="tab-button" data-tab="tab-taxes">🧾<br>מיסים ופק"מ</button>
+    <button class="tab-button" data-tab="tab-invest">📈<br>השקעות ופיננסים</button>
+    <button class="tab-button" data-tab="tab-saving">🏦<br>חסכון ופנסיה</button>
+    <button class="tab-button" data-tab="tab-time">⏱️<br>כללי יומי ושעות</button>
+    <button class="tab-button" data-tab="tab-tools">🧰<br>כלים תומכים</button>
+  </nav>
+
+  <!-- תוכן -->
+  <main>
+    <section id="tab-salary" class="tab-content active" role="tabpanel">
+      <h2>שכר וזכויות</h2>
+      <ul class="calculator-list">
+        <li><a href="calculator-bruto-neto.html">המרת ברוטו → נטו</a></li>
+        <li><a href="calculator-neto-bruto.html">המרת נטו → ברוטו</a></li>
+        <li><a href="calculator-overtime.html">שעות נוספות (125%, 150%)</a></li>
+        <li><a href="calculator-leave-offset.html">קיזוז שעות חופשה/מחלה</a></li>
+        <li><a href="calculator-severance.html">פיצויי פיטורין</a></li>
+        <li><a href="calculator-taxpoints.html">נקודות זיכוי</a></li>
+        <li><a href="calculator-settlement-discount.html">הנחת מס יישוב מזכה</a></li>
+      </ul>
+    </section>
+
+    <section id="tab-taxes" class="tab-content" role="tabpanel">
+      <h2>מיסים ופק"מ</h2>
+      <ul class="calculator-list">
+        <li><a href="calculator-income-tax.html">מס הכנסה</a></li>
+        <li><a href="calculator-social-health.html">ביטוח לאומי ומס בריאות</a></li>
+        <li><a href="calculator-pensia-interest.html">פק"מ / קרן השתלמות</a></li>
+        <li><a href="calculator-pensia-planning.html">תכנון הפקדות לקרן</a></li>
+      </ul>
+    </section>
+
+    <section id="tab-invest" class="tab-content" role="tabpanel">
+      <h2>השקעות ופיננסים</h2>
+      <ul class="calculator-list">
+        <li><a href="calculator-compound-interest.html">ריבית דריבית</a></li>
+        <li><a href="calculator-average-return.html">תשואה שנתית ממוצעת</a></li>
+        <li><a href="calculator-loan.html">הלוואה חודשית וריבית</a></li>
+        <li><a href="calculator-mortgage.html">משכנתא: שפיצר/גרייס</a></li>
+        <li><a href="calculator-cashflow.html">תזרים מזומנים</a></li>
+        <li><a href="calculator-dividend.html">שיעור דיבידנד</a></li>
+      </ul>
+    </section>
+
+    <section id="tab-saving" class="tab-content" role="tabpanel">
+      <h2>חסכון ופנסיה</h2>
+      <ul class="calculator-list">
+        <li><a href="calculator-pension-estimate.html">קצבת זקנה</a></li>
+        <li><a href="calculator-pension-contrib.html">הפקדה לקצבה רצויה</a></li>
+        <li><a href="calculator-employer-employee-pension.html">השוואת הפקדות</a></li>
+      </ul>
+    </section>
+
+    <section id="tab-time" class="tab-content" role="tabpanel">
+      <h2>כללי – יומי ושעות</h2>
+      <ul class="calculator-list">
+        <li><a href="calculator-workdays.html">ימי עבודה בחודש</a></li>
+        <li><a href="calculator-hourly-rate.html">תעריף לפי שכר חודשי</a></li>
+        <li><a href="calculator-optimal-hours.html">שעות להכנסה רצויה</a></li>
+        <li><a href="calculator-time-converter.html">המרת זמן</a></li>
+      </ul>
+    </section>
+
+    <section id="tab-tools" class="tab-content" role="tabpanel">
+      <h2>כלים תומכים</h2>
+      <ul class="calculator-list">
+        <li><a href="calculator-currency.html">המרת מטבע</a></li>
+        <li><a href="calculator-inflation.html">מדד מחירים (CPI)</a></li>
+        <li><a href="calculator-effective-tax-rate.html">מס ממוצע</a></li>
+        <li><a href="calculator-recurring-net.html">נטו חוזר</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- לוגיקת טאבים -->
+  <script>
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const target = btn.getAttribute('data-tab');
+        tabContents.forEach(tc => {
+          tc.classList.toggle('active', tc.id === target);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
