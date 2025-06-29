@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי</title>
+  <link rel="stylesheet" href="additional-salary-data.css">
+</head>
+<body onclick="handleBodyClick(event)">
+  <div class="header-bar">
+    <button class="back-button" onclick="window.location.href='salary-structure.html'">→</button>
+    <div class="header-title">נתוני שכר נוספים</div>
+  </div>
+
+  <div class="section">
+    <h2>📊 פרטים נוספים לחישוב התלוש</h2>
+
+    <div class="row">
+      <label for="bonusAmount">בונוס חודשי קבוע (₪):</label>
+      <div class="row-content">
+        <input type="number" id="bonusAmount" step="0.01" />
+        <button class="info-button" onclick="togglePopup(event, 'popupBonus')">?</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="mealValue">שווי ארוחות (₪):</label>
+      <div class="row-content">
+        <input type="number" id="mealValue" step="0.01" />
+        <button class="info-button" onclick="togglePopup(event, 'popupMeals')">?</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="mealsIncludeShortDays">יש ארוחות בימים קצרים?</label>
+      <div class="switch-wrapper">
+        <label class="switch">
+          <input type="checkbox" id="mealsIncludeShortDays" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="travelRefund">החזר נסיעות (₪):</label>
+      <div class="row-content">
+        <input type="number" id="travelRefund" step="0.01" />
+        <button class="info-button" onclick="togglePopup(event, 'popupTravel')">?</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="shiftAddition">תוספת משמרות (₪):</label>
+      <div class="row-content">
+        <input type="number" id="shiftAddition" step="0.01" />
+        <button class="info-button" onclick="togglePopup(event, 'popupShifts')">?</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="phoneAllowance">אחזקת טלפון (₪):</label>
+      <div class="row-content">
+        <input type="number" id="phoneAllowance" step="0.01" />
+        <button class="info-button" onclick="togglePopup(event, 'popupPhone')">?</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="globalOvertime">תוספת גלובלית לשעות נוספות (₪):</label>
+      <div class="row-content">
+        <input type="number" id="globalOvertime" step="0.01" />
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="giftValue">שווי מתנות (₪):</label>
+      <div class="row-content">
+        <input type="number" id="giftValue" step="0.01" />
+      </div>
+    </div>
+  </div>
+
+  <!-- המשך הקובץ נשאר כפי שהיה (ימי הבראה, רכב, פופאפים, סקריפטים וכו') -->
+  
+  <div class="section">
+    <h2>🛏️ רישום ימי הבראה (חודשי)
+      <button class="info-button" onclick="togglePopup(event, 'popupHavraa')">?</button>
+    </h2>
+  
+    <div class="row">
+      <label for="havraaMonth">חודש קבלת ההבראה:</label>
+      <div class="row-content">
+        <input type="month" id="havraaMonth" />
+      </div>
+    </div>
+  
+    <div class="row">
+      <label for="havraaCount">מס' ימי הבראה:</label>
+      <div class="row-content">
+        <input type="number" id="havraaCount" min="1" />
+      </div>
+    </div>
+  
+    <div class="row">
+      <label for="havraaValue">שווי ליום הבראה (₪):</label>
+      <div class="row-content">
+        <input type="number" id="havraaValue" step="1" />
+      </div>
+    </div>
+  
+    <button class="add-btn" onclick="addHavraaEntry()">➕ הוסף רישום</button>
+    <table id="havraaTable">
+      <thead>
+        <tr><th>חודש</th><th>כמות</th><th>מחיקה</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  
+
+ <!-- החל מהשורה של <div id="carSection"> -->
+
+  <div class="section">
+    <h2>🚗 שווי שימוש ברכב
+      <button class="info-button" onclick="togglePopup(event, 'popupCar')">?</button>
+    </h2>
+  
+    <div class="row">
+      <label>יש רכב מהעבודה?</label>
+      <div class="switch-wrapper">
+        <label class="switch">
+          <input type="checkbox" id="enableCarSection" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+  
+    <div id="carSection" style="display: none;">
+      <div class="row">
+        <label for="carValue">שווי חודשי לרכב (₪):</label>
+        <div class="row-content">
+          <input type="number" id="carValue" step="0.01" />
+        </div>
+      </div>
+  
+      <div class="row">
+        <label>נכלל בברוטו?</label>
+        <div class="row-content">
+          <label class="switch-wrapper">
+            <input type="checkbox" id="carIncludeInGross" />
+          </label>
+        </div>
+      </div>
+  
+      <div class="row">
+        <label>נכלל במס?</label>
+        <div class="row-content">
+          <label class="switch-wrapper">
+            <input type="checkbox" id="carIncludeInTax" />
+          </label>
+        </div>
+      </div>
+  
+      <div class="row">
+        <label>נכלל בפנסיה?</label>
+        <div class="row-content">
+          <label class="switch-wrapper">
+            <input type="checkbox" id="carIncludeInPension" />
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- פופאפים -->
+  <div id="popupBonus" class="popup"><button class="close-popup" onclick="closeAllPopups()">X</button><strong>בונוס</strong><br>תוספת שכר חודשית לפי הסכם אישי בין העובד למעסיק.</div>
+  <div id="popupMeals" class="popup"><button class="close-popup" onclick="closeAllPopups()">X</button><strong>שווי ארוחות</strong><br>הטבה ממעסיק. לעיתים פטורה ממס, תלוי בסכום.</div>
+  <div id="popupTravel" class="popup"><button class="close-popup" onclick="closeAllPopups()">X</button><strong>החזר נסיעות</strong><br>חובה על המעסיק להחזיר הוצאות נסיעה לעובד.</div>
+  <div id="popupShifts" class="popup"><button class="close-popup" onclick="closeAllPopups()">X</button><strong>תוספת משמרות</strong><br>שכר נוסף על עבודה בלילה או במשמרות.</div>
+  <div id="popupPhone" class="popup"><button class="close-popup" onclick="closeAllPopups()">X</button><strong>אחזקת טלפון</strong><br>החזר הוצאות על שימוש טלפון לצרכי עבודה.</div>
+  <div id="popupHavraa" class="popup"><button class="close-popup" onclick="closeAllPopups()">X</button><strong>ימי הבראה</strong><br>מגיעים לפי ותק. לרוב בין 5–10 ימים בשנה לפי הסכם/צו הרחבה.</div>
+  <div id="popupCar" class="popup"><button class="close-popup" onclick="closeAllPopups()">X</button><strong>שווי שימוש ברכב</strong><br>הטבה ממעסיק המחויבת במס לפי סוג הרכב ורמת זיהום.</div>
+
+  <!-- JS -->
+  <script src="dataService.js"></script>
+  <script>
+    function togglePopup(event, id) {
+      event.stopPropagation();
+      const popup = document.getElementById(id);
+      document.querySelectorAll('.popup').forEach(p => {
+        if (p !== popup) p.classList.remove('active');
+      });
+      popup.classList.toggle('active');
+    }
+
+    function closeAllPopups() {
+      document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+    }
+
+    function handleBodyClick(event) {
+      if (!event.target.classList.contains('info-button') && !event.target.closest('.popup')) {
+        closeAllPopups();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      loadData();
+      const d = appData.additionalSalaryData || {};
+
+      document.getElementById('bonusAmount').value = d.bonusAmount || "";
+      document.getElementById('carValue').value = d.carValue || "";
+      document.getElementById('carIncludeInGross').checked = !!d.carIncludeInGross;
+      document.getElementById('carIncludeInTax').checked = !!d.carIncludeInTax;
+      document.getElementById('carIncludeInPension').checked = !!d.carIncludeInPension;
+      document.getElementById('enableCarSection').checked = d.enableCarSection || false;
+      document.getElementById('carSection').style.display = d.enableCarSection ? 'block' : 'none';
+
+      document.getElementById('mealValue').value = d.mealValue || "";
+      document.getElementById('travelRefund').value = d.travelRefund || "";
+      document.getElementById('shiftAddition').value = d.shiftAddition || "";
+      document.getElementById('phoneAllowance').value = d.phoneAllowance || "";
+      document.getElementById('globalOvertime').value = d.globalOvertime || "";
+      document.getElementById('giftValue').value = d.giftValue || "";
+      document.getElementById('mealsIncludeShortDays').checked = !!d.mealsIncludeShortDays;
+      document.getElementById('havraaValue').value = d.havraaValue || 378;
+
+      document.getElementById('enableCarSection').addEventListener('input', () => {
+        const enabled = document.getElementById('enableCarSection').checked;
+        document.getElementById('carSection').style.display = enabled ? 'block' : 'none';
+        save(); // לשמירת enableCarSection
+      });
+
+      renderHavraaTable();
+
+      const save = () => {
+        appData.additionalSalaryData = {
+          ...appData.additionalSalaryData,
+          bonusAmount: parseFloat(document.getElementById('bonusAmount').value) || 0,
+          carValue: parseFloat(document.getElementById('carValue').value) || 0,
+          carIncludeInGross: document.getElementById('carIncludeInGross').checked,
+          carIncludeInTax: document.getElementById('carIncludeInTax').checked,
+          carIncludeInPension: document.getElementById('carIncludeInPension').checked,
+          enableCarSection: document.getElementById('enableCarSection').checked,
+          mealValue: parseFloat(document.getElementById('mealValue').value) || 0,
+          travelRefund: parseFloat(document.getElementById('travelRefund').value) || 0,
+          shiftAddition: parseFloat(document.getElementById('shiftAddition').value) || 0,
+          phoneAllowance: parseFloat(document.getElementById('phoneAllowance').value) || 0,
+          globalOvertime: parseFloat(document.getElementById('globalOvertime').value) || 0,
+          giftValue: parseFloat(document.getElementById('giftValue').value) || 0,
+          mealsIncludeShortDays: document.getElementById('mealsIncludeShortDays').checked,
+          havraaValue: parseFloat(document.getElementById('havraaValue').value) || 378,
+          havraaPayments: appData.additionalSalaryData.havraaPayments || []
+        };
+        saveData();
+      };
+
+      document.querySelectorAll('input').forEach(el => el.addEventListener('input', save));
+    });
+
+    function addHavraaEntry() {
+      const monthInput = document.getElementById('havraaMonth').value;
+      const countInput = parseInt(document.getElementById('havraaCount').value);
+      if (!monthInput || isNaN(countInput) || countInput <= 0) return;
+
+      const list = appData.additionalSalaryData.havraaPayments || [];
+      list.push({ month: monthInput, count: countInput });
+      appData.additionalSalaryData.havraaPayments = list;
+      saveData();
+      renderHavraaTable();
+    }
+
+    function renderHavraaTable() {
+      const tbody = document.getElementById('havraaTable').querySelector('tbody');
+      tbody.innerHTML = '';
+      const list = appData.additionalSalaryData?.havraaPayments || [];
+      list.forEach((item, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.month}</td>
+          <td>${item.count}</td>
+          <td><button class="delete-btn" onclick="deleteHavraa(${index})">🗑️</button></td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function deleteHavraa(index) {
+      appData.additionalSalaryData.havraaPayments.splice(index, 1);
+      saveData();
+      renderHavraaTable();
+    }
+  </script>
+</body>
+</html>

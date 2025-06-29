@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>עבודתי</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      margin: 0;
+      padding: env(safe-area-inset-top, 20px) env(safe-area-inset-right, 16px) env(safe-area-inset-bottom, 20px) env(safe-area-inset-left, 16px);
+      background: #f9f9f9;
+      text-align: center;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #e0e0e0;
+      padding: 10px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .top-nav a {
+      font-size: 20px;
+      text-decoration: none;
+      color: #333;
+      padding: 6px 10px;
+    }
+
+    h1 {
+      color: #0047ab;
+      font-size: 1.5rem;
+      margin: 24px 0;
+    }
+
+    form {
+      max-width: 420px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 0 12px;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 1rem;
+      text-align: right;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      width: 100%;
+      text-align: center;
+    }
+
+    button {
+      background: #0047ab;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #003a92;
+    }
+
+    #result {
+      margin-top: 24px;
+      font-size: 1.2rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <a href="calculators.html" title="חזרה">←</a>
+    <a href="index.html" title="בית">🏠</a>
+  </div>
+
+  <h1>תכנון הפקדות לקרן השתלמות</h1>
+
+  <form id="form">
+    <div>
+      <label for="targetAmount">סכום רצוי בסוף התקופה (₪)</label>
+      <input
+        type="number"
+        id="targetAmount"
+        placeholder="למשל 100,000"
+        required
+        min="0"
+        step="0.01"
+      />
+    </div>
+
+    <div>
+      <label for="annualRate">ריבית שנתית (%)</label>
+      <input
+        type="number"
+        id="annualRate"
+        placeholder="למשל 3.5"
+        required
+        min="0"
+        step="0.01"
+      />
+    </div>
+
+    <div>
+      <label for="years">משך ההשקעה (בשנים)</label>
+      <input
+        type="number"
+        id="years"
+        placeholder="למשל 6"
+        required
+        min="0.1"
+        step="0.1"
+      />
+    </div>
+
+    <button type="submit">חשב הפקדה חודשית</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script src="calculator-pensia-planning.js"></script>
+</body>
+</html>

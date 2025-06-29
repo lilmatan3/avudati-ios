@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>עבודתי</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: env(safe-area-inset-top) 16px env(safe-area-inset-bottom);
+      margin: 0;
+    }
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #e0e0e0;
+      padding: 10px 20px;
+    }
+    .nav-button {
+      font-size: 1.4rem;
+      text-decoration: none;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      color: #0047ab;
+      font-size: 1.4rem;
+    }
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #0047ab;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #003a92;
+    }
+    #result {
+      margin: 20px auto;
+      max-width: 400px;
+      padding: 16px;
+      background: #eaf2ff;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      color: #333;
+      text-align: center;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <a href="calculators.html" title="חזרה" class="nav-button">←</a>
+    <a href="index.html" title="בית" class="nav-button">🏠</a>
+  </div>
+
+  <h1>המרת נטו → ברוטו</h1>
+
+  <form id="form">
+    <div class="form-group">
+      <label for="net">שכר נטו (₪)</label>
+      <input
+        type="number"
+        id="net"
+        placeholder="הכנס את שכר הנטו"
+        required
+        min="0"
+        step="0.01"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="taxRate">אחוז מס הכנסה (%)</label>
+      <input
+        type="number"
+        id="taxRate"
+        placeholder="למשל 20"
+        required
+        min="0"
+        step="0.01"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="niRate">אחוז ביטוח לאומי (%)</label>
+      <input
+        type="number"
+        id="niRate"
+        placeholder="למשל 3.5"
+        required
+        min="0"
+        step="0.01"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="healthRate">אחוז מס בריאות (%)</label>
+      <input
+        type="number"
+        id="healthRate"
+        placeholder="למשל 5"
+        required
+        min="0"
+        step="0.01"
+      />
+    </div>
+
+    <button type="submit">חשב ברוטו</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script src="calculator-neto-bruto.js"></script>
+</body>
+</html>
