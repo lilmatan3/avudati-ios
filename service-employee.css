@@ -1,0 +1,204 @@
+/* איפוס בסיסי */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* גוף העמוד – תמיכה ב‑safe‑area ו‑full viewport height */
+html, body {
+  height: 100%;
+  direction: rtl;
+  font-family: Arial, sans-serif;
+  background-color: #f2f7ff;
+  padding-top:    env(safe-area-inset-top,    20px);
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+  padding-left:   env(safe-area-inset-left,   16px);
+  padding-right:  env(safe-area-inset-right,  16px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ניווט עליון – sticky עם safe‑area */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #6c63ff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding:  env(safe-area-inset-top, 10px) 16px 10px;
+}
+
+/* כפתורי ניווט (חיצוניים ופנימיים) */
+.nav-btn {
+  color: #fff;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+/* כפתור מילון – קצת קטן יותר */
+.glossary-nav {
+  font-size: 1.2rem;
+}
+
+/* תוכן העמוד – גלילה פנימית */
+#main-content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-top: 12px;
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+/* כותרת ראשית */
+h1 {
+  text-align: center;
+  font-size: 1.25rem;
+  color: #333;
+  margin-bottom: 12px;
+  padding: 0 8px;
+}
+
+/* Loading */
+#loading-message {
+  text-align: center;
+  font-size: 1rem;
+  color: #444;
+  padding: 20px;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+/* מכולת הטבלאות */
+#tables-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 8px;
+}
+
+/* כותרות טבלה */
+h3 {
+  font-size: 1.125rem;
+  color: #333;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 4px;
+  margin-bottom: 8px;
+}
+
+/* קנבס של כל טבלה */
+canvas {
+  width: 100% !important;
+  height: auto !important;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* הסברים מקובצים */
+.explanation {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px 0 16px;
+}
+
+/* עטיפות כל רכיב הסבר */
+.tooltip-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.tooltip-wrapper .label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* כפתור העגול ❓ */
+.tooltip {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  background: #f78da7;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* טקסט מוסתר בתוך הכפתור */
+.tooltiptext {
+  visibility: hidden;
+  width: 240px;
+  background-color: #333;
+  color: #fff;
+  text-align: right;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 10;
+  bottom: 125%;
+  right: 50%;
+  transform: translateX(50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  white-space: pre-line;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* פופאפ מרכזי */
+.popup-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+.popup-box {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  width: 90%;
+  max-width: 320px;
+  position: relative;
+  text-align: right;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+.popup-close {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #666;
+  cursor: pointer;
+}
+.popup-text {
+  margin-top: 12px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}

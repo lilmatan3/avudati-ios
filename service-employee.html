@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי</title>
+  <link rel="stylesheet" href="service-employee.css">
+</head>
+<body>
+  <div class="top-nav">
+    <a class="nav-btn" href="paycheck-library.html">←</a>
+    <button class="nav-btn glossary-nav" onclick="window.location.href='serviceglossary.html'">📘</button>
+    <a class="nav-btn" href="index.html">🏠</a>
+  </div>
+
+  <main id="main-content">
+    <h1>📄 פירוט תלוש – עובד שירות</h1>
+
+    <div id="loading-message">🔄 אנא המתן... הנתונים נטענים</div>
+    <div id="tables-container"></div>
+
+    <!-- 🔍 Popup להסברים -->
+    <div id="popup-explanation" class="popup-overlay" style="display: none;">
+      <div class="popup-box">
+        <button class="popup-close">❌</button>
+        <div class="popup-text"></div>
+      </div>
+    </div>
+
+    <!-- ✅ הסברים לפי טבלאות -->
+    <div id="explanations" style="display: none;">
+
+      <!-- 💵 רכיבי שכר -->
+      <div data-title="💵 רכיבי שכר">
+        <h4>❓ הסברים נוספים על רכיבי הטבלה:</h4>
+        <div class="tooltip-wrapper">
+          <span class="label">שכר יסוד</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 זהו השכר הקבוע שלך לפני כל תוספות, שעות נוספות או ניכויים.
+💡 טיפ: שכר זה משמש בסיס לחישוב זכויות כמו פנסיה, הבראה ופיצויים – חשוב לוודא שהוא נכון!
+            </span>
+          </button>
+        </div>
+        <div class="tooltip-wrapper">
+          <span class="label">נסיעות</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 החזר על הוצאות תחבורה לעבודה ובחזרה.
+💡 טיפ: בדוק אם אתה זכאי לפי מרחק בפועל.
+            </span>
+          </button>
+        </div>
+        <div class="tooltip-wrapper">
+          <span class="label">תמורת חופשה</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 תשלום על ימי חופשה שלא נוצלו.
+💡 טיפ: זה רכיב חשוב במיוחד בסיום עבודה.
+            </span>
+          </button>
+        </div>
+        <div class="tooltip-wrapper">
+          <span class="label">הבראה</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 תשלום שנתי לפי ותק.
+💡 טיפ: בדוק אם אתה זכאי לפי חוזה או חוק.
+            </span>
+          </button>
+        </div>
+        <div class="tooltip-wrapper">
+          <span class="label">חג</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 תשלום על ימי חג לפי חוק.
+💡 טיפ: מגיע גם אם לא עבדת בתנאים מסוימים.
+            </span>
+          </button>
+        </div>
+        <div class="tooltip-wrapper">
+          <span class="label">מחלה</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 תשלום לפי ימי מחלה וזכאות.
+💡 טיפ: הקפד לשמור תיעוד רפואי מלא.
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 💳 ניכויי חובה -->
+      <div data-title="💳 ניכויי חובה">
+        <h4>❓ הסברים נוספים על רכיבי הטבלה:</h4>
+        <div class="tooltip-wrapper">
+          <span class="label">ביטוח לאומי</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 ניכוי חובה עבור זכויות סוציאליות.
+💡 טיפ: בדוק אם יש הנחות שמגיעות לך.
+            </span>
+          </button>
+        </div>
+        <div class="tooltip-wrapper">
+          <span class="label">דמי בריאות</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 תשלום לפי חוק בריאות ממלכתי.
+💡 טיפ: ודא שדווחת על שינוי בקופה.
+            </span>
+          </button>
+        </div>
+        <div class="tooltip-wrapper">
+          <span class="label">פנסיה</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 ניכוי חובה מהשקל הראשון.
+💡 טיפ: ודא שהכסף מגיע לקרן הנכונה.
+            </span>
+          </button>
+        </div>
+        <div class="tooltip-wrapper">
+          <span class="label">קרן השתלמות</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 ניכוי אופציונלי לחיסכון נוסף.
+💡 טיפ: זכות חשובה במקומות עבודה רבים.
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 💳 ניכויי רשות -->
+      <div data-title="💳 ניכויי רשות">
+        <h4>❓ הסברים נוספים על רכיבי הטבלה:</h4>
+        <div class="tooltip-wrapper">
+          <span class="label">ועד עובדים</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 תשלום לארגון עובדים.
+💡 טיפ: לא חובה – אפשר לבקש להסיר.
+            </span>
+          </button>
+        </div>
+        <div class="tooltip-wrapper">
+          <span class="label">הלוואה</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 החזר חודשי על הלוואה.
+💡 טיפ: בקש מסמך עם תנאי ההחזר.
+            </span>
+          </button>
+        </div>
+        <div class="tooltip-wrapper">
+          <span class="label">קניית ציוד</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 תשלום על ציוד שסופק ע"י העבודה.
+💡 טיפ: ודא שהסכום תואם למה שקיבלת בפועל.
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 🧾 סיכום כללי -->
+      <div data-title="🧾 סיכום כללי / דוח כולל">
+        <h4>❓ הסברים נוספים על רכיבי הטבלה:</h4>
+        <div class="tooltip-wrapper">
+          <span class="label">שכר שווה כסף</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 שווי הטבות לא כספיות.
+💡 טיפ: הסכום משפיע על מס הכנסה.
+            </span>
+          </button>
+        </div>
+        <div class="tooltip-wrapper">
+          <span class="label">קופ"ג מעביד</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 הפרשות המעסיק לקרן פנסיה/השתלמות.
+💡 טיפ: אלו זכויות שחשוב לעקוב אחריהן.
+            </span>
+          </button>
+        </div>
+        <div class="tooltip-wrapper">
+          <span class="label">קה"ל מעביד</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 תוספת של המעסיק לקרן השתלמות.
+💡 טיפ: שווה כסף אמיתי – אל תוותר!
+            </span>
+          </button>
+        </div>
+        <div class="tooltip-wrapper">
+          <span class="label">פטור סעיף 47</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 הקלה במס על הפקדות מוגדלות.
+💡 טיפ: מגיע למפקידים עצמאית מעבר לחובה.
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 🧩 נתונים נוספים -->
+      <div data-title="🧩 נתונים נוספים">
+        <h4>❓ הסברים נוספים על רכיבי הטבלה:</h4>
+        <div class="tooltip-wrapper">
+          <span class="label">יתרת זכות</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 יתרה שמגיעה לך – לדוגמה חופשה לא משולמת.
+💡 טיפ: דרוש לקבל תשלום עליה בסיום עבודה.
+            </span>
+          </button>
+        </div>
+        <div class="tooltip-wrapper">
+          <span class="label">יתרת חוב</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 סכום שאתה חייב למעסיק.
+💡 טיפ: ודא שמוצג הסבר ברור לכל חוב.
+            </span>
+          </button>
+        </div>
+        <div class="tooltip-wrapper">
+          <span class="label">שנת מס</span>
+          <button class="tooltip">?
+            <span class="tooltiptext">
+📄 השנה החשבונאית של התלוש.
+💡 טיפ: בסוף שנה בקש טופס 106 מסכם.
+            </span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script type="module" src="service-employee.js"></script>
+</body>
+</html>

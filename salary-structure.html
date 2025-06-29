@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי – מבנה השכר</title>
+  <link rel="stylesheet" href="salary-structure.css">
+</head>
+<body>
+  <!-- סרגל עליון -->
+  <div class="header-bar">
+    <button class="back-button" onclick="window.location.href = 'timesheet.html'">→</button>
+    <div class="header-title">מבנה השכר</div>
+  </div>
+
+  <!-- תוכן -->
+  <main class="content">
+    <!-- שכר שעתי -->
+    <section class="wage-section">
+      <label for="hourlyWage">סכום שכר שעתי:</label>
+      <div class="wage-control">
+        <button id="minusBtn">−</button>
+        <input type="number" id="hourlyWage" step="0.01" onwheel="this.blur()" />
+        <span>₪</span>
+        <button id="plusBtn">+</button>
+      </div>
+    </section>
+
+    <!-- מגזר -->
+    <section class="sector-section">
+      <div class="sector-header">
+        <div class="sector-title">מגזר מקום העבודה:</div>
+        <button class="info-button" onclick="togglePopup()">?</button>
+      </div>
+      <div class="sector-options">
+        <div class="sector-option">מגזר פרטי 5 ימי עבודה שבועיים</div>
+        <div class="sector-option">מגזר פרטי 6 ימי עבודה שבועיים</div>
+        <div class="sector-option">מגזר ציבורי 5 ימי עבודה שבועיים</div>
+        <div class="sector-option">מגזר ציבורי 6 ימי עבודה שבועיים</div>
+      </div>
+    </section>
+
+    <!-- יום התחלה -->
+    <section class="start-day-section">
+      <div class="instruction">אנא בחר יום התחלת החודש לטובת חישוב השכר:</div>
+      <div class="calendar-grid">
+        <table>
+          <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+          <tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
+          <tr><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td></tr>
+          <tr><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td></tr>
+          <tr><td>29</td><td>30</td><td>31</td><td colspan="4"></td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- תאריך התחלת עבודה -->
+    <section class="form-group">
+      <label for="startDate">תאריך תחילת עבודה:</label>
+      <input type="date" id="startDate" />
+    </section>
+
+    <!-- קישורים למרכיבים נוספים -->
+    <section class="salary-components-section">
+      <div class="components-title">מרכיבי שכר נוספים:</div>
+      <div class="components-buttons">
+        <a href="tax-settings.html" class="component-button">💼 מס הכנסה והטבות</a>
+        <a href="deductions-settings.html" class="component-button">🧾 הורדות / הוספות</a>
+        <a href="special-days-settings.html" class="component-button">📅 ימי עבודה מיוחדים</a>
+        <a href="additional-salary-data.html" class="component-button">📊 נתוני שכר נוספים</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- פופאפ הסבר -->
+  <div id="infoPopup" class="popup-overlay">
+    <div class="popup-box">
+      <button class="popup-close" onclick="togglePopup()">X</button>
+      <h2>הסבר חישוב שעות נוספות</h2>
+      <div class="popup-section">
+        <h3>מגזר פרטי 5 ימים</h3>
+        <p>מעל 8.6 שעות ביום רגיל (ו‑7.6 ביום מקוצר), ומעל 42 שעות שבועיות.</p>
+      </div>
+      <div class="popup-section">
+        <h3>מגזר פרטי 6 ימים</h3>
+        <p>מעל 8 שעות ביום ומעל 42 שעות שבועיות.</p>
+      </div>
+      <div class="popup-section">
+        <h3>מגזר ציבורי 5 ימים</h3>
+        <p>מעל 8 שעות ביום ומעל 40 שעות שבועיות.</p>
+      </div>
+      <div class="popup-section">
+        <h3>מגזר ציבורי 6 ימים</h3>
+        <p>מעל 7 שעות ביום ומעל 40 שעות שבועיות.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- סקריפט -->
+  <script src="dataService.js"></script>
+<script>
+  function togglePopup(show = null) {
+    const popup = document.getElementById('infoPopup');
+    if (show === true) {
+      popup.classList.add('visible');
+    } else if (show === false) {
+      popup.classList.remove('visible');
+    } else {
+      popup.classList.toggle('visible');
+    }
+  }
+
+  // סגירה בלחיצה מחוץ לתיבה
+  document.addEventListener('click', function(event) {
+    const popup = document.getElementById('infoPopup');
+    const box = popup.querySelector('.popup-box');
+    const isVisible = popup.classList.contains('visible');
+
+    if (isVisible && !box.contains(event.target) && !event.target.classList.contains('info-button')) {
+      togglePopup(false);
+    }
+  });
+
+  // עצירת bubbling כשנלחץ על תוכן הפופאפ
+  document.querySelector('.popup-box')?.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+
+  let wageInput, minusBtn, plusBtn;
+
+  function changeWageBy(delta) {
+    let value = parseFloat(wageInput.value) || 0;
+    value += delta;
+    if (value < 0) value = 0;
+    wageInput.value = value.toFixed(2);
+    saveWage();
+  }
+
+  function saveWage() {
+    const val = parseFloat(wageInput.value) || 0;
+    appData.userSettings.hourlyWage = val;
+    saveData();
+  }
+
+  function selectSector(el) {
+    document.querySelectorAll('.sector-option').forEach(opt => opt.classList.remove('selected'));
+    el.classList.add('selected');
+    appData.userSettings.sector = el.textContent;
+    onSectorChange(el.textContent);
+    saveData();
+  }
+
+  function selectOnlyOneDay(td) {
+    document.querySelectorAll('.calendar-grid td').forEach(cell => cell.classList.remove('selected-day'));
+    td.classList.add('selected-day');
+    appData.userSettings.startDay = parseInt(td.textContent, 10) || 1;
+    saveData();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    loadData();
+    wageInput = document.getElementById('hourlyWage');
+    minusBtn = document.getElementById('minusBtn');
+    plusBtn = document.getElementById('plusBtn');
+
+    wageInput.value = appData.userSettings.hourlyWage?.toFixed(2) || "";
+    document.getElementById("startDate").value = appData.userSettings.startDate || "";
+
+    document.querySelectorAll('.sector-option').forEach(opt => {
+      if (opt.textContent === appData.userSettings.sector) opt.classList.add('selected');
+      opt.addEventListener('click', () => selectSector(opt));
+    });
+
+    document.querySelectorAll('.calendar-grid td').forEach(td => {
+      const num = parseInt(td.textContent, 10);
+      if (num === appData.userSettings.startDay) td.classList.add('selected-day');
+      td.addEventListener('click', () => selectOnlyOneDay(td));
+    });
+
+    minusBtn.addEventListener('click', () => changeWageBy(-1));
+    plusBtn.addEventListener('click', () => changeWageBy(1));
+    wageInput.addEventListener('input', saveWage);
+    document.getElementById("startDate").addEventListener("change", e => {
+      appData.userSettings.startDate = e.target.value;
+      saveData();
+    });
+  });
+</script>
+</body>
+</html>

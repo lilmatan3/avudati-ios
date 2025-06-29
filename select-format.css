@@ -1,0 +1,110 @@
+/* Reset & box‑sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Safe‑area padding */
+html, body {
+  height: 100%;
+  font-family: Arial, sans-serif;
+  direction: rtl;
+  background-color: #f9f9ff;
+  padding-top:    env(safe-area-inset-top,    20px);
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+  padding-left:   env(safe-area-inset-left,   16px);
+  padding-right:  env(safe-area-inset-right,  16px);
+  overflow-x: hidden;
+}
+
+/* Fixed back button (notch‑safe) */
+.back-button {
+  position: fixed;
+  top:    calc(env(safe-area-inset-top, 20px) + 8px);
+  right:  calc(env(safe-area-inset-right, 20px) + 8px);
+  width:  36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background-color: #eee;
+  color: #333;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+.back-button:hover {
+  background-color: #ddd;
+}
+
+/* Central container */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
+
+/* Title */
+.main-title {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #333;
+  margin: 24px 0;
+}
+
+/* Format options grid */
+.format-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Single format block */
+.format-block {
+  flex: 1 1 280px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Button */
+.format-button {
+  width: 100%;
+  padding: 16px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #3f51b5;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.format-button:hover {
+  background-color: #303f9f;
+}
+
+/* Description under button */
+.format-description {
+  margin-top: 10px;
+  font-size: 0.875rem;
+  color: #555;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Mobile tweaks */
+@media (max-width: 480px) {
+  .main-title {
+    font-size: 1.25rem;
+    margin: 16px 0;
+  }
+  .format-options {
+    flex-direction: column;
+    gap: 16px;
+  }
+}

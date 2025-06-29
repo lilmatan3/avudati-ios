@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>עבודתי – הגדרות מס הכנסה והטבות</title>
+  <link rel="stylesheet" href="tax-settings.css" />
+</head>
+<body>
+
+  <!-- כפתור חזרה -->
+  <a href="salary-structure.html" class="back-button">←</a>
+
+  <!-- כותרת -->
+  <h1>הגדרות מס הכנסה והטבות</h1>
+
+  <!-- אזור תוכן -->
+  <div class="section">
+    <h2>מס הכנסה</h2>
+
+    <!-- שורת טוגל עם כפתור עזרה -->
+    <div class="row">
+      <label>פטור ממס הכנסה</label>
+      <div class="right-group">
+        <div class="toggle-switch" onclick="toggleSwitch('taxExempt')">
+          <input type="checkbox" id="taxExempt">
+          <span class="slider"></span>
+        </div>
+        <button class="info-button" onclick="openPopup('popupTaxExempt')">?</button>
+      </div>
+    </div>
+
+    <!-- שורות עם קלט + כפתורי פלוס/מינוס/עזרה -->
+    <div class="row">
+      <label>נקודות זיכוי</label>
+      <div class="right-group">
+        <button onclick="changeValue('creditPoints', -1, 0.25)">➖</button>
+        <input type="number" step="0.25" id="creditPoints">
+        <button onclick="changeValue('creditPoints', 1, 0.25)">➕</button>
+        <button class="info-button" onclick="openPopup('popupCreditPoints')">?</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <label>קרן השתלמות (%)</label>
+      <div class="right-group">
+        <button onclick="changeValue('hishtalmut', -1, 0.25)">➖</button>
+        <input type="number" step="0.25" id="hishtalmut">
+        <button onclick="changeValue('hishtalmut', 1, 0.25)">➕</button>
+        <button class="info-button" onclick="openPopup('popupHishtalmut')">?</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <label>קרן פנסיה (%)</label>
+      <div class="right-group">
+        <button onclick="changeValue('pension', -1, 0.25)">➖</button>
+        <input type="number" step="0.25" id="pension">
+        <button onclick="changeValue('pension', 1, 0.25)">➕</button>
+        <button class="info-button" onclick="openPopup('popupPension')">?</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <label>פיצויים (%)</label>
+      <div class="right-group">
+        <button onclick="changeValue('severance', -1, 0.25)">➖</button>
+        <input type="number" step="0.25" id="severance">
+        <button onclick="changeValue('severance', 1, 0.25)">➕</button>
+        <button class="info-button" onclick="openPopup('popupSeverance')">?</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <label>זכאות ליישוב מזכה</label>
+      <div class="right-group">
+        <div class="toggle-switch" onclick="toggleSwitch('enableSettlementDiscount')">
+          <input type="checkbox" id="enableSettlementDiscount">
+          <span class="slider"></span>
+        </div>
+        <button class="info-button" onclick="openPopup('popupSettlement')">?</button>
+      </div>
+    </div>
+
+    <div class="settlement-fields" id="settlementFields">
+      <div class="row">
+        <label>אחוז הנחה (%)</label>
+        <input type="number" step="0.1" id="settlementDiscountPercent">
+      </div>
+      <div class="row">
+        <label>תקרה שנתית (₪)</label>
+        <input type="number" step="1" id="settlementAnnualLimit">
+      </div>
+      <div class="row">
+        <a href="https://www.kolzchut.org.il/he/הנחות_מס_לזכאים_ביישובים_מזכים" target="_blank">
+          הצג רשימת היישובים המזכים באתר כל זכות
+        </a>
+      </div>
+    </div>
+
+    <!-- שלושת הטוגלים בסוף -->
+    <div class="row">
+      <label>האם זו עבודתי היחידה?</label>
+      <div class="right-group">
+        <div class="toggle-switch" onclick="toggleSwitch('jobOnly')">
+          <input type="checkbox" id="jobOnly">
+          <span class="slider"></span>
+        </div>
+        <button class="info-button" onclick="openPopup('popupJobOnly')">?</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <label>פטור מביטוח לאומי</label>
+      <div class="right-group">
+        <div class="toggle-switch" onclick="toggleSwitch('noBituahLeumi')">
+          <input type="checkbox" id="noBituahLeumi">
+          <span class="slider"></span>
+        </div>
+        <button class="info-button" onclick="openPopup('popupBituahLeumi')">?</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <label>פטור ממס בריאות</label>
+      <div class="right-group">
+        <div class="toggle-switch" onclick="toggleSwitch('noHealthTax')">
+          <input type="checkbox" id="noHealthTax">
+          <span class="slider"></span>
+        </div>
+        <button class="info-button" onclick="openPopup('popupHealthTax')">?</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- פופאפים -->
+  <div id="popupTaxExempt" class="popup-overlay">
+    <div class="popup-content">
+      <button class="close-popup" onclick="closePopup('popupTaxExempt')">×</button>
+      <h2>פטור ממס</h2>
+      <p>אם בחרת בפטור ממס, לא יחושב מס הכנסה כלל בתלוש.</p>
+    </div>
+  </div>
+
+  <div id="popupCreditPoints" class="popup-overlay">
+    <div class="popup-content">
+      <button class="close-popup" onclick="closePopup('popupCreditPoints')">×</button>
+      <h2>נקודות זיכוי</h2>
+      <p>נקודות זיכוי מקטינות את גובה המס. לכל תושב ישראל מגיעות לפחות 2.25 נקודות.</p>
+    </div>
+  </div>
+
+  <div id="popupHishtalmut" class="popup-overlay">
+    <div class="popup-content">
+      <button class="close-popup" onclick="closePopup('popupHishtalmut')">×</button>
+      <h2>קרן השתלמות</h2>
+      <p>ניכוי חודשי לטובת חיסכון פטור ממס. לא חובה, אך מומלץ.</p>
+    </div>
+  </div>
+
+  <div id="popupPension" class="popup-overlay">
+    <div class="popup-content">
+      <button class="close-popup" onclick="closePopup('popupPension')">×</button>
+      <h2>פנסיה</h2>
+      <p>ניכוי חובה לפי חוק. מבטיח קצבה עתידית לעובד.</p>
+    </div>
+  </div>
+
+  <div id="popupSeverance" class="popup-overlay">
+    <div class="popup-content">
+      <button class="close-popup" onclick="closePopup('popupSeverance')">×</button>
+      <h2>פיצויי פיטורין</h2>
+      <p>הפרשות לפיצויים עתידיים מהמעסיק, לפי החוק.</p>
+    </div>
+  </div>
+
+  <div id="popupSettlement" class="popup-overlay">
+    <div class="popup-content">
+      <button class="close-popup" onclick="closePopup('popupSettlement')">×</button>
+      <h2>הנחת יישוב מזכה</h2>
+      <p>מעניק הנחה באחוז מהשכר, עד תקרה שנתית, בהתאם למקום מגורים מוכר.</p>
+    </div>
+  </div>
+
+  <div id="popupJobOnly" class="popup-overlay">
+    <div class="popup-content">
+      <button class="close-popup" onclick="closePopup('popupJobOnly')">×</button>
+      <h2>עבודה יחידה</h2>
+      <p>אם זו עבודתך היחידה, חישוב המס נעשה במלואו. אחרת נדרש תיאום מס.</p>
+    </div>
+  </div>
+
+  <div id="popupBituahLeumi" class="popup-overlay">
+    <div class="popup-content">
+      <button class="close-popup" onclick="closePopup('popupBituahLeumi')">×</button>
+      <h2>פטור מביטוח לאומי</h2>
+      <p>לרוב ניתן לסטודנטים, גמלאים או במקרים מיוחדים. נדרש אישור.</p>
+    </div>
+  </div>
+
+  <div id="popupHealthTax" class="popup-overlay">
+    <div class="popup-content">
+      <button class="close-popup" onclick="closePopup('popupHealthTax')">×</button>
+      <h2>פטור ממס בריאות</h2>
+      <p>במקרים מסוימים ניתן פטור מהפרשת מס בריאות. יש לבדוק זכאות.</p>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="dataService.js"></script>
+  <script>
+    function toggleSwitch(id) {
+      const cb = document.getElementById(id);
+      cb.checked = !cb.checked;
+      cb.dispatchEvent(new Event('input'));
+    }
+
+    function changeValue(id, dir, step) {
+      const el = document.getElementById(id);
+      let v = parseFloat(el.value) || 0;
+      v = Math.round((v + dir * step) / step) * step;
+      el.value = v.toFixed((step.toString().split('.')[1] || '').length);
+      el.dispatchEvent(new Event('input'));
+    }
+
+    function openPopup(id) {
+      document.getElementById(id)?.classList.add('visible');
+    }
+
+    function closePopup(id) {
+      document.getElementById(id)?.classList.remove('visible');
+    }
+
+    window.addEventListener('click', e => {
+      document.querySelectorAll('.popup-overlay.visible').forEach(p => {
+        const box = p.querySelector('.popup-content');
+        if (!box.contains(e.target) && !e.target.classList.contains('info-button')) {
+          p.classList.remove('visible');
+        }
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadData();
+      if (!appData.taxSettings) appData.taxSettings = {};
+      const s = appData.taxSettings;
+      const get = id => document.getElementById(id);
+
+      get('taxExempt').checked = !!s.taxExempt;
+      get('creditPoints').value = s.creditPoints ?? 2.25;
+      get('hishtalmut').value = s.hishtalmut ?? 0;
+      get('pension').value = s.pension ?? 6;
+      get('severance').value = s.severance ?? 8.33;
+      get('enableSettlementDiscount').checked = !!s.enableSettlementDiscount;
+      get('settlementFields').style.display = s.enableSettlementDiscount ? 'flex' : 'none';
+      get('settlementDiscountPercent').value = s.settlementDiscountPercent ?? 0;
+      get('settlementAnnualLimit').value = s.settlementAnnualLimit ?? 0;
+      get('jobOnly').checked = s.jobOnly ?? true;
+      get('noBituahLeumi').checked = !!s.noBituahLeumi;
+      get('noHealthTax').checked = !!s.noHealthTax;
+
+      document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', () => {
+          s.taxExempt = get('taxExempt').checked;
+          s.creditPoints = parseFloat(get('creditPoints').value) || 0;
+          s.hishtalmut = parseFloat(get('hishtalmut').value) || 0;
+          s.pension = parseFloat(get('pension').value) || 0;
+          s.severance = parseFloat(get('severance').value) || 0;
+          s.enableSettlementDiscount = get('enableSettlementDiscount').checked;
+          s.settlementDiscountPercent = s.enableSettlementDiscount ? parseFloat(get('settlementDiscountPercent').value) || 0 : 0;
+          s.settlementAnnualLimit = s.enableSettlementDiscount ? parseFloat(get('settlementAnnualLimit').value) || 0 : 0;
+          s.jobOnly = get('jobOnly').checked;
+          s.noBituahLeumi = get('noBituahLeumi').checked;
+          s.noHealthTax = get('noHealthTax').checked;
+          get('settlementFields').style.display = s.enableSettlementDiscount ? 'flex' : 'none';
+          saveData();
+        });
+      });
+    });
+  </script>
+</body>
+</html>

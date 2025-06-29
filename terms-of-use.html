@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <!-- תמיכה ב‑viewport וב‑safe‑area ב‑iPhone -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי – תנאי שימוש</title>
+  <style>
+    /* Reset */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body {
+      height:100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f2f7ff;
+      color: #333;
+      direction: rtl;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      -webkit-text-size-adjust:100%;
+      overflow-x:hidden;
+    }
+    /* ניווט עליון */
+    .top-nav {
+      position: fixed;
+      top: calc(env(safe-area-inset-top) + 8px);
+      left: 0; right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 12px;
+      z-index:1000;
+    }
+    .top-nav a {
+      background: rgba(255,255,255,0.9);
+      padding: 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 22px;
+      color: #3f51b5;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      user-select: none;
+    }
+    /* תוכן ראשי */
+    .container {
+      padding: 20px 16px;
+      padding-top: calc( env(safe-area-inset-top) + 60px );
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    h2 {
+      font-size: 20px;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      color: #3f51b5;
+    }
+    p, li {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+    ul {
+      margin-left: 16px;
+      margin-bottom: 12px;
+    }
+    /* כותרת תחתית */
+    .footer {
+      margin-top: 30px;
+      padding-top: 10px;
+      border-top: 1px solid #ccc;
+      font-size: 14px;
+      text-align: center;
+      color: #666;
+    }
+    /* רספונסיב */
+    @media (max-width: 480px) {
+      .container { padding: 16px 12px; }
+      h1 { font-size: 20px; }
+      h2 { font-size: 18px; }
+      p, li { font-size: 14px; }
+      .top-nav a { font-size: 20px; padding: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-nav">
+    <a href="index.html">🏠</a>
+    <a href="javascript:history.back()">←</a>
+  </div>
+
+  <div class="container">
+    <h1>תנאי שימוש באפליקציית "עבודתי"</h1>
+
+    <h2>1. זכויות יוצרים</h2>
+    <p>כל הזכויות באפליקציה זו ובתכנים הכלולים בה שמורות ל‑Matan Ben Ezra, אלא אם צוין אחרת.</p>
+    <ul>
+      <li>אין להעתיק, לשכפל, להפיץ או לעשות שימוש מסחרי באפליקציה ללא אישור מפורש ובכתב.</li>
+      <li>הקוד והתכנים מוגנים על פי חוק זכויות יוצרים בישראל ובעולם.</li>
+    </ul>
+
+    <h2>2. אחריות</h2>
+    <p>האפליקציה נועדה לצורכי סימולציה בלבד ואינה מהווה תחליף לייעוץ משפטי או תלוש שכר רשמי.</p>
+    <ul>
+      <li>השימוש באפליקציה נעשה על אחריות המשתמש בלבד.</li>
+      <li>המפתח אינו אחראי לטעויות חישוב, שינויים בחוק או נזק שייגרם כתוצאה מהשימוש.</li>
+    </ul>
+
+    <h2>3. פרטיות</h2>
+    <p>המידע נשמר באופן מקומי בלבד בדפדפן/מכשיר של המשתמש ואינו נשלח לשרת חיצוני.</p>
+
+    <h2>4. שינוי תנאים</h2>
+    <p>המפתח שומר לעצמו את הזכות לעדכן את תנאי השימוש בכל עת. כל שינוי ייכנס לתוקף עם פרסומו בעמוד זה.</p>
+
+    <div class="footer">
+      &copy; 2025 עבודתי – כל הזכויות שמורות. פיתוח: Matan Ben Ezra.
+    </div>
+  </div>
+</body>
+</html>

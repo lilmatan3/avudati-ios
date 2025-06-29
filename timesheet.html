@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Timesheet with Consecutive Sick Days</title>
+
+  <!-- סגנונות -->
+  <link rel="stylesheet" href="timesheet.css">
+
+  <!-- שירות הנתונים שלך -->
+  <script src="dataService.js"></script>
+
+  <!-- לוגיקת העמוד -->
+  <script defer src="timesheet.js"></script>
+</head>
+
+<body>
+  <!-- כפתורי ניווט קבועים -->
+  <a href="index.html" class="home-button">🏠</a>
+
+  <div class="container">
+    <!-- ‑‑‑ top‑section: תאריך/שעה וניווט חודש‑‑‑ -->
+    <div class="top-section">
+      <div class="current-datetime">
+        <span id="currentDate"></span> <span id="currentTime"></span>
+      </div>
+
+      <div class="month-year-selector" style="direction:ltr;">
+        <button class="nav-button" id="prevMonth">&larr;</button>
+        <button class="month-year-display" id="monthYearDisplay"></button>
+        <button class="nav-button" id="nextMonth">&rarr;</button>
+
+        <select id="yearSelector" style="display:none;">
+          <!-- 2020‑2033 -->
+          <option>2020</option><option>2021</option><option>2022</option>
+          <option>2023</option><option>2024</option>
+          <option selected>2025</option>
+          <option>2026</option><option>2027</option><option>2028</option>
+          <option>2029</option><option>2030</option><option>2031</option>
+          <option>2032</option><option>2033</option>
+        </select>
+      </div>
+
+      <div class="month-row">
+        <!-- כפתורי 01‑12 -->
+        <button data-month="1"  class="month-button">01</button>
+        <button data-month="2"  class="month-button">02</button>
+        <button data-month="3"  class="month-button">03</button>
+        <button data-month="4"  class="month-button">04</button>
+        <button data-month="5"  class="month-button">05</button>
+        <button data-month="6"  class="month-button">06</button>
+        <button data-month="7"  class="month-button">07</button>
+        <button data-month="8"  class="month-button">08</button>
+        <button data-month="9"  class="month-button">09</button>
+        <button data-month="10" class="month-button">10</button>
+        <button data-month="11" class="month-button">11</button>
+        <button data-month="12" class="month-button">12</button>
+      </div>
+    </div>
+
+    <!-- ‑‑‑ middle‑section: הטבלה ‑‑‑ -->
+    <div class="middle-section">
+      <div class="timesheet-table">
+        <table>
+          <thead>
+            <tr>
+              <th>תאריך</th><th>כניסה</th><th>יציאה</th><th>סוג יום</th>
+              <th>הפסקה</th><th>לילה/שבת</th><th>שעות מחושבות</th>
+              <th>שעות נוספות</th><th>סכום</th><th>הערות</th>
+            </tr>
+          </thead>
+          <tbody id="timesheetBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ‑‑‑ bottom‑section: סיכום וכפתורים ‑‑‑ -->
+    <div class="bottom-section">
+      <div class="summary-row">
+        סה"כ שעות: <span id="totalHours">0</span> |
+        סה"כ סכום: <span id="totalAmount">₪0</span>
+      </div>
+      <div class="action-row">
+        <button class="salary-settings-button" onclick="window.location.href='salary-structure.html'">⚙️ מבנה שכר</button>
+        <button class="add-day-button" onclick="openDayFormNew()">➕ הוסף יום</button>
+        <button class="paystub-button" onclick="window.location.href='paystub.html'">📄 הפקת תלוש</button>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Overlay ‑ add/edit day -->
+  <div id="dayFormOverlay" class="day-form-overlay">
+    <form id="dayForm" class="day-form">
+      <h2 id="dayFormTitle">הוספת יום</h2>
+
+      <div class="row"><label>תאריך:</label><input type="date" required></div>
+
+      <div class="row time-row"><label>שעת כניסה:</label><input type="time"></div>
+      <div class="row time-row"><label>שעת יציאה:</label><input type="time"></div>
+
+      <div class="row">
+        <label>סוג יום:</label>
+        <select name="dayType">
+          <option>רגיל</option><option>חופש</option><option>מחלה</option>
+          <option>מילואים</option><option>ערב חג</option><option>חג</option>
+        </select>
+      </div>
+
+      <div class="row break-row">
+        <label>הפסקה (בדקות):</label>
+        <input name="dailyBreak" type="number" min="0">
+      </div>
+
+      <div class="row">
+        <label>עבודה בלילה/שבת:</label>
+        <select name="nightVal"><option>לא</option><option>כן</option></select>
+      </div>
+
+      <div class="row"><label>הערה:</label><textarea name="notes"></textarea></div>
+
+      <div class="buttons">
+        <button type="submit" class="add">שמור</button>
+        <button type="button" id="deleteBtn" class="delete-btn">מחק</button>
+        <button type="button" class="cancel" onclick="closeDayForm()">ביטול</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Overlay ‑ excel export -->
+  <div id="excelOverlay" class="excel-overlay">
+    <div class="excel-form">
+      <h2>הורדת דוח אקסל</h2>
+
+      <div class="row">
+        <label>בחר שנה:</label>
+        <select id="excelYear">
+          <!-- 2020‑2033 -->
+          <option>2020</option><option>2021</option><option>2022</option>
+          <option>2023</option><option>2024</option>
+          <option selected>2025</option>
+          <option>2026</option><option>2027</option><option>2028</option>
+          <option>2029</option><option>2030</option><option>2031</option>
+          <option>2032</option><option>2033</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label>בחר חודש:</label>
+        <select id="excelMonth">
+          <option value="1">ינואר</option><option value="2">פברואר</option>
+          <option value="3">מרץ</option><option value="4">אפריל</option>
+          <option value="5">מאי</option><option value="6">יוני</option>
+          <option value="7">יולי</option><option value="8" selected>אוגוסט</option>
+          <option value="9">ספטמבר</option><option value="10">אוקטובר</option>
+          <option value="11">נובמבר</option><option value="12">דצמבר</option>
+        </select>
+      </div>
+
+      <div class="buttons">
+        <button class="cancel-btn" id="excelCancelBtn">ביטול</button>
+        <button class="export-btn" id="excelExportBtn">הורדה</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

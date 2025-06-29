@@ -1,0 +1,184 @@
+/* Reset בסיסי */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* safe‑area סביב כל העמוד */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  direction: rtl;
+  color: #333;
+  background: linear-gradient(rgba(255,255,255,0.87), rgba(255,255,255,0.87)),
+              url('assets/background.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+  padding-top:    env(safe-area-inset-top,    20px);
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+  padding-left:   env(safe-area-inset-left,   16px);
+  padding-right:  env(safe-area-inset-right,  16px);
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* ניווט עליון */
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.top-nav a {
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: #34495e;
+  background: none;
+  border: none;
+  padding: 0.25rem 0.5rem;
+}
+
+.top-nav h1 {
+  flex: 1;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #34495e;
+  padding: 0 2rem; /* מרווח לצדדים לכפתורים */
+}
+
+/* תוכן ראשי */
+.content {
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+}
+
+/* כל סקשן עם רקע וכותרת */
+.section {
+  background: #fff;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.1);
+}
+.section h2 {
+  font-size: 1.125rem;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+/* שורות מידע */
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.row label {
+  flex: 1 1 auto;
+  font-size: 1rem;
+}
+.row input[type="number"] {
+  flex: 1 1 auto;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;
+  text-align: center;
+  min-height: 2.5rem; /* touch target */
+}
+
+/* כפתורי מידע קטנים */
+.info-button {
+  flex: 0 0 auto;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  background-color: #6c63ff;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.info-button:hover {
+  background-color: #574fcf;
+}
+
+/* פופאפ כולל רקע כהה */
+.popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+.popup.visible {
+  display: flex;
+}
+
+/* תוכן הפופאפ */
+.popup-content {
+  position: relative;
+  background: #fff;
+  border-radius: 0.5rem;
+  width: 90%;
+  max-width: 360px;
+  padding: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.2);
+}
+.popup h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  text-align: center;
+}
+.popup p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* כפתור סגירה */
+.close-popup {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: #999;
+  cursor: pointer;
+}
+.close-popup:hover {
+  color: #333;
+}
+
+/* התאמות למסכים קטנים */
+@media (max-width: 360px) {
+  .content {
+    padding: 0 0.5rem;
+  }
+
+  .top-nav h1 {
+    font-size: 1.3rem;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .info-button {
+    margin-top: 0.5rem;
+    align-self: flex-end;
+  }
+}

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <!-- תמיכה ב-safe‑area ובסקלינג נכון באייפון -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי – קניית דירה / משכנתא</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* בסיס ותמיכה ב-safe‑area של iOS */
+    body {
+      margin: 0;
+      padding-top: env(safe-area-inset-top);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      background-color: #f2f7ff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    /* ניווט עליון קבוע */
+    .top-nav {
+      position: fixed;
+      top: env(safe-area-inset-top);
+      left: 0;
+      right: 0;
+      height: 50px;
+      background: rgba(255,255,255,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    .top-nav a {
+      font-size: 24px;
+      text-decoration: none;
+      color: #3f51b5;
+      padding: 8px;
+      border-radius: 6px;
+    }
+
+    /* עטוף התוכן מתחת לניווט */
+    .content {
+      padding: 70px 16px 20px;
+    }
+
+    /* כותרת משנית */
+    .subheader {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    /* גריד כרטיסי הטיפים */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+
+    /* עיצוב כרטיס טיפ */
+    .tip-card {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: transform 0.1s, background-color 0.2s;
+    }
+    .tip-card h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+    .tip-card p {
+      flex-grow: 1;
+      font-size: 14px;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .tip-card button {
+      padding: 8px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      background-color: #6c63ff;
+      color: white;
+      cursor: pointer;
+    }
+    .tip-card:hover {
+      background-color: #e7edff;
+      transform: translateY(-2px);
+    }
+
+    /* סגנון לפופאפ */
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+      box-sizing: border-box;
+      overflow-y: auto;
+      z-index: 2000;
+    }
+    .popup-content {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .popup-content h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+    .popup-content p,
+    .popup-content ol,
+    .popup-content ul {
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    .popup-content .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* התאמות למסך קטן */
+    @media (max-width: 480px) {
+      .top-nav {
+        height: 45px;
+      }
+      .top-nav a {
+        font-size: 20px;
+        padding: 6px;
+      }
+      .subheader {
+        font-size: 20px;
+        margin-bottom: 16px;
+      }
+      .card-grid {
+        gap: 8px;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      }
+      .tip-card {
+        padding: 12px;
+        font-size: 14px;
+      }
+      .popup-content {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <a href="tips.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <div class="content">
+    <h1 class="subheader">קניית דירה / משכנתא</h1>
+
+    <div class="card-grid">
+      <div class="tip-card">
+        <h3>שלבי קניית דירה</h3>
+        <p>מה השלבים בדרך לרכישת דירה – מחיפוש ועד קבלת מפתח</p>
+        <button onclick="openPopup('popup1')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>הון עצמי</h3>
+        <p>כמה כסף צריך כדי להתחיל – ומה הבנקים דורשים?</p>
+        <button onclick="openPopup('popup2')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>מסלולי משכנתא</h3>
+        <p>ההבדלים בין ריבית פריים, קבועה, משתנה ועוד – הסבר פשוט</p>
+        <button onclick="openPopup('popup3')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>ייעוץ משכנתא</h3>
+        <p>האם כדאי לקחת יועץ פרטי או להסתפק ביועץ הבנק?</p>
+        <button onclick="openPopup('popup4')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>זכאות למשכנתא</h3>
+        <p>תנאים, מסמכים ותהליך קבלת אישור עקרוני למשכנתא</p>
+        <button onclick="openPopup('popup5')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>מס רכישה</h3>
+        <p>כמה תשלם למס? איך זה משתנה לפי שווי הדירה והאם זו דירה ראשונה?</p>
+        <button onclick="openPopup('popup6')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>בדיקת שמאי</h3>
+        <p>למה הבנק דורש שמאי, ומה עלול להתגלות בבדיקה?</p>
+        <button onclick="openPopup('popup7')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>חוזה רכישה</h3>
+        <p>אילו סעיפים חייבים לבדוק לפני שחותמים על חוזה לדירה?</p>
+        <button onclick="openPopup('popup8')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>עו"ד ברכישת דירה</h3>
+        <p>למה חשוב לשכור עו"ד משלך – ולא להסתמך על עו"ד הקבלן</p>
+        <button onclick="openPopup('popup9')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>הוצאות נלוות</h3>
+        <p>מעבר למחיר הדירה – אילו הוצאות נוספות יש בחישוב הכולל?</p>
+        <button onclick="openPopup('popup10')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>בדיקת טאבו</h3>
+        <p>איך בודקים שהנכס רשום בטאבו, ומה המשמעות של "חברה משכנת"?</p>
+        <button onclick="openPopup('popup11')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>החזר חודשי</h3>
+        <p>איך מחשבים מה יהיה גובה ההחזר החודשי – ואיך יודעים שנעמוד בו?</p>
+        <button onclick="openPopup('popup12')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>סוגי ריביות</h3>
+        <p>מה ההבדל בין פריים, קבועה לא צמודה, משתנה כל 5 – ואיך זה משפיע עליך?</p>
+        <button onclick="openPopup('popup13')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>השוואת הצעות</h3>
+        <p>איך משווים בין הצעות משכנתא מבנקים שונים – ומה לשאול בכל פגישה?</p>
+        <button onclick="openPopup('popup14')">לפרטים</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- פופאפים מלאים -->
+  <div id="popup1" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup1')">&times;</button>
+      <h2>📋 שלבי קניית דירה</h2>
+      <ol>
+        <li>הגדרת תקציב והון עצמי</li>
+        <li>בדיקת זכאות למשכנתא</li>
+        <li>חיפוש דירה והשוואה</li>
+        <li>חתימה על זיכרון דברים / חוזה</li>
+        <li>בקשת משכנתא מהבנק</li>
+        <li>בדיקות שמאי וטאבו</li>
+        <li>חתימה על מסמכי המשכנתא והעברת תשלום</li>
+        <li>רישום הנכס בטאבו</li>
+      </ol>
+    </div>
+  </div>
+  <div id="popup2" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup2')">&times;</button>
+      <h2>💰 הון עצמי</h2>
+      <p>
+        מינימום נדרש לפי בנק ישראל:
+        <ul>
+          <li>דירה ראשונה – 25% משווי הדירה</li>
+          <li>דירה להשקעה – 50%</li>
+          <li>משפרי דיור – 30%</li>
+        </ul>
+        כדאי גם להשאיר רזרבה להוצאות נוספות (עו"ד, מס רכישה, שיפוצים).
+      </p>
+    </div>
+  </div>
+  <div id="popup3" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup3')">&times;</button>
+      <h2>📈 מסלולי משכנתא</h2>
+      <ul>
+        <li>פריים – ריבית משתנה לפי בנק ישראל</li>
+        <li>קבועה לא צמודה – ריבית קבועה</li>
+        <li>משתנה כל 5/7 שנים</li>
+        <li>צמודה למדד / לא צמודה</li>
+      </ul>
+    </div>
+  </div>
+  <div id="popup4" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup4')">&times;</button>
+      <h2>🧑‍💼 ייעוץ משכנתא</h2>
+      <ul>
+        <li>ניתוח צרכים כלכליים</li>
+        <li>תמהיל מותאם</li>
+        <li>מו"מ מול בנקים</li>
+        <li>ליווי עד החתימה</li>
+      </ul>
+    </div>
+  </div>
+  <div id="popup5" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup5')">&times;</button>
+      <h2>✅ זכאות למשכנתא</h2>
+      <ul>
+        <li>תלושי שכר / דוחות הכנסה</li>
+        <li>אישורי מס</li>
+        <li>דו"ח בנקאי</li>
+        <li>מסמכים מזהים</li>
+      </ul>
+    </div>
+  </div>
+  <div id="popup6" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup6')">&times;</button>
+      <h2>📑 מס רכישה</h2>
+      <ul>
+        <li>דירה ראשונה – פטור עד ~1.9 מיליון ₪</li>
+        <li>דירה שנייה – 8%–10%</li>
+      </ul>
+    </div>
+  </div>
+  <div id="popup7" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup7')">&times;</button>
+      <h2>🔍 בדיקת שמאי</h2>
+      <p>אם השמאי מעריך בפחות מהמחיר – הבנק ילווה לפי הערכת השמאי.</p>
+    </div>
+  </div>
+  <div id="popup8" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup8')">&times;</button>
+      <h2>📃 חוזה רכישה</h2>
+      <ul>
+        <li>גוש/חלקה מדויקים</li>
+        <li>לוחות זמנים לתשלום</li>
+        <li>התחייבות לרישום בטאבו</li>
+        <li>סעיף ביטול ותנאים מתלים</li>
+      </ul>
+    </div>
+  </div>
+  <div id="popup9" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup9')">&times;</button>
+      <h2>⚖️ עו"ד ברכישת דירה</h2>
+      <ul>
+        <li>בדיקת טאבו וזכויות</li>
+        <li>ניסוח / תיקון חוזה</li>
+        <li>תיאום עם הבנק</li>
+        <li>רישום בטאבו</li>
+      </ul>
+    </div>
+  </div>
+  <div id="popup10" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup10')">&times;</button>
+      <h2>💸 הוצאות נלוות</h2>
+      <ul>
+        <li>עו"ד (0.5%–1.5%)</li>
+        <li>דמי פתיחת תיק</li>
+        <li>מס רכישה</li>
+        <li>שמאות</li>
+        <li>תיווך</li>
+        <li>ריהוט ושיפוצים</li>
+      </ul>
+    </div>
+  </div>
+  <div id="popup11" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup11')">&times;</button>
+      <h2>🗂️ בדיקת טאבו</h2>
+      <p>בדקו שאין עיקולים, זכויות צד ג' או חריגות בנייה.</p>
+    </div>
+  </div>
+  <div id="popup12" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup12')">&times;</button>
+      <h2>📆 החזר חודשי</h2>
+      <p>המקסימום המומלץ הוא כ‑40% מהכנסה נטו. השתמשו במחשבון משכנתא.</p>
+    </div>
+  </div>
+  <div id="popup13" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup13')">&times;</button>
+      <h2>📊 סוגי ריביות</h2>
+      <ul>
+        <li>פריים</li>
+        <li>קבועה לא צמודה</li>
+        <li>משתנה כל 5/7 שנים</li>
+      </ul>
+    </div>
+  </div>
+  <div id="popup14" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup14')">&times;</button>
+      <h2>📑 השוואת הצעות</h2>
+      <ul>
+        <li>ריבית בכל מסלול</li>
+        <li>אפשרות לפרעון מוקדם</li>
+        <li>תמהיל מותאם</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    function openPopup(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
+</body>
+</html>

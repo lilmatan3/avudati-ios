@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי – ימי עבודה מיוחדים</title>
+  <link rel="stylesheet" href="special-days-settings.css">
+</head>
+<body>
+
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <a href="salary-structure.html" class="back-button">←</a>
+    <a href="index.html" class="home-button">🏠</a>
+    <h1>הגדרות ימי עבודה מיוחדים</h1>
+  </div>
+
+  <main class="content">
+
+    <section class="section">
+      <h2>💼 תשלום עבור מילואים</h2>
+      <div class="row">
+        <label for="milAmount">תשלום ליום מילואים (₪):</label>
+        <input type="number" id="milAmount" min="0" />
+        <button class="info-button" onclick="togglePopup('popupMil')">?</button>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>🩺 אחוז תשלום ימי מחלה</h2>
+      <div class="row">
+        <label for="sick1Percent">יום ראשון (%):</label>
+        <input type="number" id="sick1Percent" min="0" max="100" placeholder="0" />
+      </div>
+      <div class="row">
+        <label for="sick2Percent">יום שני (%):</label>
+        <input type="number" id="sick2Percent" min="0" max="100" placeholder="50" />
+      </div>
+      <div class="row">
+        <label for="sick3Percent">יום שלישי (%):</label>
+        <input type="number" id="sick3Percent" min="0" max="100" placeholder="75" />
+      </div>
+      <div class="row">
+        <label for="sick4Percent">יום רביעי והלאה (%):</label>
+        <input type="number" id="sick4Percent" min="0" max="100" placeholder="100" />
+        <button class="info-button" onclick="togglePopup('popupSick')">?</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- פופאפ מילואים -->
+  <div id="popupMil" class="popup" role="dialog" aria-modal="true">
+    <div class="popup-content">
+      <button class="close-popup" onclick="togglePopup('popupMil')">×</button>
+      <h2>מילואים</h2>
+      <p>תשלום עבור ימי מילואים מחושב לפי ממוצע שכר קבוע, בהתאם לדיווח לביטוח לאומי.</p>
+    </div>
+  </div>
+
+  <!-- פופאפ מחלה -->
+  <div id="popupSick" class="popup" role="dialog" aria-modal="true">
+    <div class="popup-content">
+      <button class="close-popup" onclick="togglePopup('popupSick')">×</button>
+      <h2>ימי מחלה</h2>
+      <p>
+        על פי חוק:<br>
+        יום ראשון – 0%<br>
+        יום שני – 50%<br>
+        יום שלישי – 75%<br>
+        יום רביעי ואילך – 100%<br><br>
+        ניתן לשנות לפי הסכם אישי.
+      </p>
+    </div>
+  </div>
+
+  <script src="dataService.js"></script>
+  <script>
+    function togglePopup(id) {
+      const pop = document.getElementById(id);
+      const isVisible = pop.classList.contains("visible");
+      if (isVisible) {
+        pop.classList.remove("visible");
+      } else {
+        document.querySelectorAll(".popup").forEach(p => p.classList.remove("visible"));
+        pop.classList.add("visible");
+      }
+    }
+
+    // סגירת הפופאפ בלחיצה מחוץ לתיבה
+    window.addEventListener('click', e => {
+      document.querySelectorAll('.popup.visible').forEach(p => {
+        const content = p.querySelector('.popup-content');
+        if (!content.contains(e.target) && !e.target.classList.contains('info-button')) {
+          p.classList.remove('visible');
+        }
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadData();
+      if (!appData.specialDaysSettings) {
+        appData.specialDaysSettings = {
+          milAmount: 300,
+          sickDays: {
+            day1: { percent: 0 },
+            day2: { percent: 50 },
+            day3: { percent: 75 },
+            day4Plus: { percent: 100 }
+          }
+        };
+      }
+      const s = appData.specialDaysSettings;
+      const sd = s.sickDays;
+      document.getElementById('milAmount').value = s.milAmount;
+      document.getElementById('sick1Percent').value = sd.day1.percent;
+      document.getElementById('sick2Percent').value = sd.day2.percent;
+      document.getElementById('sick3Percent').value = sd.day3.percent;
+      document.getElementById('sick4Percent').value = sd.day4Plus.percent;
+
+      document.querySelectorAll('input').forEach(inp => {
+        inp.addEventListener('input', () => {
+          s.milAmount = parseFloat(document.getElementById('milAmount').value) || 0;
+          sd.day1.percent = parseFloat(document.getElementById('sick1Percent').value) || 0;
+          sd.day2.percent = parseFloat(document.getElementById('sick2Percent').value) || 0;
+          sd.day3.percent = parseFloat(document.getElementById('sick3Percent').value) || 0;
+          sd.day4Plus.percent = parseFloat(document.getElementById('sick4Percent').value) || 0;
+          saveData();
+        });
+      });
+    });
+  </script>
+</body>
+</html>

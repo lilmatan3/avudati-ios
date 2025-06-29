@@ -1,0 +1,260 @@
+/* ========== משתנה עזר – גובה סטטוס‑בר + ריווח ==========
+   אפשר לשנות רק כאן אם תרצה גובה אחר בהמשך                */
+   :root{
+    --safe-top-offset: calc(env(safe-area-inset-top, 0px) + 44px);
+  }
+  
+  /* ========== בסיס ========== */
+  *,
+  *::before,
+  *::after{box-sizing:border-box;}
+  
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    direction: rtl;
+    color: #333;
+  
+    /* רקע עם שכבת טשטוש + תמונה */
+    background: linear-gradient(rgba(255,255,255,0.88), rgba(255,255,255,0.88)),
+                url('assets/background.jpg') center/cover no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    -webkit-font-smoothing: antialiased;
+  
+    /* ריווח תחתון לסרגל קבוע */
+    padding-bottom: 110px;
+  }
+  
+  
+  /* ========== סרגל ניווט קבוע קטן (← , 🏠) ========== */
+  .back-button,
+  .home-button{
+    position:fixed;
+    top:var(--safe-top-offset);        /* ↓ התיקון החשוב ↓ */
+    padding:8px;
+    font-size:22px;
+    line-height:1;
+    text-decoration:none;
+    color:#000;
+    z-index:1200;
+  }
+  .back-button{right:60px;}
+  .home-button{right:20px;}
+  
+  /* ========== קונטיינר כללי ========== */
+  .container{
+    max-width:900px;
+    margin:0 auto;
+  }
+  
+  /* ===== TOP‑SECTION ===== */
+  .top-section{
+    background:#d9e5ff;
+    border-bottom:1px solid #c3d3ff;
+    /* מרווח עליון בהתאם ל‑notch + מקום עבור הכפתורים */
+    padding:var(--safe-top-offset) 16px 14px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+  }
+  
+  .current-datetime{
+    font-size:14px;
+    text-align:center;
+    margin-bottom:4px;
+    font-weight:600;
+  }
+  
+  .month-year-selector{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+  }
+  
+  .nav-button,
+  .month-year-display{
+    background:none;
+    border:none;
+    font-size:22px;
+    cursor:pointer;
+  }
+  .month-year-display{
+    font-weight:700;
+    color:#2c408f;
+  }
+  
+  .month-row{
+    margin-top:8px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:4px;
+  }
+  
+  .month-button{
+    width:38px;
+    height:28px;
+    border:1px solid #9eaefb;
+    border-radius:4px;
+    background:#fff;
+    cursor:pointer;
+    font-weight:600;
+  }
+  
+  /* ===== TABLE ===== */
+  .timesheet-table{overflow-x:auto;}
+  table{
+    border-collapse:collapse;
+    width:100%;
+    min-width:700px;    /* כדי לא לשבור עמודה במובייל */
+    background:#fff;
+  }
+  
+  thead th{
+    background:#5c5be8;
+    color:#fff;
+    padding:6px;
+    font-size:14px;
+    border:1px solid #e2e2e2;
+    white-space:nowrap;
+  }
+  tbody td{
+    padding:6px;
+    border:1px solid #e2e2e2;
+    font-size:14px;
+    text-align:center;
+  }
+  
+  /* ===== סיכום + כפתורים (סרגל קבוע) ===== */
+  .bottom-section{
+    position:fixed;
+    inset:auto 0 0 0;                 /* shorthand */
+    background:#e8efff;
+    padding:10px 12px calc(env(safe-area-inset-bottom,0px) + 12px);
+    box-shadow:0 -2px 8px rgba(0,0,0,.15);
+    z-index:1000;
+  }
+  
+  .summary-row{
+    font-weight:600;
+    text-align:center;
+    margin-bottom:10px;
+  }
+  
+  .action-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+  }
+  .action-row button{
+    flex:1 1 180px;
+    padding:12px 8px;
+    border:none;
+    border-radius:8px;
+    color:#fff;
+    font-size:15px;
+    cursor:pointer;
+  }
+  .salary-settings-button{background:#30489a;}
+  .add-day-button      {background:#2f9d45;}
+  .export-excel-button {background:#715bff;}
+  .paystub-button      {background:#2995ff;}
+  
+  /* ===== שכבות‑על (טפסים) ===== */
+  .day-form-overlay,
+  .excel-overlay{
+    position:fixed;inset:0;
+    background:rgba(0,0,0,.5);
+    display:none;
+    align-items:center;justify-content:center;
+    z-index:1100;
+  }
+  .day-form-overlay.show,
+  .excel-overlay.show{display:flex;}
+  
+  .day-form,
+  .excel-form{
+    background:#fff;padding:20px;border-radius:12px;
+    width:90%;max-width:500px;
+    box-shadow:0 8px 24px rgba(0,0,0,.2);
+  }
+  
+  /* שדות, כותרות וטפסים */
+  .row{display:flex;flex-direction:column;margin-bottom:10px;}
+  .row label{font-weight:700;margin-bottom:4px;}
+  .day-form input,
+  .day-form select,
+  .day-form textarea,
+  .excel-form select{
+    padding:6px 8px;border:1px solid #ccc;border-radius:6px;
+    font-size:15px;
+  }
+  
+  .buttons{
+    display:flex;justify-content:space-between;gap:6px;margin-top:14px;
+  }
+  button.add         {background:#36aa51;color:#fff;}
+  button.cancel,
+  button.cancel-btn  {background:#f44336;color:#fff;}
+  button.delete-btn  {background:#e53935;color:#fff;margin-left:6px;}
+  button.export-btn  {background:#36aa51;color:#fff;}
+  
+  /* ========== MEDIA – אייפון / מסך צר ========== */
+  @media (max-width:430px){
+  
+    .top-section{padding:calc(var(--safe-top-offset) - 4px) 6px 10px;}
+  
+    .month-row{
+      overflow-x:auto;
+      flex-wrap:nowrap;
+      justify-content:flex-start;
+      padding-bottom:4px;
+    }
+    .month-button{
+      flex:0 0 34px;
+      font-size:13px;
+    }
+  
+    thead th,
+    tbody td{font-size:13px;padding:4px;}
+  
+    .action-row button{
+      flex:1 1 48%;
+      font-size:14px;
+      padding:10px 6px;
+    }
+    .action-row{gap:6px;}
+  
+    .back-button,
+    .home-button{
+      font-size:20px;
+    }
+  }
+/* ===== צבעים סופיים לכפתורים – עם !important ===== */
+.salary-settings-button{
+  background:#F48FB1 !important;   /* ורוד פסטלי */
+}
+.add-day-button{
+  background:#4CAF8E !important;   /* ירוק מנטה */
+}
+.export-excel-button{
+  background:#B39DFF !important;   /* סגול‑בהיר */
+}
+
+/* אפקט hover / active נשמר (רצוי שיהיה אחרי‑כן) */
+.salary-settings-button:hover,
+.add-day-button:hover,
+.export-excel-button:hover{
+  filter:brightness(.92);
+}
+.salary-settings-button:active,
+.add-day-button:active,
+.export-excel-button:active{
+  filter:brightness(.85);
+}
+

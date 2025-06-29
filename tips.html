@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <!-- חשוב למכשירי iOS עם notch ולהסקייל נכון -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי – טיפים</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* תמיכה ב-safe‑area של iOS */
+    body {
+      margin: 0;
+      padding-top: env(safe-area-inset-top);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      background-color: #f2f7ff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    /* ניווט עליון קבוע */
+    .top-nav {
+      position: fixed;
+      top: env(safe-area-inset-top);
+      left: 0;
+      right: 0;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    .top-nav a {
+      font-size: 24px;
+      text-decoration: none;
+      color: #3f51b5;
+      padding: 8px;
+      border-radius: 6px;
+    }
+
+    /* תוכן מתחת לניווט */
+    .content {
+      padding: 70px 15px 20px; /* מרווח עליון כדי לא לחסום את הניווט */
+    }
+
+    /* כותרת משנית */
+    .subheader {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    /* רשת הקטגוריות */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+    .category-card {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: transform 0.1s, background-color 0.2s;
+    }
+    .category-card:hover {
+      background-color: #e7edff;
+      transform: translateY(-2px);
+    }
+
+    /* התאמות לטלפונים קטנים */
+    @media (max-width: 480px) {
+      .top-nav {
+        height: 45px;
+      }
+      .top-nav a {
+        font-size: 20px;
+        padding: 6px;
+      }
+      .subheader {
+        font-size: 20px;
+        margin-bottom: 16px;
+      }
+      .category-card {
+        padding: 12px;
+        font-size: 14px;
+      }
+      .category-grid {
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <a href="index.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <div class="content">
+    <!-- כותרת -->
+    <h1 class="subheader">טיפים</h1>
+
+    <!-- קטגוריות -->
+    <div class="category-grid">
+      <div class="category-card" onclick="location.href='tips-tax.html'">מס הכנסה</div>
+      <div class="category-card" onclick="location.href='tips-bituach.html'">ביטוח לאומי</div>
+      <div class="category-card" onclick="location.href='tips-employee.html'">עובד שכיר</div>
+      <div class="category-card" onclick="location.href='tips-freelance.html'">עצמאי / פרילנסר</div>
+      <div class="category-card" onclick="location.href='tips-finance.html'">התנהלות כלכלית אישית</div>
+      <div class="category-card" onclick="location.href='tips-invest.html'">השקעות וחסכונות</div>
+      <div class="category-card" onclick="location.href='tips-jobsearch.html'">מציאת עבודה</div>
+      <div class="category-card" onclick="location.href='tips-business.html'">עסקים וחברות</div>
+      <div class="category-card" onclick="location.href='tips-pension.html'">פנסיה וגמל</div>
+      <div class="category-card" onclick="location.href='tips-house.html'">קניית דירה / משכנתא</div>
+      <div class="category-card" onclick="location.href='tips-zchuyot.html'">זכויות מיוחדות</div>
+    </div>
+  </div>
+
+</body>
+</html>

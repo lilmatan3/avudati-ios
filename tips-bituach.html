@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי – ביטוח לאומי</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* בסיס ו‑safe‑area לתמיכה ב‑iOS */
+    body {
+  margin: 0;
+  padding-top: env(safe-area-inset-top);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  /* רקע קבוע כמו ב-styles.css */
+  background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+              url('assets/background.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+
+    /* ניווט עליון קבוע */
+    .top-nav {
+      position: fixed;
+      top: env(safe-area-inset-top);
+      left: 0; right: 0;
+      height: 50px;
+      background: rgba(255,255,255,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    .top-nav a {
+      font-size: 24px;
+      text-decoration: none;
+      color: #3f51b5;
+      padding: 8px;
+      border-radius: 6px;
+    }
+    /* עוטף התוכן מתחת לניווט */
+    .content {
+      padding: 70px 16px 20px;
+    }
+    .subheader {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    /* גריד כרטיסי הטיפים */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+    .tip-card {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: transform .1s, background .2s;
+    }
+    .tip-card h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+    .tip-card p {
+      flex-grow: 1;
+      font-size: 14px;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .tip-card button {
+      padding: 8px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      background: #6c63ff;
+      color: #fff;
+      cursor: pointer;
+    }
+    .tip-card:hover {
+      background: #e7edff;
+      transform: translateY(-2px);
+    }
+    /* פופאפ */
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+      box-sizing: border-box;
+      overflow-y: auto;
+      z-index: 2000;
+    }
+    .popup-content {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+    }
+    .popup-content h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+    .popup-content p,
+    .popup-content ul {
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    .popup-content .close {
+      position: absolute;
+      top: 10px; right: 10px;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    @media (max-width: 480px) {
+      .subheader { font-size: 20px; margin-bottom: 16px; }
+      .card-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
+      .tip-card { padding: 12px; }
+      .popup-content { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <a href="tips.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <div class="content">
+    <h1 class="subheader">ביטוח לאומי</h1>
+    <div class="card-grid">
+      <div class="tip-card"><h3>קצבת ילדים</h3><p>קצבה חודשית שמועברת להורים עבור כל ילד</p><button onclick="openPopup('popup1')">לפרטים</button></div>
+      <div class="tip-card"><h3>דמי לידה</h3><p>תשלום חד פעמי ליולדת במקום שכר</p><button onclick="openPopup('popup2')">לפרטים</button></div>
+      <div class="tip-card"><h3>עקרת בית</h3><p>מתי צריך לשלם לביטוח לאומי ואיך מבקשים פטור</p><button onclick="openPopup('popup3')">לפרטים</button></div>
+      <div class="tip-card"><h3>דמי אבטלה</h3><p>למי מגיע, כמה זמן, ואיך מגישים בקשה</p><button onclick="openPopup('popup4')">לפרטים</button></div>
+      <div class="tip-card"><h3>דמי פגיעה בעבודה</h3><p>נפצעת בעבודה? כך תגיש בקשה לפיצוי</p><button onclick="openPopup('popup5')">לפרטים</button></div>
+      <div class="tip-card"><h3>תשלום עצמאי</h3><p>איך לדווח ולשלם לביטוח לאומי כעצמאי</p><button onclick="openPopup('popup6')">לפרטים</button></div>
+      <div class="tip-card"><h3>מילואים ושירות אזרחי</h3><p>כיצד ביטוח לאומי משלים שכר למשרתים</p><button onclick="openPopup('popup7')">לפרטים</button></div>
+      <div class="tip-card"><h3>קצבת נכות כללית</h3><p>למי מגיע? איך מגישים תביעה?</p><button onclick="openPopup('popup8')">לפרטים</button></div>
+      <div class="tip-card"><h3>קצבת ילד נכה</h3><p>מה מגיע להורים לילדים עם צרכים מיוחדים</p><button onclick="openPopup('popup9')">לפרטים</button></div>
+      <div class="tip-card"><h3>פטור מתשלום</h3><p>מי זכאי לפטור מלא או חלקי מדמי ביטוח?</p><button onclick="openPopup('popup10')">לפרטים</button></div>
+      <div class="tip-card"><h3>פתיחת תיק עצמאי</h3><p>כיצד פותחים תיק עצמאי בביטוח לאומי?</p><button onclick="openPopup('popup11')">לפרטים</button></div>
+      <div class="tip-card"><h3>הגשת תביעה</h3><p>איך מגישים תביעה און־ליין ומבצעים מעקב</p><button onclick="openPopup('popup12')">לפרטים</button></div>
+      <div class="tip-card"><h3>אישורי זכאות</h3><p>איך מוציאים אישור תושב / אישור מעסיק</p><button onclick="openPopup('popup13')">לפרטים</button></div>
+      <div class="tip-card"><h3>השירות האישי</h3><p>כניסה לחשבון באתר הביטוח הלאומי</p><button onclick="openPopup('popup14')">לפרטים</button></div>
+    </div>
+  </div>
+
+  <!-- Popups -->
+  <div id="popup1" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup1')">&times;</button>
+      <h2>קצבת ילדים</h2>
+      <p>קצבת ילדים היא קצבה חודשית שמשולמת על ידי המוסד לביטוח לאומי עבור כל ילד במשפחה עד גיל 18. סכום הקצבה משתנה לפי סדר ומשך המשפחה.</p>
+    </div>
+  </div>
+  <div id="popup2" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup2')">&times;</button>
+      <h2>דמי לידה</h2>
+      <p>תשלום חד‑פעמי לתקופת חופשת לידה (15 שבועות) על בסיס השכר הממוצע, לנשים שעבדו 10 מתוך 14 החודשים שקדמו ללידה.</p>
+    </div>
+  </div>
+  <div id="popup3" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup3')">&times;</button>
+      <h2>עקרת בית</h2>
+      <p>עקרות בית שמשתכרות מתחת לתקרת הכנסה מסוימת יכולות לבקש פטור מדמי ביטוח. ההגשה דרך אתר הביטוח הלאומי או בסניף.</p>
+    </div>
+  </div>
+  <div id="popup4" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup4')">&times;</button>
+      <h2>דמי אבטלה</h2>
+      <p>קצבה למובטלים ששירתו כעובדים שכירים וצברו תקופת אכשרה. התחלת תהליך דרך זכאות בלשכת התעסוקה ולאחר מכן בקשה לביטוח לאומי.</p>
+    </div>
+  </div>
+  <div id="popup5" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup5')">&times;</button>
+      <h2>דמי פגיעה בעבודה</h2>
+      <p>פיצוי לעובד שנפצע בעבודה או בדרך אליה. יש למלא טופס BL/250 (שכיר) או BL/283 (עצמאי) ולצרף אישור רפואי.</p>
+    </div>
+  </div>
+  <div id="popup6" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup6')">&times;</button>
+      <h2>תשלום עצמאי</h2>
+      <p>עצמאים משלמים מקדמות ללאומי על בסיס הערכת הכנסה שנתית, עם אפשרות עדכון אונליין בעת שינוי בהכנסה.</p>
+    </div>
+  </div>
+  <div id="popup7" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup7')">&times;</button>
+      <h2>מילואים ושירות אזרחי</h2>
+      <p>תשלום פיצוי בגין אובדן הכנסה למשרתים במילואים או שירות אזרחי, בהתאם לשכר הממוצע ומשך השירות.</p>
+    </div>
+  </div>
+  <div id="popup8" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup8')">&times;</button>
+      <h2>קצבת נכות כללית</h2>
+      <p>זכאות למי שכושר ההשתכרות נפגע ב‑60% ומעלה עקב מצב רפואי קבוע, לאחר קביעת דרגת נכות בוועדה רפואית.</p>
+    </div>
+  </div>
+  <div id="popup9" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup9')">&times;</button>
+      <h2>קצבת ילד נכה</h2>
+      <p>קצבה להורים לילדים עם מוגבלויות, נקבעת לפי דרגת התפקוד והצרכים הרפואיים של הילד, לאחר ועדה רפואית.</p>
+    </div>
+  </div>
+  <div id="popup10" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup10')">&times;</button>
+      <h2>פטור מתשלום</h2>
+      <p>פטור מלא או חלקי מדמי ביטוח לנשים בשירות סידרתי, סטודנטים, עקרות בית ואנשים ללא הכנסה. דורש בקשה ואישורים.</p>
+    </div>
+  </div>
+  <div id="popup11" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup11')">&times;</button>
+      <h2>פתיחת תיק עצמאי</h2>
+      <p>דיווח לביטוח לאומי בתוך 90 ימים מתחילת פעילות כעצמאי באמצעות טופס מקוון, כדי למנוע קנסות.</p>
+    </div>
+  </div>
+  <div id="popup12" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup12')">&times;</button>
+      <h2>הגשת תביעה</h2>
+      <p>תביעות לכל קצבאות מביטוח לאומי מוגשות אונליין או בדואר, דורשות טפסים, מסמכים ואישור מעקב דרך האזור האישי.</p>
+    </div>
+  </div>
+  <div id="popup13" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup13')">&times;</button>
+      <h2>אישורי זכאות</h2>
+      <p>הפקת אישורים (תושב, מעסיק, תשלום דמי ביטוח) דרך האזור האישי באתר – זמינים להורדה ולהגשה.</p>
+    </div>
+  </div>
+  <div id="popup14" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup14')">&times;</button>
+      <h2>השירות האישי</h2>
+      <p>גישה לחשבון האישי באתר הביטוח הלאומי: הגשות, עדכוני פרטים, הורדת מסמכים ומעקב אחר תביעות.</p>
+    </div>
+  </div>
+
+  <script>
+    function openPopup(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>

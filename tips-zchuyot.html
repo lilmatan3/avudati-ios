@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <!-- תמיכה ב-safe‑area ובסקלינג נכון באייפון -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי – זכויות מיוחדות</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* בסיס ו‑safe‑area */
+    body {
+      margin: 0;
+      padding-top: env(safe-area-inset-top);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      background-color: #f2f7ff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    /* ניווט עליון קבוע */
+    .top-nav {
+      position: fixed;
+      top: env(safe-area-inset-top);
+      left: 0; right: 0;
+      height: 50px;
+      background: rgba(255,255,255,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    .top-nav a {
+      font-size: 24px;
+      text-decoration: none;
+      color: #3f51b5;
+      padding: 8px;
+      border-radius: 6px;
+    }
+    /* עוטף התוכן מתחת לניווט */
+    .content {
+      padding: 70px 16px 20px;
+    }
+    /* כותרת משנית */
+    .subheader {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    /* גריד הכרטיסים */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+    /* כרטיס הטיפ */
+    .tip-card {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: transform 0.1s, background-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .tip-card h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+    .tip-card p {
+      flex-grow: 1;
+      font-size: 14px;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .tip-card button {
+      padding: 8px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      background-color: #6c63ff;
+      color: white;
+      cursor: pointer;
+    }
+    .tip-card:hover {
+      background-color: #e7edff;
+      transform: translateY(-2px);
+    }
+    /* סגנון לפופאפ */
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+      box-sizing: border-box;
+      overflow-y: auto;
+      z-index: 2000;
+    }
+    .popup-content {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      box-sizing: border-box;
+      position: relative;
+    }
+    .popup-content h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+    .popup-content p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .popup-content ul {
+      margin: 10px 0 0 20px;
+      padding: 0;
+    }
+    .popup-content .close {
+      position: absolute;
+      top: 10px; right: 10px;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    /* התאמות למסך קטן */
+    @media (max-width: 480px) {
+      .subheader {
+        font-size: 20px;
+        margin-bottom: 16px;
+      }
+      .card-grid {
+        gap: 8px;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      }
+      .tip-card {
+        padding: 12px;
+        font-size: 14px;
+      }
+      .tip-card h3 {
+        font-size: 16px;
+      }
+      .popup-content {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <a href="tips.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <div class="content">
+    <h1 class="subheader">זכויות מיוחדות</h1>
+
+    <div class="card-grid">
+      <div class="tip-card">
+        <h3>זכויות נכים בביטוח לאומי</h3>
+        <p>קצבאות חודשיות, תמיכה סוציאלית, הטבות ונקודות זיכוי במס</p>
+        <button onclick="openPopup('popup1')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>פטור ממס לנכה</h3>
+        <p>נכות רפואית מעל אחוז מסוים מזכה בפטור ממס הכנסה – איך בודקים?</p>
+        <button onclick="openPopup('popup2')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>הורים לילדים עם צרכים מיוחדים</h3>
+        <p>סיוע מהמדינה: קצבת ילד נכה, שירותים מיוחדים, זכויות במערכת החינוך</p>
+        <button onclick="openPopup('popup3')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>קצבת ילד נכה</h3>
+        <p>מענק חודשי להורים לילדים עם מוגבלות – תנאים, סכומים ואופן הגשה</p>
+        <button onclick="openPopup('popup4')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>סיוע בדיור לנכים</h3>
+        <p>שכ"ד מסובסד, סיוע ברכישת דירה או התאמות – לפי מבחני זכאות</p>
+        <button onclick="openPopup('popup5')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>זכויות חיילים משוחררים</h3>
+        <p>מענק שחרור, פיקדון אישי, קורסים מסובסדים, תמריצים לעבודה</p>
+        <button onclick="openPopup('popup6')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>מענק שחרור</h3>
+        <p>האם קיבלת את המענק שלך? כמה כסף צפוי להיכנס – ואיך משתמשים?</p>
+        <button onclick="openPopup('popup7')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>מענק עבודה מועדפת</h3>
+        <p>עבודה בתחומים מסוימים אחרי שירות צבאי מזכה במענק גבוה – בדקת?</p>
+        <button onclick="openPopup('popup8')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>זכויות חד-הוריים</h3>
+        <p>סיוע כלכלי, הנחות, תמיכה בדיור ובחינוך לילדים – בהתאם לקריטריונים</p>
+        <button onclick="openPopup('popup9')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>זכויות עולים חדשים</h3>
+        <p>קליטה כלכלית, הנחות במסים, דיור ציבורי, קורסים בשפה וסיוע בתעסוקה</p>
+        <button onclick="openPopup('popup10')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>הנחות בארנונה</h3>
+        <p>נכים, חד־הוריים, קשישים ואחרים – ייתכן ומגיע לך עד 80% הנחה</p>
+        <button onclick="openPopup('popup11')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>סיוע משפטי חינם</h3>
+        <p>האם אתה זכאי לשירותי עו"ד ללא תשלום מטעם משרד המשפטים?</p>
+        <button onclick="openPopup('popup12')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>סיוע לעובדים זרים</h3>
+        <p>מה זכויות הסוציאליות של עובדים זרים, פליטים ומבקשי מקלט?</p>
+        <button onclick="openPopup('popup13')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>קצבאות לנפגעי פעולות איבה</h3>
+        <p>נפגעי טרור ופגיעות ביטחוניות זכאים לפיצוי, טיפול רפואי וקצבאות קיום</p>
+        <button onclick="openPopup('popup14')">לפרטים</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popups מלאים -->
+  <div id="popup1" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup1')">&times;</button>
+      <h2>🧑‍🦽 זכויות נכים בביטוח לאומי</h2>
+      <p>אדם עם נכות רפואית או תפקודית עשוי להיות זכאי ל:</p>
+      <ul>
+        <li>קצבת נכות כללית חודשית</li>
+        <li>שירותים מיוחדים (ש.מ.)</li>
+        <li>סיוע בשיקום תעסוקתי</li>
+        <li>הטבות בארנונה, תחבורה, הנחות ממשלתיות</li>
+      </ul>
+      <p>יש להגיש תביעה ולעבור ועדה רפואית לקביעת אחוזי נכות ותפקוד.</p>
+    </div>
+  </div>
+
+  <div id="popup2" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup2')">&times;</button>
+      <h2>💸 פטור ממס לנכה</h2>
+      <p>נכה עם נכות רפואית של 90% ומעלה (או משוקללת לפי קריטריונים) עשוי להיות זכאי לפטור ממס הכנסה עד תקרה של כ־615,000 ₪ בשנה (נכון ל-2024).</p>
+      <p>כדי לקבל את הפטור יש להגיש טופס 1516 + טופס 116, בצירוף מסמכים רפואיים, ולעבור ועדת מס הכנסה.</p>
+    </div>
+  </div>
+
+  <div id="popup3" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup3')">&times;</button>
+      <h2>👶 הורים לילדים עם צרכים מיוחדים</h2>
+      <p>הורים לילדים עם מוגבלות זכאים ל:</p>
+      <ul>
+        <li>קצבת ילד נכה</li>
+        <li>הנחות בארנונה, חשמל, גנים</li>
+        <li>פטור ממס על חלק מההכנסה</li>
+        <li>זכות לחופשה מיוחדת מהעבודה</li>
+      </ul>
+      <p>הזכאות תלויה בקביעת נכות רפואית דרך הביטוח הלאומי.</p>
+    </div>
+  </div>
+
+  <div id="popup4" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup4')">&times;</button>
+      <h2>🧒 קצבת ילד נכה</h2>
+      <p>קצבה חודשית שמוענקת להורים לילדים עם נכות רפואית, עיכוב התפתחותי או צורך מיוחד בטיפול והשגחה.</p>
+      <p>הסכום משתנה לפי חומרת המצב ונע בין כ-1,600 ₪ ועד 4,000 ₪. יש להגיש בקשה לביטוח הלאומי ולעבור ועדת תביעות.</p>
+    </div>
+  </div>
+
+  <div id="popup5" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup5')">&times;</button>
+      <h2>🏠 סיוע בדיור לנכים</h2>
+      <p>נכים עם נכות רפואית משמעותית עשויים להיות זכאים ל:</p>
+      <ul>
+        <li>הנחה בשכר דירה</li>
+        <li>סיוע בשכ"ד ממשרד השיכון</li>
+        <li>מענק לרכישת דירה או התאמות לנגישות</li>
+      </ul>
+      <p>הבקשה מתבצעת דרך משרד הבינוי והשיכון וביטוח לאומי בהתאם לקריטריונים.</p>
+    </div>
+  </div>
+
+  <div id="popup6" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup6')">&times;</button>
+      <h2>🎖️ זכויות חיילים משוחררים</h2>
+      <p>חיילים משוחררים זכאים ל:</p>
+      <ul>
+        <li>מענק שחרור</li>
+        <li>פיקדון אישי</li>
+        <li>מימון לימודים / קורסים</li>
+        <li>עדיפות בדיור ציבורי ותעסוקה</li>
+      </ul>
+      <p>כל הזכויות ניתנות דרך הקרן והיחידה להכוונת חיילים משוחררים.</p>
+    </div>
+  </div>
+
+  <div id="popup7" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup7')">&times;</button>
+      <h2>💵 מענק שחרור</h2>
+      <p>מענק שניתן אוטומטית לכל חייל משוחרר בהתאם לאורך השירות וסוג השירות.</p>
+      <p>מועבר לחשבון תוך מספר חודשים מהשחרור – אין צורך להגיש בקשה. ניתן לבדוק את הסכום באתר הקרן לחיילים משוחררים.</p>
+    </div>
+  </div>
+
+  <div id="popup8" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup8')">&times;</button>
+      <h2>🧑‍🔧 מענק עבודה מועדפת</h2>
+      <p>עבודה באחד מהתחומים המאושרים (כמו בתי חולים, תחנות דלק, חקלאות) מזכה במענק של מעל 10,000 ₪.</p>
+      <p>נדרש לעבוד לפחות 150 ימי עבודה במהלך שנתיים מהשחרור. ההגשה נעשית דרך ביטוח לאומי לאחר סיום התקופה.</p>
+    </div>
+  </div>
+
+  <div id="popup9" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup9')">&times;</button>
+      <h2>👩‍👧 זכויות חד-הוריים</h2>
+      <p>הורים יחידניים עשויים להיות זכאים ל:</p>
+      <ul>
+        <li>קצבאות מוגדלות</li>
+        <li>הנחות בארנונה ותחבורה</li>
+        <li>סיוע בשכ"ד או דיור ציבורי</li>
+        <li>מענקי לימודים</li>
+      </ul>
+      <p>הזכאות ניתנת לפי מבחני הכנסה ומצב משפחתי.</p>
+    </div>
+  </div>
+
+  <div id="popup10" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup10')">&times;</button>
+      <h2>🛬 זכויות עולים חדשים</h2>
+      <p>כל עולה חדש זכאי ל:</p>
+      <ul>
+        <li>סל קליטה</li>
+        <li>פטור ממסים והקלות ביבוא</li>
+        <li>קורסי עברית (אולפן)</li>
+        <li>הכוונה תעסוקתית ומלגות לימוד</li>
+      </ul>
+      <p>ניתן לבדוק זכאות דרך משרד העלייה והקליטה.</p>
+    </div>
+  </div>
+
+  <div id="popup11" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup11')">&times;</button>
+      <h2>🏘️ הנחות בארנונה</h2>
+      <p>אוכלוסיות רבות זכאיות להנחה בארנונה:</p>
+      <ul>
+        <li>נכים ובעלי תעודת עיוור</li>
+        <li>חד-הוריים</li>
+        <li>עולים חדשים (5 שנים ראשונות)</li>
+        <li>מקבלי קצבאות מביטוח לאומי</li>
+      </ul>
+      <p>את הבקשה יש להגיש לעירייה בצירוף המסמכים המתאימים.</p>
+    </div>
+  </div>
+
+  <div id="popup12" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup12')">&times;</button>
+      <h2>⚖️ סיוע משפטי חינם</h2>
+      <p>משרד המשפטים מעניק שירות משפטי ללא תשלום לאזרחים מעוטי יכולת.</p>
+      <p>הזכאות נבחנת לפי מבחן הכנסה וסוג התביעה (משפחה, נדל"ן, קצבאות וכו'). ניתן להגיש בקשה באתר הסיוע המשפטי הממשלתי.</p>
+    </div>
+  </div>
+
+  <div id="popup13" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup13')">&times;</button>
+      <h2>🌍 סיוע לעובדים זרים</h2>
+      <p>עובדים זרים זכאים ל:</p>
+      <ul>
+        <li>שכר מינימום</li>
+        <li>ביטוח בריאות בסיסי</li>
+        <li>תנאי מגורים נאותים</li>
+        <li>זכויות לפי דיני עבודה (פיצויים, ימי חופשה)</li>
+      </ul>
+      <p>קיימים ארגונים ממשלתיים וחוץ-ממשלתיים שנותנים ייעוץ וליווי.</p>
+    </div>
+  </div>
+
+  <div id="popup14" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup14')">&times;</button>
+      <h2>🕊️ קצבאות לנפגעי פעולות איבה</h2>
+      <p>מי שנפגע בגופו או בנפשו כתוצאה מפעולת איבה (ירי, פיגוע, רקטות) זכאי ל:</p>
+      <ul>
+        <li>קצבת נכות ממשרד הביטחון</li>
+        <li>החזרים ושירותים רפואיים</li>
+        <li>שיקום תעסוקתי ונפשי</li>
+      </ul>
+      <p>את התביעה מגישים למוסד לביטוח לאומי – אגף נפגעי איבה.</p>
+    </div>
+  </div>
+
+  <script>
+    function openPopup(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>

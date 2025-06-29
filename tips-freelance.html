@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <!-- תמיכה ב-safe‑area ובסקלינג נכון באייפון -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי – עצמאי / פרילנסר</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* בסיס ותמיכה ב-safe‑area של iOS */
+    body {
+      margin: 0;
+      padding-top: env(safe-area-inset-top);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      background-color: #f2f7ff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    /* ניווט עליון קבוע */
+    .top-nav {
+      position: fixed;
+      top: env(safe-area-inset-top);
+      left: 0; right: 0;
+      height: 50px;
+      background: rgba(255,255,255,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    .top-nav a {
+      font-size: 24px;
+      text-decoration: none;
+      color: #3f51b5;
+      padding: 8px;
+      border-radius: 6px;
+    }
+    /* עטוף התוכן מתחת לניווט */
+    .content {
+      padding: 70px 16px 20px;
+    }
+    /* כותרת משנית */
+    .subheader {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    /* גריד כרטיסי הטיפים */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+    /* עיצוב כרטיס טיפ */
+    .tip-card {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: transform 0.1s, background-color 0.2s;
+    }
+    .tip-card h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+    .tip-card p {
+      flex-grow: 1;
+      font-size: 14px;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .tip-card button {
+      padding: 8px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      background-color: #6c63ff;
+      color: white;
+      cursor: pointer;
+    }
+    .tip-card:hover {
+      background-color: #e7edff;
+      transform: translateY(-2px);
+    }
+    /* סגנון לפופאפ */
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+      box-sizing: border-box;
+      overflow-y: auto;
+      z-index: 2000;
+    }
+    .popup-content {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .popup-content h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+    .popup-content p,
+    .popup-content ul {
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    .popup-content .close {
+      position: absolute;
+      top: 10px; right: 10px;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    /* התאמות למסך קטן */
+    @media (max-width: 480px) {
+      .top-nav { height: 45px; }
+      .top-nav a { font-size: 20px; padding: 6px; }
+      .subheader { font-size: 20px; margin-bottom: 16px; }
+      .card-grid {
+        gap: 8px;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      }
+      .tip-card { padding: 12px; font-size: 14px; }
+      .popup-content { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <a href="tips.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <div class="content">
+    <h1 class="subheader">עצמאי / פרילנסר</h1>
+    <div class="card-grid">
+      <div class="tip-card">
+        <h3>פתיחת תיק עוסק</h3>
+        <p>איך פותחים תיק כעוסק פטור או עוסק מורשה? מה ההבדל ביניהם ואילו טפסים צריך להגיש?</p>
+        <button onclick="openPopup('popup1')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>ביטוח לאומי לעצמאי</h3>
+        <p>מהם דמי הביטוח שאדם עצמאי חייב לשלם? איך קובעים מקדמות ומה הדיווחים הדרושים?</p>
+        <button onclick="openPopup('popup2')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>מס הכנסה לעצמאי</h3>
+        <p>איך פותחים תיק במס הכנסה? מה חשוב לדעת על תשלומים, דיווחים והצהרת הון?</p>
+        <button onclick="openPopup('popup3')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>מע”מ לעצמאים</h3>
+        <p>מתי חייבים להירשם כעוסק במע”מ? איך מגישים דיווחים חודשיים או דו-חודשיים?</p>
+        <button onclick="openPopup('popup4')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>מקדמות</h3>
+        <p>איך מס הכנסה וביטוח לאומי קובעים את גובה המקדמות לעצמאים? ומה לעשות אם ההכנסה משתנה?</p>
+        <button onclick="openPopup('popup5')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>דיווחים שוטפים</h3>
+        <p>מה ההבדל בין דיווח חודשי לרבעוני? האם אתה חייב לשלוח דוחות מקוונים או ידניים?</p>
+        <button onclick="openPopup('popup6')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>הוצאות מוכרות</h3>
+        <p>אילו סוגי הוצאות ניתן לקזז מההכנסה החייבת במס? מה ההבדל בין מוכר מלא למוכר חלקי?</p>
+        <button onclick="openPopup('popup7')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>חשבוניות וקבלות</h3>
+        <p>מתי מנפיקים קבלה? מתי חשבונית? אילו פרטים חובה לכלול וממה כדאי להיזהר?</p>
+        <button onclick="openPopup('popup8')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>מעקב הכנסות והוצאות</h3>
+        <p>איך מנהלים תזרים מזומנים תקין בעסק קטן? ואילו כלים דיגיטליים יכולים לעזור לך?</p>
+        <button onclick="openPopup('popup9')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>ניהול תיק באינטרנט</h3>
+        <p>מה ניתן לעשות דרך האזור האישי ברשויות? ואיך משתמשים במערכות כמו “הישומים החכמים” של מס הכנסה?</p>
+        <button onclick="openPopup('popup10')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>פנסיה לעצמאי</h3>
+        <p>מה אומר החוק לגבי חובת הפקדה לפנסיה לעצמאים? איך בוחרים קרן? ומהי הטבת המס?</p>
+        <button onclick="openPopup('popup11')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>שכיר + עצמאי</h3>
+        <p>איך משלבים בין עבודה כשכיר וניהול עסק עצמאי? ואיך עושים תיאום בין המוסדות?</p>
+        <button onclick="openPopup('popup12')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>תיאום מס לעצמאי</h3>
+        <p>מתי עצמאי צריך לבצע תיאום מס? באילו מקרים משלמים יותר ממה שצריך ואיך מתקנים את זה?</p>
+        <button onclick="openPopup('popup13')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>עצמאי ללא הכנסות</h3>
+        <p>מה עושים כשאין הכנסות בעסק? מתי אפשר להקפיא או לסגור תיק, ואיך מדווחים נכון לרשויות?</p>
+        <button onclick="openPopup('popup14')">לפרטים</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popups -->
+  <div id="popup1" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup1')">&times;</button>
+      <h2>פתיחת תיק עוסק</h2>
+      <p>
+        כדי להתחיל לפעול כעצמאי בישראל, יש לפתוח תיקים במס הכנסה, מע"מ וביטוח לאומי.<br>
+        <strong>עוסק פטור:</strong> לא גובה מע"מ, אינו זכאי להחזרים.<br>
+        <strong>עוסק מורשה:</strong> גובה מדווח מע"מ, זכאי לקיזוז מע"מ בהוצאות.<br>
+        אפשר לפתוח אונליין דרך רשות המיסים וביטוח לאומי או דרך רואה חשבון.
+      </p>
+    </div>
+  </div>
+  <div id="popup2" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup2')">&times;</button>
+      <h2>ביטוח לאומי לעצמאי</h2>
+      <p>
+        דיווח בתוך 90 ימים מתחילת פעילות. תשלום מקדמות חודשיות לפי הכנסה משוערת:
+        <ul>
+          <li>הכנסה נמוכה – שיעור מופחת ≈5.97%</li>
+          <li>הכנסה גבוהה – עד ≈17.8%</li>
+        </ul>
+        התאמה שנתית לפי דוח מס. עדכון הכנסה נמנע מקנסות.
+      </p>
+    </div>
+  </div>
+  <div id="popup3" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup3')">&times;</button>
+      <h2>מס הכנסה לעצמאי</h2>
+      <p>
+        פתיחת תיק עם תחילת פעילות. דיווח שנתי:
+        <ul>
+          <li>דו"ח שנתי מלא (טופס 1301)</li>
+          <li>דוח ניכויים (אם מעסיקים)</li>
+          <li>לעיתים: הצהרת הון</li>
+        </ul>
+        מס מחושב לפי מדרגות רגילות, התאמה לאחר הדו&quot;ח.
+      </p>
+    </div>
+  </div>
+  <div id="popup4" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup4')">&times;</button>
+      <h2>מע”מ לעצמאים</h2>
+      <p>
+        עוסק מורשה מדווח חודשית/דו-חודשית, גובה מע&quot;מ ומקזז הוצאות.<br>
+        עוסק פטור אינו גובה מע&quot;מ ואינו מקבל החזרים.
+      </p>
+    </div>
+  </div>
+  <div id="popup5" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup5')">&times;</button>
+      <h2>מקדמות</h2>
+      <p>
+        תשלומים חודשיים/דו-חודשיים על סמך הכנסה משוערת.<br>
+        התאמה שנתית בדו&quot;ח, החזר יתר או השלמת חוב.<br>
+        ניתן לעדכן אונליין.
+      </p>
+    </div>
+  </div>
+  <div id="popup6" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup6')">&times;</button>
+      <h2>דיווחים שוטפים</h2>
+      <p>
+        דיווחי מע"מ, מקדמות מס וביטוח לאומי – חודשיים או רבעוניים.<br>
+        חשוב להגיש בזמן ולשמור מסמכים מקוריים.
+      </p>
+    </div>
+  </div>
+  <div id="popup7" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup7')">&times;</button>
+      <h2>הוצאות מוכרות</h2>
+      <p>
+        הוצאות עסקיות שמקזזות מההכנסה החייבת:<br>
+        <ul>
+          <li>ציוד משרדי, מחשבים</li>
+          <li>שכירות משרד/חדר עבודה</li>
+          <li>הוצאות רכב (חלקיות)</li>
+          <li>תשלומים לרואה חשבון</li>
+        </ul>
+      </p>
+    </div>
+  </div>
+  <div id="popup8" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup8')">&times;</button>
+      <h2>חשבוניות וקבלות</h2>
+      <p>
+        <strong>חשבונית מס:</strong> עוסק מורשה, כולל מע"מ.<br>
+        <strong>קבלה:</strong> עם קבלת התשלום, חובה לכל עצמאי.<br>
+        לכל מסמך: שם העסק, תאריך, סכום, תיאור, מספר סידורי.
+      </p>
+    </div>
+  </div>
+  <div id="popup9" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup9')">&times;</button>
+      <h2>מעקב הכנסות והוצאות</h2>
+      <p>
+        ניהול תזרים מזומנים:<br>
+        <ul>
+          <li>אקסל או אפליקציות ניהול חשבונות</li>
+          <li>הקפדה על תיוק מסמכים</li>
+          <li>התייעצות שנתית עם יועץ מס</li>
+        </ul>
+      </p>
+    </div>
+  </div>
+  <div id="popup10" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup10')">&times;</button>
+      <h2>ניהול תיק באינטרנט</h2>
+      <p>
+        ברשויות: תשלום מקדמות, הפקת אישורים, שליחת טפסים ועדכונים, בדיקת חובות והחזרים.
+      </p>
+    </div>
+  </div>
+  <div id="popup11" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup11')">&times;</button>
+      <h2>פנסיה לעצמאי</h2>
+      <p>
+        חובה להפקיד לפנסיה מגיל 21–60:<br>
+        <ul>
+          <li>4.45% מההכנסה עד מחצית השכר הממוצע</li>
+          <li>12.55% על הסכום שמעל</li>
+        </ul>
+        זכאות להטבות מס.
+      </p>
+    </div>
+  </div>
+  <div id="popup12" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup12')">&times;</button>
+      <h2>שכיר + עצמאי</h2>
+      <p>
+        ניהול שני מקורות הכנסה:<br>
+        <ul>
+          <li>תיאום מס למניעת גביית יתר</li>
+          <li>דיווח שנתי מלא</li>
+          <li>ביטוח לאומי משולב</li>
+        </ul>
+      </p>
+    </div>
+  </div>
+  <div id="popup13" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup13')">&times;</button>
+      <h2>תיאום מס לעצמאי</h2>
+      <p>
+        עצמאי עם הכנסות נוספות חייב תיאום מס (טופס 116) מדי שנה כדי למנוע גביית יתר.
+      </p>
+    </div>
+  </div>
+  <div id="popup14" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup14')">&times;</button>
+      <h2>עצמאי ללא הכנסות</h2>
+      <p>
+        דיווח "0 הכנסה" או הקפאת/סגירת תיק כדי למנוע חיובים רטרואקטיביים.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function openPopup(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>

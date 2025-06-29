@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <!-- תמיכה ב-safe‑area ובסקלינג נכון באייפון -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי – התנהלות כלכלית אישית</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* בסיס ו‑safe‑area */
+    body {
+      margin: 0;
+      padding-top: env(safe-area-inset-top);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      background-color: #f2f7ff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    /* ניווט עליון קבוע */
+    .top-nav {
+      position: fixed;
+      top: env(safe-area-inset-top);
+      left: 0; right: 0;
+      height: 50px;
+      background: rgba(255,255,255,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    .top-nav a {
+      font-size: 24px;
+      text-decoration: none;
+      color: #3f51b5;
+      padding: 8px;
+      border-radius: 6px;
+    }
+    /* עוטף התוכן מתחת לניווט */
+    .content {
+      padding: 70px 16px 20px;
+    }
+    /* כותרת משנית */
+    .subheader {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    /* גריד הכרטיסים */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+    /* כרטיס טיפ */
+    .tip-card {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: transform 0.1s, background-color 0.2s;
+    }
+    .tip-card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    .tip-card p {
+      font-size: 14px;
+      flex-grow: 1;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .tip-card button {
+      padding: 8px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      background-color: #6c63ff;
+      color: #fff;
+      cursor: pointer;
+    }
+    .tip-card:hover {
+      background-color: #e7edff;
+      transform: translateY(-2px);
+    }
+    /* פופאפ */
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+      box-sizing: border-box;
+      overflow-y: auto;
+      z-index: 2000;
+    }
+    .popup-content {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .popup-content h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+    .popup-content p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .popup-content ul {
+      margin: 10px 0 0 20px;
+      padding: 0;
+    }
+    .popup-content .close {
+      position: absolute;
+      top: 10px; right: 10px;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    /* מדיה קוורי */
+    @media (max-width: 480px) {
+      .subheader {
+        font-size: 20px;
+        margin-bottom: 16px;
+      }
+      .card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 8px;
+      }
+      .tip-card {
+        padding: 12px;
+      }
+      .popup-content {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <a href="tips.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <div class="content">
+    <h1 class="subheader">התנהלות כלכלית אישית</h1>
+    <div class="card-grid">
+
+      <div class="tip-card">
+        <h3>בניית תקציב</h3>
+        <p>איך מתחילים לשלוט בכסף שלך במקום שהוא ינהל אותך? שלב ראשון לעצמאות כלכלית!</p>
+        <button onclick="openPopup('popup1')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>הבנת דוח עו"ש</h3>
+        <p>מה באמת כתוב בדוח החשבון? איך לזהות עמלות נסתרות וטעויות לפני שהן שואבות לך כסף?</p>
+        <button onclick="openPopup('popup2')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>יציאה מהמינוס</h3>
+        <p>אסטרטגיה ברורה, צעדים פשוטים, ומיינדסט של שפע: איך יוצאים מהמינוס – ולא חוזרים לשם.</p>
+        <button onclick="openPopup('popup3')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>איחוד הלוואות</h3>
+        <p>מרגיש שההחזרים חונקים אותך? מתי איחוד הלוואות זה פתרון נבון – ומתי זה בור שצריך להיזהר ממנו?</p>
+        <button onclick="openPopup('popup4')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>כרטיסי אשראי</h3>
+        <p>חיוב רגיל, מתגלגל, דחוי? מסגרת? ריביות? כך תבין מה באמת עולה לך השימוש באשראי – ואיך להימנע ממלכודות.</p>
+        <button onclick="openPopup('popup5')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>הוצאות קבועות מול משתנות</h3>
+        <p>הבסיס לניהול תקציב: לדעת מה חוזר כל חודש ומה תלוי בך – ולתכנן בהתאם.</p>
+        <button onclick="openPopup('popup6')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>חיסכון אוטומטי</h3>
+        <p>איך לשים כסף בצד בלי להרגיש? שיטה פשוטה שתעזור לך לבנות עתיד כלכלי – 10% מההכנסה, מיידי.</p>
+        <button onclick="openPopup('popup7')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>ביטוחים</h3>
+        <p>מה חובה ומה מיותר? איך לא לשלם כפול? עושים סדר בביטוחים שלך – אחת ולתמיד.</p>
+        <button onclick="openPopup('popup8')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>השוואת עמלות</h3>
+        <p>כמה אתה באמת משלם לבנק? כך תשווה עמלות, תחסוך מאות שקלים בשנה, ותדרוש הנחה – שמגיעה לך.</p>
+        <button onclick="openPopup('popup9')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>מעבר בין בנקים</h3>
+        <p>נמאס לך מהעמלות וההתעלמות? אפשר לעבור בנק בקלות – וזה אפילו נעשה עבורך אוטומטית!</p>
+        <button onclick="openPopup('popup10')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>חיסכון לילדים</h3>
+        <p>איך מבטיחים לילדים התחלה טובה לחיים? סקירה של קופות, קרנות ודרכים לחיסכון חכם לילדים.</p>
+        <button onclick="openPopup('popup11')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>הוראות קבע</h3>
+        <p>נוחות או מלכודת? כל מה שצריך לדעת על אוטומציה של תשלומים – יתרונות, סיכונים וטיפים.</p>
+        <button onclick="openPopup('popup12')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>קניית רכב</h3>
+        <p>ליסינג? מימון? יד 2? כל מה שצריך לדעת לפני קנייה – כולל מחשבון עלות חכם בפנים.</p>
+        <button onclick="openPopup('popup13')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>אפליקציות פיננסיות</h3>
+        <p>איך לנהל תקציב דרך אפליקציה? סקירת אפליקציות ישראליות ובינלאומיות שיעשו לך סדר בארנק.</p>
+        <button onclick="openPopup('popup14')">לפרטים</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Popups -->
+  <div id="popup1" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup1')">&times;</button>
+      <h2>📊 בניית תקציב</h2>
+      <p>
+        תקציב אישי הוא הכלי החשוב ביותר לשליטה כלכלית.  
+        בניית תקציב מתחילה ברישום של כל ההכנסות הקבועות – משכורת, קצבאות, הכנסה נוספת – ולאחר מכן מיפוי כל ההוצאות: קבועות (שכ"ד, ארנונה) ומשתנות (קניות, בילויים).
+      </p>
+      <p>
+        היעד: לאזן בין ההכנסות להוצאות, לייעד סכום לחיסכון, ולהימנע ממינוס.  
+        השתמשו בטבלה פשוטה, אפליקציה ייעודית או קובץ אקסל כדי לראות לאן הולך הכסף ולבנות שליטה חודשית ברורה.
+      </p>
+    </div>
+  </div>
+
+  <div id="popup2" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup2')">&times;</button>
+      <h2>💡 הבנת דוח עו"ש</h2>
+      <p>
+        דוח עו"ש (עובר ושב) הוא רשימת כל הפעולות בחשבון הבנק שלך: חיובים, הפקדות, הוראות קבע, חיובי אשראי ועוד.  
+        רוב האנשים לא קוראים אותו לעומק – ושם מסתתרים חיובים כפולים, עמלות מיותרות וטעויות.
+      </p>
+      <p>
+        כדאי לעבור על הדוח אחת לחודש, לסמן פעולות לא ברורות, לבדוק עמלות שנגבו – ולבקש הבהרה או החזר מהבנק במידת הצורך.
+      </p>
+    </div>
+  </div>
+
+  <div id="popup3" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup3')">&times;</button>
+      <h2>🚫 יציאה מהמינוס</h2>
+      <p>
+        יציאה מהמינוס מתחילה בהחלטה ובהבנה שזה אפשרי.  
+        הצעד הראשון הוא להבין מה יצר את הגירעון – ולאחר מכן לבנות תקציב שמאזן בין הכנסות להוצאות.
+      </p>
+      <p><strong>צעדים חשובים:</strong></p>
+      <ul>
+        <li>עצירת הוצאות מיותרות</li>
+        <li>הקפאת הוראות קבע לא קריטיות</li>
+        <li>מעבר לתשלום במזומן או חיוב מיידי</li>
+        <li>הגדרת סכום חודשי להחזרת המינוס</li>
+      </ul>
+      <p>ניתן לשלב גם הכנסה נוספת זמנית כדי להאיץ את התהליך.</p>
+    </div>
+  </div>
+
+  <div id="popup4" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup4')">&times;</button>
+      <h2>🔗 איחוד הלוואות</h2>
+      <p>
+        אם יש לך כמה הלוואות שונות (למשל בבנק, בכרטיס אשראי ובגוף חוץ‑בנקאי) – ייתכן שכדאי לשקול איחוד הלוואות.  
+        המטרה היא לרכז את ההחזרים להלוואה אחת, עם תשלום חודשי אחיד, ולעיתים גם ריבית נמוכה יותר.
+      </p>
+      <p><strong>שיקולים חשובים:</strong></p>
+      <ul>
+        <li>ריבית כוללת – לא רק גובה ההחזר</li>
+        <li>משך ההלוואה (לעיתים ארוך יותר = תשלום גבוה יותר בטווח הארוך)</li>
+        <li>עמלות פירעון מוקדם</li>
+      </ul>
+      <p>איחוד הלוואות יכול להיות פתרון טוב – אך יש לבחון כל הצעה בזהירות.</p>
+    </div>
+  </div>
+
+  <div id="popup5" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup5')">&times;</button>
+      <h2>💳 כרטיסי אשראי</h2>
+      <p>
+        אשראי הוא כלי נוח – אבל עלול להוביל לחוב מצטבר.  
+        חשוב להבין את סוג החיוב:
+      </p>
+      <ul>
+        <li>רגיל – חיוב חודשי מלא</li>
+        <li>מתגלגל – פריסה עם ריבית (מסוכנת!)</li>
+        <li>דחוי – חיוב בעוד חודש/חודשיים</li>
+      </ul>
+      <p>
+        בדקו מה מסגרת האשראי שלכם, אילו חיובים יש בחשבון, והימנעו מהתקרבות למגבלה.  
+        אל תשתמשו באשראי לצרכים שוטפים – אם אין כסף עכשיו, אשראי זה לא פתרון.
+      </p>
+    </div>
+  </div>
+
+  <div id="popup6" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup6')">&times;</button>
+      <h2>📁 הוצאות קבועות מול משתנות</h2>
+      <p>
+        הבנת סוגי ההוצאות שלך היא שלב קריטי בתקציב:
+      </p>
+      <ul>
+        <li><strong>הוצאות קבועות:</strong> חוזרות כל חודש – שכירות, משכנתא, ארנונה, ביטוח, חוגים</li>
+        <li><strong>הוצאות משתנות:</strong> קניות, דלק, בילויים, מסעדות – משתנים לפי התנהגות</li>
+      </ul>
+      <p>
+        נסו לשלוט קודם על המשתנות – שם קל לצמצם ולהשפיע.  
+        המפתח לאיזון כלכלי הוא להבין מה בשליטתך – ולבחור איך להוציא כסף נכון.
+      </p>
+    </div>
+  </div>
+
+  <div id="popup7" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup7')">&times;</button>
+      <h2>💸 חיסכון אוטומטי</h2>
+      <p>
+        אחת הדרכים הכי אפקטיביות לחסוך כסף היא להפוך את זה להרגל אוטומטי.  
+        קבע הוראת קבע מהחשבון לחיסכון נפרד – כל חודש, באותו תאריך.
+      </p>
+      <p>
+        אפילו 100 ₪ בחודש הם התחלה טובה – הסכום פחות חשוב מההתמדה.  
+        אפשר גם להשתמש באפליקציות שמעגלות תשלומים ושמות את ההפרש בצד.
+      </p>
+    </div>
+  </div>
+
+  <div id="popup8" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup8')">&times;</button>
+      <h2>🛡️ ביטוחים</h2>
+      <p>
+        רוב האנשים משלמים על יותר מדי ביטוחים – ולעיתים כפולים.  
+        מומלץ לבצע "סדר בביטוחים" אחת לשנה:
+      </p>
+      <ul>
+        <li>לבדוק אילו ביטוחים קיימים (בריאות, חיים, תאונות, סיעוד וכו')</li>
+        <li>לוודא שאין כפל ביטוחי</li>
+        <li>לבדוק האם הכיסויים מתאימים לצרכים שלך</li>
+      </ul>
+      <p>ניתן לבדוק הכל באתר "הר הביטוח" של משרד האוצר.</p>
+    </div>
+  </div>
+
+  <div id="popup9" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup9')">&times;</button>
+      <h2>🏦 השוואת עמלות</h2>
+      <p>
+        הבנקים גובים עמלות שונות על ניהול החשבון, פעולות בעו"ש, העברות, משיכת מזומן ועוד.  
+        אבל – אפשר לשלם פחות!
+      </p>
+      <ul>
+        <li>עברו על פירוט העמלות בדוח העו"ש</li>
+        <li>השוו מול בנקים אחרים באתר "באפשרותך"</li>
+        <li>דרשו מסלול עמלות מוזל או קבוע</li>
+      </ul>
+      <p>גם בבנק אפשר ורצוי להתמקח.</p>
+    </div>
+  </div>
+
+  <div id="popup10" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup10')">&times;</button>
+      <h2>🔄 מעבר בין בנקים</h2>
+      <p>
+        לא מרוצים מהבנק? קל יותר מתמיד לעבור.  
+        המערכת החדשה מאפשרת לעבור לבנק אחר תוך 7 ימי עסקים – כולל העברה אוטומטית של הוראות קבע, משכורות, הוראות אשראי ועוד.
+      </p>
+      <p>אין צורך לסגור את החשבון לבד – הבנק החדש עושה הכל בשבילך. וזה גם חינם!</p>
+    </div>
+  </div>
+
+  <div id="popup11" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup11')">&times;</button>
+      <h2>👶 חיסכון לילדים</h2>
+      <p>
+        כל ילד בישראל מקבל חיסכון מהמדינה – אך אפשר ואף כדאי להוסיף עליו.  
+        אפשר לבחור איפה לחסוך (בנק או קופת גמל), ואפשר להפקיד גם סכום נוסף מהקצבה החודשית.
+      </p>
+      <p>בנוסף, הורים יכולים לפתוח חיסכון פרטי לילד – בקרן השתלמות, פוליסת חיסכון או קופת גמל להשקעה.</p>
+    </div>
+  </div>
+
+  <div id="popup12" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup12')">&times;</button>
+      <h2>📆 הוראות קבע</h2>
+      <p>
+        הוראות קבע הן תשלומים אוטומטיים שחוזרים בכל חודש – לספקים, תרומות, גופים פיננסיים וכו'.  
+        הן נוחות – אבל עלולות לגרום להוצאות שלא שמים לב אליהן.
+      </p>
+      <p>מומלץ לבדוק אחת לחודש את כל ההוראות הקיימות – ולבטל מה שלא הכרחי. ניתן לעשות זאת דרך האפליקציה של הבנק או שירות לקוחות.</p>
+    </div>
+  </div>
+
+  <div id="popup13" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup13')">&times;</button>
+      <h2>🚗 קניית רכב</h2>
+      <p>
+        לפני שקונים רכב – צריך לחשוב על:
+      </p>
+      <ul>
+        <li>עלות קנייה ראשונית (יד 2, חדש, ליסינג)</li>
+        <li>תחזוקה שוטפת – טיפולים, ביטוח, טסט</li>
+        <li>ירידת ערך – רכב חדש מאבד כ־20% מערכו בשנה הראשונה</li>
+      </ul>
+      <p>ניתן להשתמש במחשבון חכם כדי להשוות עלויות כוללות. אל תתפתה רק למחיר הנמוך – חישוב שנתי מלא יכול לחשוף פערים גדולים.</p>
+    </div>
+  </div>
+
+  <div id="popup14" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup14')">&times;</button>
+      <h2>📱 אפליקציות פיננסיות</h2>
+      <p>
+        יש היום מגוון אפליקציות שיעזרו לך לנהל תקציב:  
+        הן מסנכרנות עם חשבון הבנק, מקטלגות הוצאות אוטומטית, מתריעות על חריגות – ומאפשרות תכנון חודשי.
+      </p>
+      <p>דוגמאות: רייזאפ, פיננקה, Spendee, YouNeedABudget (YNAB) ועוד. בחר אפליקציה שמתאימה להרגלים שלך – ונסה להשתמש בה לפחות חודש ברציפות.</p>
+    </div>
+  </div>
+
+  <script>
+    function openPopup(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>

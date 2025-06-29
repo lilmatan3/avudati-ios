@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <!-- תמיכה ב-safe‑area ובסקלינג נכון באייפון -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי – מס הכנסה</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* בסיס ו‑safe‑area */
+    body {
+      margin: 0;
+      padding-top: env(safe-area-inset-top);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      background-color: #f2f7ff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    /* ניווט עליון קבוע */
+    .top-nav {
+      position: fixed;
+      top: env(safe-area-inset-top);
+      left: 0; right: 0;
+      height: 50px;
+      background: rgba(255,255,255,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    .top-nav a {
+      font-size: 24px;
+      text-decoration: none;
+      color: #3f51b5;
+      padding: 8px;
+      border-radius: 6px;
+    }
+    /* עוטף התוכן מתחת לניווט */
+    .content {
+      padding: 70px 16px 20px;
+    }
+    /* כותרת ראשית */
+    h1 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    /* גריד הכרטיסים */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+    /* כרטיס טיפ */
+    .tip-card {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: transform 0.1s, background-color 0.2s;
+    }
+    .tip-card h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+    .tip-card p {
+      flex-grow: 1;
+      font-size: 14px;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .tip-card button {
+      padding: 8px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      background-color: #6c63ff;
+      color: white;
+      cursor: pointer;
+    }
+    .tip-card:hover {
+      background-color: #e7edff;
+      transform: translateY(-2px);
+    }
+    /* סגנון לפופאפ */
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+      box-sizing: border-box;
+      overflow-y: auto;
+      z-index: 2000;
+    }
+    .popup-content {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .popup-content h2, .popup-content h3 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+    .popup-content p, .popup-content ul {
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    .popup-content .close {
+      position: absolute;
+      top: 10px; right: 10px;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    /* התאמות למסך קטן */
+    @media (max-width: 480px) {
+      .top-nav { height: 45px; }
+      .top-nav a { font-size: 20px; padding: 6px; }
+      h1 { font-size: 20px; margin-bottom: 16px; }
+      .card-grid {
+        gap: 8px;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      }
+      .tip-card { padding: 12px; font-size: 14px; }
+      .popup-content { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <a href="tips.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <div class="content">
+    <h1>מס הכנסה</h1>
+
+    <div class="card-grid">
+      <div class="tip-card">
+        <h3>טופס 101</h3>
+        <p>טופס פתיחת עבודה שממלאים בתחילת עבודה חדשה או בתחילת כל שנה קלנדרית. כולל פרטים אישיים, מצב משפחתי ונקודות זיכוי.</p>
+        <button onclick="openPopup('popup101')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>טופס 106</h3>
+        <p>טופס סיכום שנתי מהמעביד בסוף כל שנה – סיכום שכר, ניכויים ומס. משמש להחזרי מס במקרים של תשלום יתר.</p>
+        <button onclick="openPopup('popup106')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>טופס 132</h3>
+        <p>טופס תיאום מס לעובדים עם יותר ממקור הכנסה אחד, כדי למנוע כפל גבייה וגביית יתר.</p>
+        <button onclick="openPopup('popup132')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>טופס 135</h3>
+        <p>טופס בקשה להחזר מס שנתי לשכירים – מיועד להחזרי מס על תשלומים עודפים.</p>
+        <button onclick="openPopup('popup135')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>טופס 119</h3>
+        <p>בקשה להחזר תשלומים עודפים למס הכנסה, כולל מסמכים כגון טופס 106 ותלושי שכר.</p>
+        <button onclick="openPopup('popup119')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>טופס 116ב</h3>
+        <p>זיכוי במס בגין ילד עם מוגבלות – דרוש אישור רפואי ועדת מס הכנסה.</p>
+        <button onclick="openPopup('popup116b')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>נקודות זיכוי</h3>
+        <p>קיזוז מס שמגיע לך על סמך מצב אישי, משפחתי, צבאי או לימודי.</p>
+        <button onclick="openPopup('popupZikuy')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>מדרגות מס</h3>
+        <p>כיצד מחושב המס לפי מדרגות הכנסה – אחוזי מס משתנים לפי רמות הכנסה.</p>
+        <button onclick="openPopup('popupMadregot')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>החזרי מס</h3>
+        <p>כיצד לבדוק אם מגיע לך החזר מס ואיך להגיש בקשה (טופס 135).</p>
+        <button onclick="openPopup('popupHachzereiMas')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>תיאום מס</h3>
+        <p>למי זה חובה ואיך מבצעים – מיועד למי שיש לו הכנסות ממספר מקורות.</p>
+        <button onclick="openPopup('popupTeum')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>קיזוז הפסדים</h3>
+        <p>מתי וכיצד ניתן לקזז הפסדים מניירות ערך או מעסק מול רווחים עתידיים.</p>
+        <button onclick="openPopup('popupKizuz')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>מס על פיצויים</h3>
+        <p>מה פטור ומה חייב במס בפיצויי פיטורים – תקרות ופריסת מס.</p>
+        <button onclick="openPopup('popupPitzuyim')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>פטור ממס לנכים</h3>
+        <p>איך לקבל פטור ממס הכנסה במקרה של נכות רפואית גבוהה.</p>
+        <button onclick="openPopup('popupPtor')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>זיכוי בגין יישוב מזכה</h3>
+        <p>הנחת מס למתגוררים בפריפריה, חיילים משוחררים ובוגרי תואר.</p>
+        <button onclick="openPopup('popupYeshuv')">לפרטים</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popups מלאים -->
+  <div id="popup101" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup101')">&times;</button>
+      <h2>טופס 101 – הצהרת עובד</h2>
+      <p>כיצד ממלאים את טופס 101?<br>
+      טופס זה נדרש למילוי בתחילת עבודה או בתחילת כל שנה. הוא כולל פרטים אישיים (שם, ת"ז, תאריך לידה, כתובת), פרטי משפחה (ילדים, סטטוס), ומאפשר למעביד לדעת את נקודות הזיכוי שמגיעות לך. עליך לציין אם המשרה עיקרית או משנית, ולהוסיף מידע על נקודות זיכוי (כגון נכות, לימודים).</p>
+    </div>
+  </div>
+  <div id="popup106" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup106')">&times;</button>
+      <h2>טופס 106 – סיכום שנתי</h2>
+      <p>כיצד ממלאים את טופס 106?<br>
+      טופס זה נמסר לכל עובד בסוף כל שנה קלנדרית על ידי המעסיק. הוא מציין את הסכום הכולל של השכר השנתי, ניכוי המס והפרשות לביטוח לאומי וקרנות פנסיה. הטופס משמש לצורך הגשת בקשה להחזרי מס אם שילמת יותר מס ממה שמגיע לך על פי נקודות הזיכוי והכנסות נוספות.</p>
+    </div>
+  </div>
+  <div id="popup132" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup132')">&times;</button>
+      <h2>טופס 132 – תיאום מס</h2>
+      <p>כיצד ממלאים את טופס 132?<br>
+      מיועד לעובדים עם יותר ממקור הכנסה אחד (שכירים + פרילנס, פנסיה, השכרת דירה וכו'). הטופס מנטרל גביית יתר על ידי קביעת שיעור מס שולי נכון לכלל ההכנסות. יש לוודא שכל מקורות ההכנסה מצוינים במדויק.</p>
+    </div>
+  </div>
+  <div id="popup135" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup135')">&times;</button>
+      <h2>טופס 135 – החזר מס שנתי לשכירים</h2>
+      <p>כיצד ממלאים את טופס 135?<br>
+      משמש שכירים לבקשת החזר מס במקרים של תשלום יתר בשנה החולפת. יש להגיש יחד עם טופס 106, תלושי שכר ואישורים על הכנסות נוספות. כדאי להגיש עד 4 שנים לאחר שנת המס.</p>
+    </div>
+  </div>
+  <div id="popup119" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup119')">&times;</button>
+      <h2>טופס 119 – החזר תשלומים עודפים</h2>
+      <p>כיצד ממלאים את טופס 119?<br>
+      מיועד להחזרי מס בגין תשלומים עודפים שלא הוחזרו במהלך השנה. מצריך צירוף טופס 106, תלושי שכר ואישורים על הכנסות נוספות. ניתן להגיש עד 4 שנים מהשנה הרלוונטית.</p>
+    </div>
+  </div>
+  <div id="popup116b" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup116b')">&times;</button>
+      <h2>טופס 116ב – זיכוי בגין ילד עם מוגבלות</h2>
+      <p>כיצד ממלאים?<br>
+      מיועד להורים לילדים עם מוגבלות. מצריך אישורים רפואיים המאשרים את אחוזי המוגבלות. מאפשר זיכוי מס שוטף והחזר רטרואקטיבי אם לא נוצל בעבר.</p>
+    </div>
+  </div>
+  <div id="popupZikuy" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popupZikuy')">&times;</button>
+      <h2>נקודות זיכוי</h2>
+      <p>כיצד נקבעות?<br>
+      נקודות זיכוי נקבעות על פי מצב משפחתי, שירות צבאי, לימודים, נכות ועוד. כל נקודה מורידה מס שנתי קבוע. חשוב לעדכן את טופס 101 במידע עדכני.</p>
+    </div>
+  </div>
+  <div id="popupMadregot" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popupMadregot')">&times;</button>
+      <h2>מדרגות מס</h2>
+      <p>כיצד מחושב?<br>
+      המס מחושב בשיעורים עולהים – כל טווח הכנסה מחויב בשיעור מס שונה. מדרגות מתעדכנות מדי שנה על ידי רשות המסים.</p>
+    </div>
+  </div>
+  <div id="popupHachzereiMas" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popupHachzereiMas')">&times;</button>
+      <h2>החזרי מס</h2>
+      <p>כיצד לבדוק?<br>
+      ניתן לבדוק באתר רשות המסים או במוקד  077-272-8888. להגשת בקשה מצריך טופס 135, טופס 106 ותלושי שכר.</p>
+    </div>
+  </div>
+  <div id="popupTeum" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popupTeum')">&times;</button>
+      <h2>תיאום מס</h2>
+      <p>למי<br>
+      חובה למי שיש לו יותר ממקור הכנסה אחד או שינוי במצב המשפחתי/תעסוקתי. ניתן לבצע באתר רשות המסים או במשרדי פקיד השומה.</p>
+    </div>
+  </div>
+  <div id="popupKizuz" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popupKizuz')">&times;</button>
+      <h2>קיזוז הפסדים</h2>
+      <p>כיצד?<br>
+      הפסדים בהשקעות או העסק ניתן לקזז כנגד רווחים באותה שנה או בשנים הבאות, בהתאם לתקנות מס הכנסה.</p>
+    </div>
+  </div>
+  <div id="popupPitzuyim" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popupPitzuyim')">&times;</button>
+      <h2>מס על פיצויים</h2>
+      <p>מה פטור?<br>
+      הפטור עומד על עד 12,420 ₪ לכל שנת עבודה (נכון ל-2024). החלק העודף מחויב במס רגיל. ניתן לפרוס מס.</p>
+    </div>
+  </div>
+  <div id="popupPtor" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popupPtor')">&times;</button>
+      <h2>פטור ממס לנכים</h2>
+      <p>כיצד לקבל?<br>
+      נכות רפואית של 90% ומעלה מזכה בפטור ממס עד תקרה שנתית. יש להגיש טופס 1516 וטופס 116 עם אישורים רפואיים.</p>
+    </div>
+  </div>
+  <div id="popupYeshuv" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popupYeshuv')">&times;</button>
+      <h2>זיכוי בגין יישוב מזכה</h2>
+      <p>מה זה?<br>
+      הנחת מס למתגוררים בפריפריה, חיילים משוחררים ובוגרי תואר ראשון. מבוסס על רשימת יישובים עדכנית של רשות המסים.</p>
+    </div>
+  </div>
+
+  <script>
+    function openPopup(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+  <title>עבודתי – בחר פורמט</title>
+  <link rel="stylesheet" href="select-format.css">
+</head>
+<body>
+  <button class="back-button" onclick="goBack()">←</button>
+
+  <div class="container">
+    <h1 class="main-title">אנא בחר פורמט תלוש</h1>
+
+    <div class="format-options">
+      <div class="format-block">
+        <button class="format-button" onclick="generateClassicPDF()">פורמט קלאסי</button>
+        <p class="format-description">
+          פורמט התלוש הקלאסי של מדינת ישראל, מבוסס Word, מותאם להדפסה או PDF.
+        </p>
+      </div>
+      <!-- כאן תוכלו להוסיף בלוקים נוספים לפורמטים אחרים -->
+    </div>
+  </div>
+
+  <script>
+    function generateClassicPDF() {
+      window.location.href = 'final.html?autoExport=1';
+    }
+    function goBack() {
+      window.location.href = "paystub.html";
+    }
+  </script>
+</body>
+</html>

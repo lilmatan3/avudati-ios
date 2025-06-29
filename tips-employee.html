@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <!-- תמיכה ב-safe‑area ובסקלינג נכון באייפון -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי – עובד שכיר</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* בסיס ו‑safe‑area */
+    body {
+      margin: 0;
+      padding-top: env(safe-area-inset-top);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      background-color: #f2f7ff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    /* ניווט עליון קבוע */
+    .top-nav {
+      position: fixed;
+      top: env(safe-area-inset-top);
+      left: 0; right: 0;
+      height: 50px;
+      background: rgba(255,255,255,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    .top-nav a {
+      font-size: 24px;
+      text-decoration: none;
+      color: #3f51b5;
+      padding: 8px;
+      border-radius: 6px;
+    }
+    /* עוטף תוכן */
+    .content {
+      padding: 70px 16px 20px;
+    }
+    .subheader {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    /* גריד כרטיסים */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+    .tip-card {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: transform 0.1s, background-color 0.2s;
+    }
+    .tip-card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    .tip-card p {
+      flex-grow: 1;
+      font-size: 14px;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .tip-card button {
+      padding: 8px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      background-color: #6c63ff;
+      color: white;
+      cursor: pointer;
+    }
+    .tip-card:hover {
+      background-color: #e7edff;
+      transform: translateY(-2px);
+    }
+    /* פופאפ */
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+      box-sizing: border-box;
+      overflow-y: auto;
+      z-index: 2000;
+    }
+    .popup-content {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .popup-content h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+    .popup-content p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .popup-content ul {
+      margin: 10px 0 0 20px;
+      padding: 0;
+    }
+    .popup-content .close {
+      position: absolute;
+      top: 10px; right: 10px;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    /* מדיה קוורי */
+    @media (max-width: 480px) {
+      .subheader {
+        font-size: 20px;
+        margin-bottom: 16px;
+      }
+      .card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 8px;
+      }
+      .tip-card {
+        padding: 12px;
+      }
+      .popup-content {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <a href="tips.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <div class="content">
+    <h1 class="subheader">עובד שכיר</h1>
+    <div class="card-grid">
+
+      <div class="tip-card">
+        <h3>ימי חופשה</h3>
+        <p>כמה ימי חופשה מגיעים לך בשנה לפי ותק, היקף משרה ומגזר? ואיך מנצלים אותם?</p>
+        <button onclick="openPopup('popup1')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>ימי מחלה</h3>
+        <p>כמה ימי מחלה מגיעים בשנה? מה גובה התשלום עבור כל יום? והאם ניתן לצבור?</p>
+        <button onclick="openPopup('popup2')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>דמי הבראה</h3>
+        <p>מי זכאי לדמי הבראה? כמה ימים? מה גובה התשלום ליום הבראה, ומתי מקבלים את זה?</p>
+        <button onclick="openPopup('popup3')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>שעות נוספות</h3>
+        <p>מה נחשב לשעות נוספות? כמה משלמים עליהן? ומה קורה כשעובדים ביום שישי או בשבת?</p>
+        <button onclick="openPopup('popup4')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>שכר מינימום</h3>
+        <p>מהו שכר המינימום המעודכן לפי שעה ולפי חודש? ואיך מחשבים אם אתה זכאי לתוספת?</p>
+        <button onclick="openPopup('popup5')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>תשלום עבור חגים</h3>
+        <p>באילו חגים מגיע תשלום גם אם לא עבדת? מה התנאים לזכאות? ומה קורה אם עבדת בחג?</p>
+        <button onclick="openPopup('popup6')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>נסיעות</h3>
+        <p>מתי המעסיק חייב לשלם לך החזר נסיעות? מה הסכום המקסימלי? ומה הדין כשאתה עובד מהבית?</p>
+        <button onclick="openPopup('popup7')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>שעות כוננות</h3>
+        <p>מה ההבדל בין "שעות כוננות" ל"שעות עבודה בפועל"? האם אתה זכאי לתשלום? ואיך זה מחושב?</p>
+        <button onclick="openPopup('popup8')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>תלוש שכר</h3>
+        <p>איך לקרוא תלוש שכר נכון? אילו רכיבים חייבים להופיע בו? ואיך יודעים אם משהו לא תקין?</p>
+        <button onclick="openPopup('popup9')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>הודעה לעובד</h3>
+        <p>מהו מסמך "הודעה לעובד"? מתי חובה למסור אותו? ואילו פרטים חשובים לבדוק בו?</p>
+        <button onclick="openPopup('popup10')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>פיצויי פיטורין</h3>
+        <p>מתי אתה זכאי לפיצויים? איך מחשבים את הסכום? ומה קורה אם עזבת מיוזמתך?</p>
+        <button onclick="openPopup('popup11')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>חוזה עבודה</h3>
+        <p>מה חשוב לבדוק לפני חתימה על חוזה? אילו זכויות חייבות להיות מעוגנות בו?</p>
+        <button onclick="openPopup('popup12')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>שימוע לפני פיטורין</h3>
+        <p>מהן הזכויות שלך לפני פיטורין? איך נראה הליך שימוע תקין? ואיך כדאי להתכונן?</p>
+        <button onclick="openPopup('popup13')">לפרטים</button>
+      </div>
+
+      <div class="tip-card">
+        <h3>פנסיה וקרן השתלמות</h3>
+        <p>מתי המעסיק חייב להתחיל להפריש עבורך? מה ההבדל בין פנסיה לקרן השתלמות? ואיך זה משפיע עליך בעתיד?</p>
+        <button onclick="openPopup('popup14')">לפרטים</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Popups -->
+  <div id="popup1" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup1')">&times;</button>
+      <h2>ימי חופשה</h2>
+      <p>
+        כל עובד זכאי לימי חופשה שנתיים בהתאם לוותק, היקף משרה וסוג ההעסקה.  
+        בשנה הראשונה לפחות 12 ימי חופשה נטו, והמספר עולה עם השנים.  
+        ניתן לצבור עד 3 שנים קדימה, והמעסיק חייב לשלם על ימי חופשה שלא נוצלו רק בהסכמת העובד.
+      </p>
+    </div>
+  </div>
+
+  <div id="popup2" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup2')">&times;</button>
+      <h2>ימי מחלה</h2>
+      <p>
+        עומדים לרשותך 1.5 ימי מחלה לחודש (18 בשנה), ניתן לצבור עד 90.  
+        יום ראשון ללא תשלום, יומיים הבאים 50% מהשכר, ושאר הימים 100%.  
+        ניתן להשתמש גם לבן זוג, ילד או הורה חולים בהגשת הצהרה מתאימה.
+      </p>
+    </div>
+  </div>
+
+  <div id="popup3" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup3')">&times;</button>
+      <h2>דמי הבראה</h2>
+      <p>
+        דמי הבראה ניתנים לאחר שנה מלאה: 5–10 ימים, תלוי ותק.  
+        גובה יומי (בפרטי 2024) כ־378 ₪.  
+        משולמים בקיץ או בשכר מיוחד.
+      </p>
+    </div>
+  </div>
+
+  <div id="popup4" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup4')">&times;</button>
+      <h2>שעות נוספות</h2>
+      <ul>
+        <li>שעתיים ראשונות ביום: 125%</li>
+        <li>השלישית ומעלה: 150%</li>
+      </ul>
+      <p>תוספות נוספות לעבודה בשישי, שבת, חגים ולילה. יש לוודא רישום ותשלום בהתאם לחוק.</p>
+    </div>
+  </div>
+
+  <div id="popup5" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup5')">&times;</button>
+      <h2>שכר מינימום</h2>
+      <p>
+        החודשי (2024): 5,571 ₪; השעתי: 29.12 ₪.  
+        אסור לשלם פחות – ניתן לתבוע פיצוי רטרואקטיבי.
+      </p>
+    </div>
+  </div>
+
+  <div id="popup6" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup6')">&times;</button>
+      <h2>תשלום עבור חגים</h2>
+      <p>
+        לאחר 3 חודשי עבודה זכאי לתשלום עבור 9 חגי חובה.  
+        אם עובד בחג – לפחות 150% שכר או יום מנוחה חלופי.
+      </p>
+    </div>
+  </div>
+
+  <div id="popup7" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup7')">&times;</button>
+      <h2>נסיעות</h2>
+      <p>
+        החזר עד 22.60 ₪ ליום (2024) עבור עלות נסיעה לעבודה.  
+        אין צורך בקבלות, אלא אם הוסכם אחרת.
+      </p>
+    </div>
+  </div>
+
+  <div id="popup8" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup8')">&times;</button>
+      <h2>שעות כוננות</h2>
+      <p>
+        כוננות מזכה בתשלום אחוזי משכר רגיל, גם אם לא הופעלו בפועל – בהתאם להסכם העבודה.
+      </p>
+    </div>
+  </div>
+
+  <div id="popup9" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup9')">&times;</button>
+      <h2>תלוש שכר</h2>
+      <p>
+        חייב לכלול את כל רכיבי התשלום והניכוי: שכר בסיס, שעות נוספות, ביטוחים, פנסיה, מסים ועוד.  
+        יש לבדוק כל חודש ולפנות למעסיק במקרה של שגיאות.
+      </p>
+    </div>
+  </div>
+
+  <div id="popup10" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup10')">&times;</button>
+      <h2>הודעה לעובד</h2>
+      <p>
+        חייבת להינתן בכתב בתוך 7 ימים מהתחלת העבודה, עם פרטי שכר, שעות, ימי חופשה, פנסיה וכדומה.  
+        אי מסירה היא עבירה פלילית.
+      </p>
+    </div>
+  </div>
+
+  <div id="popup11" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup11')">&times;</button>
+      <h2>פיצויי פיטורין</h2>
+      <p>
+        זכאי לאחר שנה ומשרה של לפחות יומיים בשבוע.  
+        מחושבים: שכר חודשי × שנות ותק.  
+        ישנם מקרים לתשלום גם בהתפטרות (למשל טיפול בילד).
+      </p>
+    </div>
+  </div>
+
+  <div id="popup12" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup12')">&times;</button>
+      <h2>חוזה עבודה</h2>
+      <p>
+        חייב לכלול: שכר, שעות, חופשות, מחלה, פנסיה והפרשות נוספות.  
+        סעיפים בניגוד לחוק (למשל ויתור על הבראה) בטלים מעצם החוק.
+      </p>
+    </div>
+  </div>
+
+  <div id="popup13" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup13')">&times;</button>
+      <h2>שימוע לפני פיטורין</h2>
+      <p>
+        חובה להודיע בכתב מראש עם פירוט סיבות אפשריות.  
+        השימוע חייב להיות כנה ולא פוזל לתוצאה קבועה מראש.
+      </p>
+    </div>
+  </div>
+
+  <div id="popup14" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup14')">&times;</button>
+      <h2>פנסיה וקרן השתלמות</h2>
+      <p>
+        הפרשות לפנסיה אחרי 6 חודשי עבודה (או 3 במעבר).  
+        מעסיק: 6.5% לפנסיה + 6% לפיצויים; עובד: 6%.  
+        קרן השתלמות – הטבה נוספת, פטורה ממס בגבולות מסוימים.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function openPopup(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>

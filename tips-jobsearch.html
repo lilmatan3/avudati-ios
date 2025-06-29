@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <!-- תמיכה ב‑safe‑area ובסקלינג נכון באייפון -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>עבודתי – מציאת עבודה</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* בסיס ותמיכה ב‑safe‑area של iOS */
+    body {
+      margin: 0;
+      padding-top: env(safe-area-inset-top);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      background-color: #f2f7ff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    /* ניווט עליון קבוע */
+    .top-nav {
+      position: fixed;
+      top: env(safe-area-inset-top);
+      left: 0; right: 0;
+      height: 50px;
+      background: rgba(255,255,255,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    .top-nav a {
+      font-size: 24px;
+      text-decoration: none;
+      color: #3f51b5;
+      padding: 8px;
+      border-radius: 6px;
+    }
+    /* עטוף תוכן מתחת לניווט */
+    .content {
+      padding: 70px 16px 20px;
+    }
+    /* כותרת משנית */
+    .subheader {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    /* גריד הכרטיסים */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+    /* עיצוב כרטיס טיפ */
+    .tip-card {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: transform 0.1s, background-color 0.2s;
+    }
+    .tip-card h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+    .tip-card p {
+      flex-grow: 1;
+      font-size: 14px;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .tip-card button {
+      padding: 8px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      background-color: #6c63ff;
+      color: white;
+      cursor: pointer;
+    }
+    .tip-card:hover {
+      background-color: #e7edff;
+      transform: translateY(-2px);
+    }
+    /* סגנון לפופאפ */
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+      box-sizing: border-box;
+      overflow-y: auto;
+      z-index: 2000;
+    }
+    .popup-content {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .popup-content h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+    .popup-content p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .popup-content ul {
+      margin: 10px 0 0 20px;
+      padding: 0;
+    }
+    .popup-content .close {
+      position: absolute;
+      top: 10px; right: 10px;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    /* התאמות למסכים קטנים */
+    @media (max-width: 480px) {
+      .top-nav { height: 45px; }
+      .top-nav a { font-size: 20px; padding: 6px; }
+      .subheader { font-size: 20px; margin-bottom: 16px; }
+      .card-grid {
+        gap: 8px;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      }
+      .tip-card { padding: 12px; font-size: 14px; }
+      .popup-content { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <a href="tips.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <div class="content">
+    <h1 class="subheader">מציאת עבודה</h1>
+
+    <div class="card-grid">
+      <div class="tip-card">
+        <h3>כתיבת קורות חיים</h3>
+        <p>איך כותבים קו"ח מקצועיים שיבליטו אותך מעל שאר המועמדים?</p>
+        <button onclick="openPopup('popup1')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>מכתב מקדים</h3>
+        <p>מתי כדאי להוסיף מכתב נלווה לקו"ח? ומה לכתוב בו?</p>
+        <button onclick="openPopup('popup2')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>איפה מחפשים עבודה?</h3>
+        <p>כל ערוצי החיפוש: אתרים, קבוצות פייסבוק, לשכת התעסוקה ועוד</p>
+        <button onclick="openPopup('popup3')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>להתבלט מול מועמדים</h3>
+        <p>איך מבליטים את היכולות שלך ומייצרים יתרון תחרותי אמיתי?</p>
+        <button onclick="openPopup('popup4')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>הכנה לראיון עבודה</h3>
+        <p>איך מתכוננים לראיון בצורה מקצועית וביטחון עצמי גבוה?</p>
+        <button onclick="openPopup('popup5')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>שאלות נפוצות בראיונות</h3>
+        <p>מה שואלים בראיונות – ואיך עונים נכון כדי להרשים?</p>
+        <button onclick="openPopup('popup6')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>שאלות למעסיק</h3>
+        <p>מה חשוב שאתה תשאל – כדי לדעת אם המשרה באמת מתאימה לך?</p>
+        <button onclick="openPopup('popup7')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>בדיקת חוזה עבודה</h3>
+        <p>מה לבדוק לפני שחותמים על חוזה? אילו סעיפים חשובים?</p>
+        <button onclick="openPopup('popup8')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>זכויות מחפשי עבודה</h3>
+        <p>מה מגיע לך מביטוח לאומי בזמן חיפוש עבודה? ומה חשוב לדעת על שירות התעסוקה?</p>
+        <button onclick="openPopup('popup9')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>לעבוד בזמן אבטלה</h3>
+        <p>האם מותר לעבוד תוך כדי קבלת דמי אבטלה? ומה ההשלכות?</p>
+        <button onclick="openPopup('popup10')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>עבודה זמנית</h3>
+        <p>כיצד בוחרים עבודה זמנית בצורה חכמה – מבלי להתפשר על זכויות או תנאים?</p>
+        <button onclick="openPopup('popup11')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>להתמודד עם דחייה</h3>
+        <p>איך להתמודד נפשית עם תשובות שליליות מבלי להתייאש? כלים לחוסן מנטלי</p>
+        <button onclick="openPopup('popup12')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>שיפור כישורים</h3>
+        <p>קורסים והכשרות בחינם – שיעזרו לך להשתדרג מקצועית תוך כדי החיפוש</p>
+        <button onclick="openPopup('popup13')">לפרטים</button>
+      </div>
+      <div class="tip-card">
+        <h3>מה אחרי שמתקבלים?</h3>
+        <p>ימי ניסיון, תלוש ראשון, בדיקת חוזה בפועל – מה חשוב לבדוק עם תחילת עבודה?</p>
+        <button onclick="openPopup('popup14')">לפרטים</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popups מלאים -->
+  <div id="popup1" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup1')">&times;</button>
+      <h2>📝 כתיבת קורות חיים</h2>
+      <p>
+        קורות החיים הם כרטיס הביקור שלך – הם צריכים להיות ברורים, מקצועיים וקצרים.  
+        <strong>מה לכלול:</strong>
+        <ul>
+          <li>פרטים אישיים ויצירת קשר</li>
+          <li>ניסיון תעסוקתי – בסדר כרונולוגי מהחדש לישן</li>
+          <li>השכלה והכשרות רלוונטיות</li>
+          <li>מיומנויות (שפות, מחשב, תוכנות)</li>
+        </ul>
+        מומלץ לעצב את המסמך בצורה נקייה, ללא צבעים מיותרים או תמונות.  
+        יש להתאים את קו"ח לכל משרה – הדגש צריך להשתנות לפי הדרישות.
+      </p>
+    </div>
+  </div>
+  <div id="popup2" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup2')">&times;</button>
+      <h2>📩 מכתב מקדים</h2>
+      <p>
+        מכתב מקדים הוא הדרך שלך לדבר עם המעסיק לפני שהוא רואה את קורות החיים.  
+        הוא לא חובה, אבל במקרים רבים יכול להבליט אותך מעל מועמדים אחרים.<br><br>
+        <strong>מה לכתוב:</strong>
+        <ul>
+          <li>התייחסות אישית למשרה ולחברה</li>
+          <li>מה מעניין אותך בתפקיד</li>
+          <li>מה אתה מביא שמיוחד לעומת אחרים</li>
+        </ul>
+        שמור על אורך של עד חצי עמוד – אישי, ענייני, נעים לקריאה.
+      </p>
+    </div>
+  </div>
+  <div id="popup3" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup3')">&times;</button>
+      <h2>🔍 איפה מחפשים עבודה?</h2>
+      <p>
+        אל תסתפק רק באתרי דרושים – יש היום מגוון דרכים למצוא משרות:
+        <ul>
+          <li>אתרים גדולים: AllJobs, JobMaster, Drushim</li>
+          <li>קבוצות פייסבוק רלוונטיות לתחום</li>
+          <li>לינקדאין – פרופיל מקצועי ונטוורקינג</li>
+          <li>לשכת התעסוקה – כולל ייעוץ וסדנאות</li>
+          <li>שיחות עם חברים/מכרים – משרות שלא מתפרסמות</li>
+        </ul>
+        חשוב להתמיד – ולחפש באופן יומיומי.
+      </p>
+    </div>
+  </div>
+  <div id="popup4" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup4')">&times;</button>
+      <h2>🌟 להתבלט מול מועמדים</h2>
+      <p>
+        המעסיק מקבל עשרות קורות חיים. איך תתבלט?
+        <ul>
+          <li>שלח מכתב אישי קצר</li>
+          <li>הדגש הישגים כמותיים (לדוגמה: "שיפור מכירות ב‑20%")</li>
+          <li>הדגש מה מייחד אותך – תחומי עניין, התמחות</li>
+          <li>התעדכן ופרסם בלינקדאין</li>
+        </ul>
+        חשוב לשדר ביטחון – בלי להגזים. אותנטיות מנצחת.
+      </p>
+    </div>
+  </div>
+  <div id="popup5" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup5')">&times;</button>
+      <h2>🎤 הכנה לראיון עבודה</h2>
+      <p>
+        הכנה היא המפתח להצלחה בראיון:
+        <ul>
+          <li>למד על החברה ועל המשרה</li>
+          <li>תרגל הצגה עצמית (2–3 דקות)</li>
+          <li>חשב מראש חוזקות, חולשות ודוגמאות</li>
+          <li>לבוש בהתאם לתרבות החברה</li>
+        </ul>
+        זכור: המראיין לא רק בוחן – אלא גם מחפש התאמה אישית.
+      </p>
+    </div>
+  </div>
+  <div id="popup6" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup6')">&times;</button>
+      <h2>❓ שאלות נפוצות בראיונות</h2>
+      <p>
+        <strong>דוגמאות לשאלות:</strong>
+        <ul>
+          <li>"ספר לי על עצמך"</li>
+          <li>"למה אתה מתאים לתפקיד?"</li>
+          <li>"מהן החוזקות והחולשות שלך?"</li>
+          <li>"איך תפעל בעת קושי בעבודה?"</li>
+          <li>"איפה אתה רואה את עצמך בעוד 5 שנים?"</li>
+        </ul>
+        המפתח: לענות בכנות, בקצרה, עם דוגמאות מעשיות.
+      </p>
+    </div>
+  </div>
+  <div id="popup7" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup7')">&times;</button>
+      <h2>🤔 שאלות למעסיק</h2>
+      <p>
+        שאל שאלות שמראות עניין ורצינות:
+        <ul>
+          <li>"איך נראה יום עבודה טיפוסי?"</li>
+          <li>"אילו אתגרים קיימים בתפקיד?"</li>
+          <li>"למי אדווח ואיך ייראה תהליך החפיפה?"</li>
+          <li>"מהם היעדים הראשונים שלי בתפקיד?"</li>
+        </ul>
+        הימנע משאלות על שכר בשלב מוקדם.
+      </p>
+    </div>
+  </div>
+  <div id="popup8" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup8')">&times;</button>
+      <h2>📄 בדיקת חוזה עבודה</h2>
+      <p>
+        לפני חתימה על חוזה, ודא את הסעיפים הבאים:
+        <ul>
+          <li>שעות עבודה ושעות נוספות</li>
+          <li>שכר ותוספות (נסיעות, ימי חופשה)</li>
+          <li>הפקדות לפנסיה/קרן השתלמות</li>
+          <li>תקופת ניסיון ותנאי פיטורים</li>
+        </ul>
+        אם משהו לא ברור – התייעץ עם עו"ד או יועץ מקצועי.
+      </p>
+    </div>
+  </div>
+  <div id="popup9" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup9')">&times;</button>
+      <h2>🧾 זכויות מחפשי עבודה</h2>
+      <p>
+        בזמן חיפוש עבודה ייתכן ואתה זכאי ל:
+        <ul>
+          <li>דמי אבטלה</li>
+          <li>סיוע ושירותים מטעם לשכת התעסוקה</li>
+          <li>קורסים והכשרות מטעם ביטוח לאומי</li>
+        </ul>
+        מומלץ להירשם באתר לשכת התעסוקה מיד עם סיום העבודה ולעקוב אחרי הקריטריונים.
+      </p>
+    </div>
+  </div>
+  <div id="popup10" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup10')">&times;</button>
+      <h2>⚖️ לעבוד בזמן אבטלה</h2>
+      <p>
+        מותר לעבוד במהלך קבלת דמי אבטלה, אך חובה להצהיר על הכנסות.<br><br>
+        ביטוח לאומי יקזז חלק מהשכר מהדמי אבטלה, אך עדיין יש יתרון כלכלי.<br><br>
+        עבודה חלקית או זמנית אינה מפטרת מהזכאות – כל עוד מדווחים כראוי.
+      </p>
+    </div>
+  </div>
+  <div id="popup11" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup11')">&times;</button>
+      <h2>🕒 עבודה זמנית</h2>
+      <p>
+        עבודה זמנית היא דרך טובה להישאר פעיל ולהרוויח.  
+        <ul>
+          <li>בחר עבודה שתוסיף לך ניסיון</li>
+          <li>בדוק זכויות כמו שכר מינימום וביטוח לאומי</li>
+          <li>שמור תיעוד מסודר של שעות ותשלומים</li>
+        </ul>
+      </p>
+    </div>
+  </div>
+  <div id="popup12" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup12')">&times;</button>
+      <h2>🧠 להתמודד עם דחייה</h2>
+      <p>
+        דחייה בתהליך חיפוש עבודה זה חלק טבעי.  
+        <ul>
+          <li>המירו דחייה במשוב ללמידה</li>
+          <li>שמרו על חוסן מנטלי בעזרת תמיכה חברתית</li>
+          <li>המשיכו לפתח כישורים ולחפש הזדמנויות</li>
+        </ul>
+        זכרו: כל ניסיון מקרב אתכם למשרה הנכונה.
+      </p>
+    </div>
+  </div>
+  <div id="popup13" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup13')">&times;</button>
+      <h2>📚 שיפור כישורים</h2>
+      <p>
+        הזמן הפנוי מחיפוש עבודה הוא הזדמנות להתמקצע:
+        <ul>
+          <li>קורסים אונליין חינמיים: Coursera, edX, Udemy</li>
+          <li>תכניות ישראליות: Israel Digital, ג'וינט</li>
+          <li>שפרו כישורי מחשב, שפה או ניהול פרויקטים</li>
+        </ul>
+      </p>
+    </div>
+  </div>
+  <div id="popup14" class="popup">
+    <div class="popup-content">
+      <button class="close" onclick="closePopup('popup14')">&times;</button>
+      <h2>🚀 מה אחרי שמתקבלים?</h2>
+      <p>
+        ברכות! התקבלת לעבודה. עכשיו חשוב לשים לב ל:
+        <ul>
+          <li>קבלת חוזה חתום</li>
+          <li>בדיקת תלוש שכר ראשון</li>
+          <li>וידוא הפרשות לפנסיה/קרן השתלמות</li>
+          <li>הבהרת תקופת ניסיון ותנאי סיום</li>
+        </ul>
+        שמרו תיעוד מסודר והיו עם היד על הדופק.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function openPopup(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>

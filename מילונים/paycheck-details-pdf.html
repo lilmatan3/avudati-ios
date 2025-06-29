@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ניתוח תלוש</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="paycheck-details.css" />
+
+  <!-- PDF.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+  <script>
+    window.pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+  </script>
+</head>
+<body>
+  <div class="top-nav">
+    <a href="paycheck-library.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <h1>📄 ניתוח תלוש</h1>
+  <div id="tables-container" class="table-grid">
+    <p style="text-align:center;">(כאן נופיע הטבלאות או הנתונים שנזהו)</p>
+  </div>
+
+  <!-- קובץ JS הראשי -->
+  <script type="module" src="paycheck-details-pdf.js"></script>
+</body>
+</html>

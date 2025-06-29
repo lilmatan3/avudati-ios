@@ -1,0 +1,191 @@
+/* Reset defaults */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  direction: rtl;
+  background-color: #f2f7ff;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.back-button, .home-button {
+  position: fixed;
+  top: 10px;
+  font-size: 24px;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.back-button {
+  left: 10px;
+  color: #3f51b5;
+}
+
+.home-button {
+  right: 10px;
+  color: #2c3e50;
+}
+
+.top-section {
+  flex: 0 0 auto;
+  background-color: #dfe9ff;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+}
+
+.current-datetime {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.month-year-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.month-year-selector .nav-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  margin: 0 10px;
+  color: #3f51b5;
+}
+
+.month-year-display {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  text-decoration: underline;
+  color: #3f51b5;
+}
+
+#yearSelector {
+  margin-left: 10px;
+  font-size: 18px;
+  display: none;
+}
+
+.month-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.month-row .month-button {
+  padding: 5px 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.month-row .month-button:hover {
+  background-color: #e0e0e0;
+}
+
+.middle-section {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  background-color: #ffffff;
+  padding: 10px;
+}
+
+.timesheet-table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.timesheet-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.timesheet-table th, .timesheet-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.timesheet-table th {
+  background-color: #6c63ff;
+  color: white;
+}
+
+.bottom-section {
+  flex: 0 0 auto;
+  background-color: #e7edff;
+  border-top: 1px solid #ccc;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 18px;
+}
+
+.action-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.action-row button {
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+}
+
+.salary-settings-button {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.add-day-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.export-excel-button {
+  background-color: #6c63ff;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .summary-row, .action-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .action-row button {
+    width: 100%;
+  }
+}
